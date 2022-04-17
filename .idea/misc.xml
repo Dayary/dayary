@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/HOME/AndroidStudioProjects/dayary/app/src/main/res/layout/activity_findpw.xml" value="0.1875" />
+        <entry key="app/src/main/res/font/font.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login_com.xml" value="0.11347517730496454" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
       </map>
     </option>
   </component>

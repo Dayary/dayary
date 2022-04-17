@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">dayary</string>
+    <string name="app_name">Dayary</string>
+    <string name="e_mail">E_mail</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log-in</string>
+    <string name="register">Register</string>
+    <string name="find_password">Find Password</string>
 </resources>

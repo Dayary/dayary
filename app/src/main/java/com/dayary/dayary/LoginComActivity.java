@@ -15,7 +15,6 @@ public class LoginComActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_com);
 
         Button backButton = findViewById(R.id.btn_login_back);
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
