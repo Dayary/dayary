@@ -4,9 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/HOME/AndroidStudioProjects/dayary/app/src/main/res/layout/activity_findpw.xml" value="0.1875" />
-        <entry key="app/src/main/res/font/font.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login_com.xml" value="0.11347517730496454" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1955" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/background.xml" value="0.1955" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/chevron_lef.xml" value="0.2895" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/find_pw.xml" value="0.2895" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1955" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/image_11.xml" value="0.1955" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/rectangle_2.xml" value="0.2895" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/some_id.xml" value="0.1955" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_find_pw.xml" value="0.39405829596412556" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_findpw.xml" value="0.25" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_login_com.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_signup.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1955" />
       </map>
     </option>
   </component>
@@ -15,5 +27,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.2" />
+      </ProjectState>
+    </option>
   </component>
 </project>
