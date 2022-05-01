@@ -1,34 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/textview_findPW"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter email"
-        />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_findPw_send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="실행" />
+        <ImageView
+            android:id="@+id/pwimage_11"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clipToOutline="true"
+            android:background="@drawable/image_11"
+            />
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:text="back"
-        android:textColor="@android:color/black" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        />
+        <TextView
+            android:id="@+id/findpw"
+            android:layout_width="108dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="149dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/find_password"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:textSize="24sp"
+            android:textColor="#000000"
+            />
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/chevron_lef"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:clipToOutline="true"
+            android:background="@drawable/chevronleft"
+            />
+
+        <TextView
+            android:id="@+id/findpw_email"
+            android:layout_width="123dp"
+            android:layout_height="23dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="74dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="199dp"
+            android:text="@string/e_mail"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:textSize="32sp"
+            android:textColor="#B7A8A8"
+            />
+
+        <ImageView
+            android:id="@+id/findpw_line_1"
+            android:layout_width="250dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="72dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="234dp"
+            android:background="@drawable/line_1"
+            />
+
+        <ImageView
+            android:id="@+id/findpw_penicon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="322dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="199dp"
+            android:background="@drawable/penicon1"
+            />
+
+        <ImageView
+            android:id="@+id/findpw_rectangle_2"
+            android:layout_width="250dp"
+            android:layout_height="39dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="72dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="341dp"
+            android:background="@drawable/rectangle_2"
+            />
+
+        <TextView
+            android:id="@+id/find_passwo"
+            android:layout_width="142dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="126dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="346dp"
+            android:text="@string/find_password"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:textSize="32sp"
+            android:textColor="#757575"
+            />
+    </FrameLayout>
 
 </LinearLayout>
