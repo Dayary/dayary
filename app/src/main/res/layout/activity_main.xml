@@ -14,12 +14,28 @@
 
         <ImageView
             android:id="@+id/image_11"
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="808dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="-24dp"
             android:background="@drawable/image_11" />
+
+        <EditText
+            android:id="@+id/e_mail2"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="74dp"
+            android:layout_marginTop="409dp"
+            android:background="@null"
+            android:fontFamily="@font/font1"
+            android:gravity="center_vertical"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
+            android:textColor="#B7A8A8"
+            android:textSize="32sp" />
 
         <ImageView
             android:id="@+id/logo1"
@@ -91,7 +107,7 @@
         <EditText
             android:id="@+id/e_mail"
             android:layout_width="240dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="74dp"
@@ -108,19 +124,18 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="240dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="74dp"
             android:layout_marginTop="462dp"
+            android:background="@null"
             android:fontFamily="@font/font1"
-            android:gravity="top"
-            android:hint="@string/password"
+            android:gravity="center_vertical"
+            android:hint="Password"
             android:inputType="textPassword"
             android:textColor="#B7A8A8"
-            android:textSize="32sp"
-            android:background="@null"
-            />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/penicon2"
