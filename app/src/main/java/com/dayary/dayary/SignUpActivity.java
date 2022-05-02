@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,60 @@ public class SignUpActivity extends AppCompatActivity {
         editTextCheckPassWord = (EditText)findViewById(R.id.confirm_pas);
         buttonJoin = (TextView) findViewById(R.id.register2);
         buttonBack = (RelativeLayout) findViewById(R.id.pageBack);
+
+        ImageView pen1 = findViewById(R.id.login_register_penicon1);
+        ImageView pen2 = findViewById(R.id.login_register_penicon2);
+        ImageView pen3 = findViewById(R.id.login_register_penicon3);
+
+        pen1.setVisibility(View.INVISIBLE);
+        pen2.setVisibility(View.INVISIBLE);
+        pen3.setVisibility(View.INVISIBLE);
+
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    pen1.setVisibility(View.VISIBLE);
+                    pen2.setVisibility(View.INVISIBLE);
+                    pen3.setVisibility(View.INVISIBLE);
+                } else {
+                    pen1.setVisibility(View.INVISIBLE);
+                    pen2.setVisibility(View.INVISIBLE);
+                    pen3.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    pen1.setVisibility(View.INVISIBLE);
+                    pen2.setVisibility(View.VISIBLE);
+                    pen3.setVisibility(View.INVISIBLE);
+                } else {
+                    pen1.setVisibility(View.INVISIBLE);
+                    pen2.setVisibility(View.INVISIBLE);
+                    pen3.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        editTextCheckPassWord.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    pen1.setVisibility(View.INVISIBLE);
+                    pen2.setVisibility(View.INVISIBLE);
+                    pen3.setVisibility(View.VISIBLE);
+                } else {
+                    pen1.setVisibility(View.INVISIBLE);
+                    pen2.setVisibility(View.INVISIBLE);
+                    pen3.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
         buttonBack.setOnClickListener(new View.OnClickListener(){
 
             @Override

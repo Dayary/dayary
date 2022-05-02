@@ -55,14 +55,14 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="74dp"
             android:layout_marginTop="199dp"
+            android:background="@null"
             android:fontFamily="@font/font1"
             android:gravity="center_vertical"
             android:hint="@string/e_mail"
             android:inputType="textEmailAddress"
-            android:textColor="#B7A8A8"
-            android:textSize="32sp"
-            android:background="@null"
-            />
+            android:textColor="#032149"
+            android:textColorHint="#B7A8A8"
+            android:textSize="32sp" />
 
         <ImageView
             android:id="@+id/findpw_line_1"

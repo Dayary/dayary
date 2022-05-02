@@ -53,8 +53,8 @@
 
 
         <!-- email pencil -->
-        <View
-            android:id="@+id/penicon1"
+        <ImageView
+            android:id="@+id/login_register_penicon1"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
@@ -64,8 +64,8 @@
             android:background="@drawable/penicon1" />
 
         <!-- Password pencil-->
-        <View
-            android:id="@+id/penicon2"
+        <ImageView
+            android:id="@+id/login_register_penicon2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
@@ -76,8 +76,8 @@
 
 
         <!-- Confirm password pencil-->
-        <View
-            android:id="@+id/icons8_penc"
+        <ImageView
+            android:id="@+id/login_register_penicon3"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
@@ -115,6 +115,8 @@
             android:textAppearance="@style/e_mail"
             android:textSize="32dp"
             android:background="@null"
+            android:textColor="#032149"
+            android:textColorHint="#B7A8A8"
             />
 
         <!-- E mail line -->
@@ -158,7 +160,10 @@
             android:inputType="textPassword"
             android:textAppearance="@style/password"
             android:textSize="30dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:textColor="#032149"
+            android:textColorHint="#B7A8A8"
+            />
 
         <!-- Password line -->
         <View
@@ -201,7 +206,10 @@
             android:inputType="textPassword"
             android:textAppearance="@style/confirm_pas"
             android:textSize="30dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:textColor="#032149"
+            android:textColorHint="#B7A8A8"
+            />
 
         <View
             android:id="@+id/rectangle_2"

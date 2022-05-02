@@ -54,29 +54,26 @@ public class MainActivity extends AppCompatActivity {
         pen1.setVisibility(View.INVISIBLE);
         pen2.setVisibility(View.INVISIBLE);
 
-        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     pen1.setVisibility(View.VISIBLE);
                     pen2.setVisibility(View.INVISIBLE);
-                }
-                else{
+                } else {
                     pen1.setVisibility(View.INVISIBLE);
                     pen2.setVisibility(View.INVISIBLE);
                 }
-
             }
         });
 
-        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     pen1.setVisibility(View.INVISIBLE);
                     pen2.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     pen1.setVisibility(View.INVISIBLE);
                     pen2.setVisibility(View.INVISIBLE);
                 }
