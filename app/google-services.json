@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "372505377207",
+    "firebase_url": "https://dayary-bdb2a-default-rtdb.firebaseio.com",
     "project_id": "dayary-bdb2a",
     "storage_bucket": "dayary-bdb2a.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "372505377207-8iv6a0fd5oujlnmtumbqdo2a0l2qlv1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dayary.dayary",
+            "certificate_hash": "cfcabda8eb7d2d9aea75c5042a582e062f4217cc"
+          }
+        },
         {
           "client_id": "372505377207-ca94mq1d09ahj0fqn2f7ga407p4gl85b.apps.googleusercontent.com",
           "client_type": 1,
