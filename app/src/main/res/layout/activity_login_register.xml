@@ -109,11 +109,13 @@
             android:layout_marginLeft="74dp"
             android:layout_marginTop="137dp"
             android:fontFamily="@font/font1"
-            android:gravity="top"
+            android:gravity="center_vertical"
             android:hint="@string/e_mail"
             android:inputType="textEmailAddress"
             android:textAppearance="@style/e_mail"
-            android:textSize="30dp" />
+            android:textSize="32dp"
+            android:background="@null"
+            />
 
         <!-- E mail line -->
         <EditText
@@ -155,7 +157,8 @@
             android:text="@string/password"
             android:inputType="textPassword"
             android:textAppearance="@style/password"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:background="@null"/>
 
         <!-- Password line -->
         <View
@@ -197,7 +200,8 @@
             android:text="@string/confirm_pas"
             android:inputType="textPassword"
             android:textAppearance="@style/confirm_pas"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:background="@null"/>
 
         <View
             android:id="@+id/rectangle_2"

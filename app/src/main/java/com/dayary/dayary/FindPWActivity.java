@@ -64,7 +64,7 @@ public class FindPWActivity extends AppCompatActivity {
             }
         });
 
-        RelativeLayout backButton = findViewById(R.id.chevron_lef);
+        RelativeLayout backButton = findViewById(R.id.pageBack);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
