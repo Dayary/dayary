@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         buttonSignUp = (TextView) findViewById(R.id.register);
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

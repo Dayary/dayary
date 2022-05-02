@@ -179,19 +179,18 @@
         <TextView
             android:id="@+id/register"
             android:layout_width="66dp"
-            android:layout_height="20dp"
+            android:layout_height="10dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="100dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="630dp"
-            android:text="@string/register"
-            android:fontFamily="@font/font1"
-            android:textSize="24sp"
-            android:textColor="#757575"
-            android:gravity="top"
             android:clickable="true"
             android:focusable="true"
-            />
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:text="@string/register"
+            android:textColor="#757575"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/find_password"
