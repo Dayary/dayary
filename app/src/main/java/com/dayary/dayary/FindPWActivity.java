@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,19 +27,32 @@ public class FindPWActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_findpw);
 
-        editTextEmail = (EditText) findViewById(R.id.textview_findPW);
-        Button sendButton =findViewById(R.id.btn_findPw_send);
-        firebaseAuth = FirebaseAuth.getInstance();
-        sendButton.setOnClickListener(new View.OnClickListener(){
+        ImageView pen = findViewById(R.id.findpw_penicon);
+        pen.setVisibility(View.INVISIBLE);
 
+        editTextEmail = (EditText) findViewById(R.id.findpw_email);
+        TextView sendButton = findViewById(R.id.find_passwo);
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFoucs) {
+                if (hasFoucs) {
+                    pen.setVisibility(View.VISIBLE);
+                } else {
+                    pen.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        firebaseAuth = FirebaseAuth.getInstance();
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String emailAddress = editTextEmail.getText().toString().trim();
                 firebaseAuth.sendPasswordResetEmail(emailAddress)
-                        .addOnCompleteListener(FindPWActivity.this,new OnCompleteListener<Void>() {
+                        .addOnCompleteListener(FindPWActivity.this, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     Toast.makeText(FindPWActivity.this, "이메일을 보냈습니다.", Toast.LENGTH_LONG).show();
                                     finish();
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -48,9 +64,7 @@ public class FindPWActivity extends AppCompatActivity {
             }
         });
 
-
-
-        Button backButton = findViewById(R.id.btn_back);
+        RelativeLayout backButton = findViewById(R.id.chevron_lef);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,8 +72,6 @@ public class FindPWActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
 
     }
