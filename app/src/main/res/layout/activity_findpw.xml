@@ -51,18 +51,19 @@
 
         <EditText
             android:id="@+id/findpw_email"
-            android:layout_width="123dp"
-            android:layout_height="23dp"
+            android:layout_width="250dp"
+            android:layout_height="33dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="74dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="74dp"
             android:layout_marginTop="199dp"
+            android:fontFamily="@font/font1"
+            android:gravity="center_vertical"
             android:hint="@string/e_mail"
             android:inputType="textEmailAddress"
-            android:fontFamily="@font/font1"
-            android:gravity="top"
-            android:textSize="32sp"
             android:textColor="#B7A8A8"
+            android:textSize="32sp"
+            android:background="@null"
             />
 
         <ImageView
@@ -78,14 +79,13 @@
 
         <ImageView
             android:id="@+id/findpw_penicon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="322dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="322dp"
             android:layout_marginTop="199dp"
-            android:background="@drawable/penicon1"
-            />
+            android:background="@drawable/penicon1" />
 
         <ImageView
             android:id="@+id/findpw_rectangle_2"

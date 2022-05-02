@@ -124,7 +124,7 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="240dp"
-            android:layout_height="32dp"
+            android:layout_height="34dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="74dp"
@@ -135,7 +135,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:textColor="#B7A8A8"
-            android:textSize="20sp" />
+            android:textSize="32sp" />
 
         <ImageView
             android:id="@+id/penicon2"
