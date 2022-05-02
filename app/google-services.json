@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "372505377207-hf2tqnvc63sf3di34te3e43hm5b7qbrk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dayary.dayary",
+            "certificate_hash": "06110dca42e0e67a2c043f546e15e95cee22c840"
+          }
+        },
+        {
           "client_id": "372505377207-fb6oqi17kcb8v248b29gmle2md5blfvg.apps.googleusercontent.com",
           "client_type": 3
         }
