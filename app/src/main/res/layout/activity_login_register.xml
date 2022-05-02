@@ -12,17 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <!--<ImageButton
-            android:id="@+id/chevron_left"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="27dp"
-            android:clipToOutline="true"
-            android:background="@drawable/chevron_left" />-->
         <RelativeLayout
             android:id="@+id/pageBack"
             android:layout_width="24dp"
@@ -121,7 +110,7 @@
             />
 
         <!-- E mail line -->
-        <EditText
+        <View
             android:id="@+id/line_em"
             android:layout_width="250dp"
             android:layout_height="1dp"
@@ -177,8 +166,6 @@
             android:layout_marginTop="225dp"
             android:background="@drawable/line_1"
             />
-
-
 
         <!-- Group 18 Confirm Password-->
         <View
