@@ -35,19 +35,17 @@
             />
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/chevron_lef"
+            android:id="@+id/pageBack"
             android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:clipToOutline="true"
             android:background="@drawable/chevronleft"
             android:clickable="true"
-            android:focusable="true"
-            />
+            android:clipToOutline="true"
+            android:focusable="true" />
 
         <EditText
             android:id="@+id/findpw_email"

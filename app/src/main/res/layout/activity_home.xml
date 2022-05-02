@@ -106,7 +106,7 @@
 
         <!-- homepage button -->
         <View
-            android:id="@+id/icon_home"
+            android:id="@+id/icons8_home"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
@@ -118,7 +118,7 @@
 
         <!-- Writing button -->
         <View
-            android:id="@+id/icon_pen"
+            android:id="@+id/icons8_penc"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
@@ -130,7 +130,7 @@
 
         <!-- Diary button -->
         <View
-            android:id="@+id/icon_diary"
+            android:id="@+id/icons8_jour"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
@@ -142,7 +142,7 @@
 
         <!-- Calendar button -->
         <View
-            android:id="@+id/icon_cal"
+            android:id="@+id/icons8_cale"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
@@ -154,7 +154,7 @@
 
         <!-- Map button -->
         <View
-            android:id="@+id/icon_map"
+            android:id="@+id/icons8_loca"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"

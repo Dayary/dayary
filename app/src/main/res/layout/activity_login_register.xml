@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pixel_3a_"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:id="@+id/login_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clipToOutline="true"
     android:background="@drawable/image_11">
 
@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
 
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/chevron_left"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -21,23 +21,35 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="27dp"
             android:clipToOutline="true"
-            android:background="@drawable/chevron_left" />
+            android:background="@drawable/chevron_left" />-->
+        <RelativeLayout
+            android:id="@+id/pageBack"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/chevronleft"
+            android:clickable="true"
+            android:clipToOutline="true"
+            android:focusable="true" />
 
 
         <!-- Register-->
         <TextView
             android:id="@+id/register1"
-            android:layout_width="65dp"
+            android:layout_width="108dp"
             android:layout_height="24dp"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="149dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="174dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/font1"
-            android:gravity="top"
+            android:gravity="center"
             android:text="@string/register"
             android:textAppearance="@style/register1"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
 
 
         <!-- email pencil -->
@@ -88,22 +100,23 @@
             android:background="#00000000" />
 
         <!-- E-mail -->
-        <TextView
+        <EditText
             android:id="@+id/e_mail"
-            android:layout_width="123dp"
-            android:layout_height="23dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="74dp"
             android:layout_marginTop="137dp"
             android:fontFamily="@font/font1"
             android:gravity="top"
-            android:text="@string/e_mail"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
             android:textAppearance="@style/e_mail"
             android:textSize="30dp" />
 
         <!-- E mail line -->
-        <View
+        <EditText
             android:id="@+id/line_em"
             android:layout_width="250dp"
             android:layout_height="1dp"
@@ -129,10 +142,10 @@
             />
 
         <!-- Password -->
-        <TextView
+        <EditText
             android:id="@+id/password"
-            android:layout_width="123dp"
-            android:layout_height="23dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="74dp"
@@ -140,6 +153,7 @@
             android:fontFamily="@font/font1"
             android:gravity="top"
             android:text="@string/password"
+            android:inputType="textPassword"
             android:textAppearance="@style/password"
             android:textSize="30dp" />
 
@@ -170,10 +184,10 @@
             />
 
         <!-- Confirm Password -->
-        <TextView
+        <EditText
             android:id="@+id/confirm_pas"
-            android:layout_width="192dp"
-            android:layout_height="23dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="76dp"
@@ -181,6 +195,7 @@
             android:fontFamily="@font/font1"
             android:gravity="top"
             android:text="@string/confirm_pas"
+            android:inputType="textPassword"
             android:textAppearance="@style/confirm_pas"
             android:textSize="30dp" />
 
@@ -222,6 +237,8 @@
             android:gravity="top"
             android:textSize="30dp"
             android:fontFamily="@font/font1"
+            android:clipToOutline="true"
+            android:focusable="true"
             />
 
 

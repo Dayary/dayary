@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,22 +21,22 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private EditText editTextName;
-    private Button buttonJoin;
-    private Button buttonBack;
+    private EditText editTextCheckPassWord;
+    private TextView buttonJoin;
+    private RelativeLayout buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_login_register);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        editTextEmail = (EditText) findViewById(R.id.editText_email);
-        editTextPassword = (EditText) findViewById(R.id.editText_passWord);
-
-        buttonJoin = (Button) findViewById(R.id.btn_join);
-        buttonBack = (Button) findViewById(R.id.btn_back);
+        editTextEmail = (EditText) findViewById(R.id.e_mail);
+        editTextPassword = (EditText) findViewById(R.id.line_em);
+        editTextCheckPassWord = (EditText)findViewById(R.id.confirm_pas);
+        buttonJoin = (TextView) findViewById(R.id.register2);
+        buttonBack = (RelativeLayout) findViewById(R.id.pageBack);
         buttonBack.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -43,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         buttonJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
