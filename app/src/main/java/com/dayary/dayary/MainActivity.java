@@ -28,6 +28,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -169,7 +171,10 @@ public class MainActivity extends AppCompatActivity {
                             // 로그인 성공
                             Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
+                            PostModel model = new PostModel();
+                            model.setUserId(firebaseAuth.getCurrentUser().getUid());
                             Intent intent = new Intent(getApplicationContext(), LoginComActivity.class);
+                            intent.putExtra("model", (Serializable) model);
                             startActivity(intent);
                         } else {
                             // 로그인 실패
@@ -190,10 +195,16 @@ public class MainActivity extends AppCompatActivity {
                             // 로그인 성공
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Toast.makeText(MainActivity.this, "success_login", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), LoginComActivity.class);
-                            startActivity(intent);
-                            Log.d("MainActivity", "personName " + account.getAccount());
+                            Log.d("MainActivity", "personAddress " + account.getAccount());
                             Log.d("MainActivity", "personName " + account.getDisplayName());
+                            Log.d("MainActivity", "personUid " + account.getId());
+
+                            PostModel model = new PostModel();
+                            model.setUserId(firebaseAuth.getCurrentUser().getUid());
+                            Intent intent = new Intent(getApplicationContext(), LoginComActivity.class);
+                            intent.putExtra("model", (Serializable) model);
+
+                            startActivity(intent);
                         } else {
                             // 로그인 실패
                             Toast.makeText(MainActivity.this, "failed_login", Toast.LENGTH_LONG).show();
