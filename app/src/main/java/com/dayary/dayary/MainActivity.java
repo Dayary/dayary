@@ -1,10 +1,8 @@
 package com.dayary.dayary;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -173,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
                             PostModel model = new PostModel();
                             model.setUserId(firebaseAuth.getCurrentUser().getUid());
-                            Intent intent = new Intent(getApplicationContext(), LoginComActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.putExtra("model", (Serializable) model);
                             startActivity(intent);
                         } else {
@@ -201,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
                             PostModel model = new PostModel();
                             model.setUserId(firebaseAuth.getCurrentUser().getUid());
-                            Intent intent = new Intent(getApplicationContext(), LoginComActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.putExtra("model", (Serializable) model);
 
                             startActivity(intent);
