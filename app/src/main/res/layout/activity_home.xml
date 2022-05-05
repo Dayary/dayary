@@ -46,7 +46,7 @@
 
         <!-- Weather Icon -->
 
-        <!-- Saving 126 memories.. -->
+
 
         <View
             android:id="@+id/icon_sun"
@@ -58,9 +58,11 @@
             android:layout_marginTop="55dp"
             android:background="@drawable/icon_sun" />
 
+        <!-- Saving ~ -->
+
         <TextView
-            android:id="@+id/saving_memories"
-            android:layout_width="226dp"
+            android:id="@+id/saving"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -68,9 +70,43 @@
             android:layout_marginTop="103dp"
             android:fontFamily="@font/font1"
             android:gravity="top"
-            android:text="@string/saving_memories"
-            android:textAppearance="@style/saving_memories"
+            android:text="saving"
+            android:textAppearance="@style/saving"
             android:textSize="30dp" />
+
+
+        <!-- ~ 126 ~ -->
+        <TextView
+            android:id="@+id/num_memories"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="103dp"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:text="0"
+            android:textAppearance="@style/num_memories"
+            android:textSize="30dp" />
+
+
+        <!-- ~ ~ memories.. -->
+        <TextView
+            android:id="@+id/memories"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="103dp"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:text="memories..."
+            android:textAppearance="@style/memories"
+            android:textSize="30dp" />
+
+
 
 
 
@@ -118,7 +154,7 @@
             />
 
         <!-- Writing button -->
-        <View
+        <Button
             android:id="@+id/icons8_penc"
             android:layout_width="45dp"
             android:layout_height="45dp"

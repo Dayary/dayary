@@ -7,7 +7,9 @@
     <string name="find_password">Find Password</string>
     <string name="confirm_pas">Confirm Password</string>
     <string name="tue_">2022/04/26 (Tue)</string>
-    <string name="saving_memories">Saving 126 memories..</string>
+    <string name="saving">Saving </string>
+    <string name="num_memories">126 </string>
+    <string name="memories">memories... </string>
     <string name="dayary">Dayary</string>
 
 </resources>
