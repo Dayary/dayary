@@ -6,16 +6,19 @@ public class PostModel implements Serializable {
     public String userId;
     public String photo;
     public String photoName;
-    public String photoX;
-    public String photoY;
+    public String photoLatitude;
+    public String photoLongitude;
     public String text;
 
-    public PostModel(String userId, String photo, String photoName, String photoX, String photoY, String text) {
+    public PostModel() {
+    }
+
+    public PostModel(String userId, String photo, String photoName, String photoLatitude, String photoLongitude, String text) {
         this.userId = userId;
         this.photo = photo;
         this.photoName = photoName;
-        this.photoX = photoX;
-        this.photoY = photoY;
+        this.photoLatitude = photoLatitude;
+        this.photoLongitude = photoLongitude;
         this.text = text;
     }
 
@@ -43,20 +46,20 @@ public class PostModel implements Serializable {
         this.photoName = photoName;
     }
 
-    public String getPhotoX() {
-        return photoX;
+    public String getPhotoLatitude() {
+        return photoLatitude;
     }
 
-    public void setPhotoX(String photoX) {
-        this.photoX = photoX;
+    public void setPhotoLatitude(String photoLatitude) {
+        this.photoLatitude = photoLatitude;
     }
 
-    public String getPhotoY() {
-        return photoY;
+    public String getPhotoLongitude() {
+        return photoLongitude;
     }
 
-    public void setPhotoY(String photoY) {
-        this.photoY = photoY;
+    public void setPhotoLongitude(String photoLongitude) {
+        this.photoLongitude = photoLongitude;
     }
 
     public String getText() {
@@ -65,8 +68,5 @@ public class PostModel implements Serializable {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public PostModel() {
     }
 }
