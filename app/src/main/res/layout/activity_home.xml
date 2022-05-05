@@ -163,6 +163,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
             android:background="@drawable/penicon1"
+            android:onClick="onDialogClicked"
             />
 
         <!-- Diary button -->
