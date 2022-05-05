@@ -5,7 +5,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <queries>
 
+        <provider android:authorities="com.google.android.apps.wellbeing.api"/>
+
+    </queries>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,9 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".writequestion"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -31,6 +32,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".FindPWActivity" />
         <activity android:name=".normalWrite" />
+        <activity android:name=".writequestion" />
+
     </application>
 
 </manifest>
