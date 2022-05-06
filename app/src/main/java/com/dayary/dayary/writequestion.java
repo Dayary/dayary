@@ -32,6 +32,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public class writequestion extends AppCompatActivity {
@@ -134,6 +135,7 @@ public class writequestion extends AppCompatActivity {
                         postModel.photoLongitude = longitude;
                         database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
                         Toast.makeText(writequestion.this, "DB Upload success", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 });
             }
@@ -155,6 +157,17 @@ public class writequestion extends AppCompatActivity {
                 editLength.setText(editable.length() + "/200");
             }
         });
+
+        //홈으로 이동하는 버튼
+        home_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

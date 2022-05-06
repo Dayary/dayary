@@ -18,8 +18,6 @@ import java.io.Serializable;
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btn_pen;
-    private TextView tv_result;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

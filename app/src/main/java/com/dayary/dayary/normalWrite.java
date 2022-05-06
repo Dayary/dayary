@@ -34,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -144,6 +145,7 @@ public class normalWrite extends AppCompatActivity {
                         postModel.photoLongitude = longitude;
                         database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
                         Toast.makeText(normalWrite.this, "DB Upload success", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 });
             }
@@ -168,11 +170,13 @@ public class normalWrite extends AppCompatActivity {
             }
         });
 
-
+        //홈으로 이동하는 버튼
         home_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
             }
         });
     }
