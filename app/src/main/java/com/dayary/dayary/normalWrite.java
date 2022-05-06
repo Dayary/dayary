@@ -129,6 +129,7 @@ public class normalWrite extends AppCompatActivity {
                 Log.d("Photo", "photo file : " + file);
 
                 StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(finalCurDate).child(file.getLastPathSegment());
+                System.out.println(file.getPath());
                 storageReference.putFile(selectedImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {

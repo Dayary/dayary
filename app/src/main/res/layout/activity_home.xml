@@ -114,7 +114,7 @@
         <!--            android:background="@drawable/img_home_ex" -->
 
         <!-- Line 11 -->
-        <View
+        <ImageView
             android:id="@+id/image_home_ex"
             android:layout_width="352dp"
             android:layout_height="470dp"

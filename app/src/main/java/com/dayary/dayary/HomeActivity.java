@@ -1,8 +1,13 @@
 package com.dayary.dayary;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +35,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,8 +50,11 @@ public class HomeActivity extends AppCompatActivity {
     private Button btn_pen;
     private TextView countView;
     private TextView dateView;
-    private View contentView;
+    private ImageView contentView;
     private String currentDate;
+    private String imgURL;
+    private Query query1;
+    private Query query2;
 
 
     Retrofit retrofit;
@@ -66,15 +77,15 @@ public class HomeActivity extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
 
 
-        weatherIconView = (ImageView)findViewById(R.id.weather_icon);
+        weatherIconView = (ImageView) findViewById(R.id.weather_icon);
         getWeather();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.child("user").child(postModel.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(dataSnapshot != null) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
                         count++;
                     }
                 }
@@ -90,15 +101,16 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         dateView = findViewById(R.id.date);
-        Query query = database.child("user").child(postModel.userId).limitToLast(1);
-        query.addValueEventListener(new ValueEventListener() {
+        query1 = database.child("user").child(postModel.userId).limitToLast(1);
+        query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(dataSnapshot != null) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
+                        System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
-                        currentDate = returnValue.substring(1,idx);
+                        currentDate = returnValue.substring(1, idx);
                         dateView.setText(currentDate);
                     }
                 }
@@ -110,10 +122,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         contentView = findViewById(R.id.image_home_ex);
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        storageReference.child("userImage/"+ postModel.userId+"/"+currentDate+"/");
 
+        query2 = database.child("user").child(postModel.userId).limitToLast(1);
+        query2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
+                        String returnValue = snapshot.getValue().toString();
+                        int idx1 = returnValue.indexOf("photo=");
+                        int idx2 = returnValue.indexOf(", photoLongitude");
+                        imgURL = returnValue.substring(idx1 + 6, idx2);
+                        Glide.with(getApplicationContext()).load(imgURL).override(352,470).fitCenter().into(contentView);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
         btn_pen = (Button) findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    public void getWeather(){
+    public void getWeather() {
         System.out.println("test");
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
@@ -154,14 +182,14 @@ public class HomeActivity extends AppCompatActivity {
         weatherCall.enqueue(new Callback<WeatherModel>() {
             @Override
             public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
-                if(!(response.isSuccessful())){
+                if (!(response.isSuccessful())) {
                     Toast.makeText(HomeActivity.this, response.code(), Toast.LENGTH_LONG).show();
                 }
                 WeatherModel mydata = response.body();
-                Weather weather= mydata.getWeather().get(0);
+                Weather weather = mydata.getWeather().get(0);
                 String todayWeather = weather.getMain();
 
-                switch(todayWeather){
+                switch (todayWeather) {
                     case "Clear":
                         weatherIconView.setImageResource(R.drawable.clear_icon);
                         break;
@@ -191,6 +219,4 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
