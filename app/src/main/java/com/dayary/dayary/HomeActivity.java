@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 
@@ -27,6 +31,9 @@ public class HomeActivity extends AppCompatActivity {
     private Button btn_pen;
     private TextView countView;
     private TextView dateView;
+    private View contentView;
+    private String currentDate;
+
     int count = 0;
 
     @Override
@@ -68,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
                     if(dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
                         int idx = returnValue.indexOf("=");
-                        String currentDate = returnValue.substring(1,idx);
+                        currentDate = returnValue.substring(1,idx);
                         dateView.setText(currentDate);
                     }
                 }
@@ -79,6 +86,13 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+        contentView = findViewById(R.id.image_home_ex);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference.child("userImage/"+ postModel.userId+"/"+currentDate+"/").
+
+
+
+
 
         btn_pen = (Button) findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
