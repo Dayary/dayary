@@ -5,12 +5,12 @@
     android:id="@+id/pixel_3a_"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clipToOutline="true"
-    android:background="@drawable/image_11">
+    android:background="@drawable/image_11"
+    android:clipToOutline="true">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <!-- Dayary -->
         <TextView
@@ -18,15 +18,14 @@
             android:layout_width="108dp"
             android:layout_height="39dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="144dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="144dp"
             android:layout_marginTop="9dp"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
             android:text="@string/dayary"
             android:textAppearance="@style/dayary"
-            android:gravity="top"
-            android:textSize="48dp"
-            android:fontFamily="@font/font1"
-            />
+            android:textSize="48dp" />
 
 
         <!-- Date (2022/04/26 (Tue)) -->
@@ -45,7 +44,6 @@
             android:textSize="30dp" />
 
         <!-- Weather Icon -->
-
 
 
         <View
@@ -107,11 +105,9 @@
             android:textSize="30dp" />
 
 
-
-
-
         <!-- image home example -->
 
+        <!--            android:background="@drawable/img_home_ex" -->
 
         <!-- Line 11 -->
         <View
@@ -124,7 +120,7 @@
             android:layout_marginLeft="7dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="7dp"
-            android:background="@drawable/img_home_ex" />
+            android:background="@null" />
 
         <View
             android:id="@+id/bottom_line"
@@ -147,11 +143,10 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_home"
-            />
+            android:background="@drawable/icon_home" />
 
         <!-- Writing button -->
         <Button
@@ -159,8 +154,8 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="97dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="97dp"
             android:layout_marginTop="660dp"
             android:background="@drawable/penicon1"
 
@@ -172,11 +167,10 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="174dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="174dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_diary"
-            />
+            android:background="@drawable/icon_diary" />
 
         <!-- Calendar button -->
         <View
@@ -184,11 +178,10 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="251dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="251dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_calendar"
-            />
+            android:background="@drawable/icon_calendar" />
 
         <!-- Map button -->
         <View
@@ -196,8 +189,8 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="328dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="328dp"
             android:layout_marginTop="660dp"
             android:background="@drawable/icon_map" />
 

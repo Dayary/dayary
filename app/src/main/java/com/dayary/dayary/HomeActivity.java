@@ -26,6 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btn_pen;
     private TextView countView;
+    private TextView dateView;
     int count = 0;
 
     @Override
@@ -50,6 +51,27 @@ public class HomeActivity extends AppCompatActivity {
                 String countValue = Integer.toString(count);
                 countView = findViewById(R.id.num_memories);
                 countView.setText(countValue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        dateView = findViewById(R.id.date);
+        Query query = database.child("user").child(postModel.userId).limitToLast(1);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(dataSnapshot != null) {
+                        String returnValue = snapshot.getValue().toString();
+                        int idx = returnValue.indexOf("=");
+                        String currentDate = returnValue.substring(1,idx);
+                        dateView.setText(currentDate);
+                    }
+                }
             }
 
             @Override
