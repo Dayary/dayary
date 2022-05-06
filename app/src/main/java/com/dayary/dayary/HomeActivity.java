@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView weatherIconView;
     private final static String appKey = "778f6bedba4efd3041cfb178bee32f77";
 
-=======
+
     int count = 0;
 
     @Override
@@ -68,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
 
         weatherIconView = (ImageView)findViewById(R.id.weather_icon);
         getWeather();
-=======
+
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.child("user").child(postModel.userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -111,9 +111,7 @@ public class HomeActivity extends AppCompatActivity {
         });
         contentView = findViewById(R.id.image_home_ex);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        storageReference.child("userImage/"+ postModel.userId+"/"+currentDate+"/").
-
-
+        storageReference.child("userImage/"+ postModel.userId+"/"+currentDate+"/");
 
 
         btn_pen = (Button) findViewById(R.id.icons8_penc);
@@ -194,6 +192,5 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-=======
 
 }
