@@ -64,7 +64,7 @@
         <TextView
             android:id="@+id/saving"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="26dp"
@@ -73,14 +73,14 @@
             android:gravity="top"
             android:text="saving"
             android:textAppearance="@style/saving"
-            android:textSize="30dp" />
+            android:textSize="27dp" />
 
 
         <!-- ~ 126 ~ -->
         <TextView
             android:id="@+id/num_memories"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="100dp"
@@ -97,7 +97,7 @@
         <TextView
             android:id="@+id/memories"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="140dp"

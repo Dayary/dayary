@@ -182,7 +182,7 @@
         <TextView
             android:id="@+id/register"
             android:layout_width="106dp"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="100dp"
@@ -198,19 +198,18 @@
         <TextView
             android:id="@+id/find_password"
             android:layout_width="106dp"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="203dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="203dp"
             android:layout_marginTop="630dp"
-            android:text="@string/find_password"
-            android:fontFamily="@font/font1"
-            android:textSize="24sp"
-            android:textColor="#757575"
-            android:gravity="top"
             android:clickable="true"
             android:focusable="true"
-            />
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:text="@string/find_password"
+            android:textColor="#757575"
+            android:textSize="24sp" />
 
     </FrameLayout>
 
