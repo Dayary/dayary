@@ -54,6 +54,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="107dp"
+            android:adjustViewBounds= "true"
+            android:scaleType="fitXY"
             android:background="@drawable/rectangle_1"
             />
 
@@ -135,7 +137,9 @@
             android:lineSpacingExtra="4dp"
             android:textColor="#000000"
             android:textColorHint="#B7A8A8"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:maxLength="200"
+            />
 
         <ImageView
             android:id="@+id/line_6"
@@ -192,7 +196,7 @@
             android:background="@drawable/line_1"
             />
 
-        <!-- 17/200 -->
+        <!-- 0/200 -->
         <TextView
             android:id="@+id/some_id"
             android:layout_width="52dp"
