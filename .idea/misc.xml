@@ -36,9 +36,9 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.112" />
         <entry key="app/src/main/res/layout/activity_cor_del.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/activity_findpw.xml" value="0.20729166666666668" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.3852813852813853" />
         <entry key="app/src/main/res/layout/activity_login_register.xml" value="0.38333333333333336" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_normalwrite.xml" value="0.2925466918945313" />
         <entry key="app/src/main/res/layout/activity_writequstion.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/layout/normalwrite.xml" value="0.20299835205078123" />
@@ -54,7 +54,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.15799102783203126" />
+        <option name="scale" value="0.1" />
       </ProjectState>
     </option>
   </component>

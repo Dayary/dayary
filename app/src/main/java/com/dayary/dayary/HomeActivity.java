@@ -15,11 +15,23 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
 
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btn_pen;
     private TextView tv_result;
+    //private final static String BASE_URL = "https://api.openweathermap.org/data/2.5/";
+    Retrofit retrofit;
+    WeatherApi weatherApi;
+    private final static String appKey = "";
 
+    private void getWeather(){
+        retrofit = new Retrofit.Builder().baseUrl("https://api.openweathermap.org/").addConverterFactory(GsonConverterFactory.create()).build();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
