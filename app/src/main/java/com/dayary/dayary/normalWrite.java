@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -51,7 +53,7 @@ public class normalWrite extends AppCompatActivity {
     private String latitude;
     private String longitude;
     private EditText editText;
-
+    private TextView editLength;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -69,6 +71,8 @@ public class normalWrite extends AppCompatActivity {
         //findViewById
         imageView = findViewById(R.id.rectangle_1);
         editText = findViewById(R.id.today_i_am_);
+        editLength = findViewById(R.id.some_id);
+        home_view = findViewById(R.id.icons8_home);
 
         //로컬 디바이스의 날짜를 가져옴
         LocalDate todaysDate = LocalDate.now();
@@ -146,7 +150,25 @@ public class normalWrite extends AppCompatActivity {
 
         });
 
-        home_view = findViewById(R.id.icons8_home);
+        //현재 글자수 표현
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                editLength.setText(editable.length() + "/200");
+            }
+        });
+
+
         home_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

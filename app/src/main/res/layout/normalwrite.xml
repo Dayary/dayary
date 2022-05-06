@@ -40,6 +40,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="73dp"
+            android:adjustViewBounds= "true"
+            android:scaleType="fitXY"
+
             android:background="@drawable/rectangle_1" />
 
         <ImageView
@@ -117,7 +120,9 @@
             android:lineSpacingExtra="4dp"
             android:textColor="#000000"
             android:textColorHint="#B7A8A8"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:maxLength="200"
+            />
 
         <!-- Line 6 -->
         <ImageView
