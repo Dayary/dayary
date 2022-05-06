@@ -29,12 +29,14 @@
         <entry key="app/src/main/res/layout/activity_cor_del.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/activity_dbtest.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_findpw.xml" value="0.20729166666666668" />
+
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.3316014386605526" />
         <entry key="app/src/main/res/layout/activity_login_register.xml" value="0.38333333333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_writequestion.xml" value="0.13722826086956522" />
         <entry key="app/src/main/res/layout/normalwrite.xml" value="0.13722826086956522" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1890625" />
+
       </map>
     </option>
   </component>
@@ -47,7 +49,9 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
+
         <option name="scale" value="0.2" />
+
       </ProjectState>
     </option>
   </component>

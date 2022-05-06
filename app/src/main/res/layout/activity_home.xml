@@ -24,6 +24,7 @@
             android:fontFamily="@font/font1"
             android:gravity="top"
             android:text="@string/dayary"
+            android:textColor = "#62A60C"
             android:textAppearance="@style/dayary"
             android:textSize="48dp" />
 
@@ -46,15 +47,17 @@
         <!-- Weather Icon -->
 
 
-        <View
-            android:id="@+id/icon_sun"
+
+
+        <ImageView
+            android:id="@+id/weather_icon"
             android:layout_width="70dp"
             android:layout_height="68.92dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="307dp"
             android:layout_marginTop="55dp"
-            android:background="@drawable/icon_sun" />
+            />
 
         <!-- Saving ~ -->
 
@@ -86,6 +89,7 @@
             android:gravity="top"
             android:text="0"
             android:textAppearance="@style/num_memories"
+            android:textColor="#62A60C"
             android:textSize="30dp" />
 
 
