@@ -286,7 +286,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
             android:background="@drawable/penicon1"
-
+            android:clickable="true"
+            android:focusable="true"
             />
 
         <!-- Diary button -->
@@ -311,6 +312,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
             android:background="@drawable/icon_calendar"
+            android:clickable="true"
+            android:focusable="true"
             />
 
         <!-- Map button -->
@@ -322,7 +325,9 @@
             android:layout_marginLeft="328dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_map" />
+            android:background="@drawable/icon_map"
+            android:clickable="true"
+            android:focusable="true"/>
 
     </FrameLayout>
 

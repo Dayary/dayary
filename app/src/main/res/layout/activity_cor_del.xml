@@ -101,19 +101,23 @@
 
 
         <!-- Today, I am happy. Because I played football. -->
-        <TextView
+        <EditText
             android:id="@+id/today_i_am_"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="376dp"
+            android:layout_height="166dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="9dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="419dp"
-            android:text="@string/happyfootball"
+            android:background="@null"
             android:fontFamily="@font/font1"
             android:gravity="top"
-            android:textSize="24sp"
+            android:hint="@string/todayimhappy"
+            android:lineSpacingExtra="4dp"
             android:textColor="#000000"
+            android:textColorHint="#B7A8A8"
+            android:textSize="30sp"
+            android:maxLength="200"
             />
 
         <!-- Line 6 -->
@@ -172,39 +176,39 @@
             android:background="@drawable/line_1"
             />
 
-        <!-- 17/200 -->
+        <!-- 0/200 -->
         <TextView
             android:id="@+id/some_id"
-            android:layout_width="46dp"
+            android:layout_width="52dp"
             android:layout_height="21dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="333dp"
-            android:layout_marginTop="597dp"
+            android:layout_marginTop="585dp"
             android:fontFamily="@font/font1"
-            android:gravity="top"
-            android:text="@string/some_id"
+            android:gravity="center"
+            android:text="0/200"
             android:textColor="#000000" />
 
         <!-- Rectangle 21 -->
         <ImageView
             android:id="@+id/rectangle_3"
             android:layout_width="197dp"
-            android:layout_height="58dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="659dp"
+            android:layout_marginTop="607dp"
             android:background="@drawable/rectangle_2" />
 
         <!-- Rectangle 21 -->
         <ImageView
             android:id="@+id/rectangle_4"
             android:layout_width="197dp"
-            android:layout_height="58dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="197dp"
-            android:layout_marginTop="659dp"
+            android:layout_marginTop="607dp"
             android:background="@drawable/rectangle_2" />
 
         <!-- icons8-edit-file-100 1 -->
@@ -215,7 +219,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="43dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="671dp"
+            android:layout_marginTop="609dp"
             android:background="@drawable/icon_edit_1"
             />
 
@@ -227,7 +231,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="239dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="671dp"
+            android:layout_marginTop="609dp"
             android:background="@drawable/icon_delete_1"
             />
 
@@ -239,7 +243,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="92dp"
-            android:layout_marginTop="677dp"
+            android:layout_marginTop="615dp"
             android:fontFamily="@font/font1"
             android:gravity="top"
             android:text="@string/modify"
@@ -254,7 +258,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="288dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="677dp"
+            android:layout_marginTop="615dp"
             android:text="@string/delete"
             android:fontFamily="@font/font1"
             android:gravity="top"
@@ -273,75 +277,78 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="718dp"
+            android:layout_marginTop="646dp"
             android:layout_marginEnd="1dp"
             android:layout_marginRight="4dp"
             android:background="@drawable/line_1" />
 
-        <!-- homepage button -->
         <View
             android:id="@+id/icons8_home"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="731dp"
-            android:background="@drawable/icon_home" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_home"
+            android:clickable="true"
+            android:focusable="true"
+            />
 
-        <!-- Diary button -->
+        <!-- Writing button -->
         <View
             android:id="@+id/icons8_penc"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="97dp"
-            android:layout_marginTop="731dp"
-            android:background="@drawable/penicon1" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/penicon1"
+            android:clickable="true"
+            android:focusable="true"
+            />
 
+        <!-- Diary button -->
         <View
             android:id="@+id/icons8_jour"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="174dp"
-            android:layout_marginTop="731dp"
-            android:background="@drawable/icon_diary" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_diary"
+            android:clickable="true"
+            android:focusable="true"
+            />
 
         <!-- Calendar button -->
-        <ImageView
+        <View
             android:id="@+id/icons8_cale"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="251dp"
-            android:layout_marginTop="731dp"
-            android:background="@drawable/icon_calendar" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_calendar"
+            android:clickable="true"
+            android:focusable="true"
+            />
 
         <!-- Map button -->
-        <ImageView
+        <View
             android:id="@+id/icons8_loca"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="328dp"
-            android:layout_marginTop="731dp"
-            android:background="@drawable/icon_map" />
-
-        <!-- Vector 62 -->
-        <View
-            android:id="@+id/vector_62"
-            android:layout_width="53.13dp"
-            android:layout_height="51.97dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="135.87dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="142.28dp"
-            android:background="@drawable/vector_1"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_map"
+            android:clickable="true"
+            android:focusable="true"
             />
 
     </FrameLayout>

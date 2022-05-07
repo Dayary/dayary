@@ -51,12 +51,11 @@ public class HomeActivity extends AppCompatActivity {
     private TextView countView;
     private TextView dateView;
     private ImageView contentView;
-    private String currentDate;
+    private String lastDate;
     private String imgURL;
     private Query query0;
     private Query query1;
     private Query query2;
-
 
     Retrofit retrofit;
     WeatherApi weatherApi;
@@ -115,8 +114,8 @@ public class HomeActivity extends AppCompatActivity {
                         String returnValue = snapshot.getValue().toString();
                         System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
-                        currentDate = returnValue.substring(1, idx);
-                        dateView.setText(currentDate);
+                        lastDate = returnValue.substring(1, idx);
+                        dateView.setText(lastDate);
                     }
                 }
             }
@@ -175,7 +174,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
-
+    //날씨 조회
     public void getWeather() {
         System.out.println("test");
         retrofit = new Retrofit.Builder()

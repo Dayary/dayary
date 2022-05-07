@@ -241,7 +241,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="4dp"
-
             android:layout_marginTop="646dp"
             android:layout_marginEnd="1dp"
             android:layout_marginRight="4dp"
@@ -271,7 +270,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
             android:background="@drawable/penicon1"
-
+            android:clickable="true"
+            android:focusable="true"
             />
 
         <!-- Diary button -->
@@ -284,6 +284,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
             android:background="@drawable/icon_diary"
+            android:clickable="true"
+            android:focusable="true"
             />
 
         <!-- Calendar button -->
@@ -296,6 +298,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
             android:background="@drawable/icon_calendar"
+            android:clickable="true"
+            android:focusable="true"
             />
 
         <!-- Map button -->
@@ -307,7 +311,9 @@
             android:layout_marginLeft="328dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_map" />
+            android:background="@drawable/icon_map"
+            android:clickable="true"
+            android:focusable="true"/>
 
     </FrameLayout>
 
