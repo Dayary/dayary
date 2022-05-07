@@ -82,24 +82,6 @@ public class HomeActivity extends AppCompatActivity {
         getWeather();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        /*database.child("user").child(postModel.userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        count++;
-                    }
-                }
-                String countValue = Integer.toString(count);
-                countView = findViewById(R.id.num_memories);
-                countView.setText(countValue);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
 
         query0 = database.child("user").child(postModel.userId);
         query0.addValueEventListener(new ValueEventListener() {
