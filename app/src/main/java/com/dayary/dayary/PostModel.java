@@ -1,6 +1,10 @@
 package com.dayary.dayary;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PostModel implements Serializable {
     public String userId;
@@ -68,5 +72,17 @@ public class PostModel implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Exclude
+    public Map<String,Object> toMap(){
+        HashMap<String,Object>result = new HashMap<>();
+        result.put("photo",photo);
+        result.put("photoLatitude",photoLatitude);
+        result.put("photoLongitude",photoLongitude);
+        result.put("photoName",photoName);
+        result.put("text",text);
+        result.put("userId",userId);
+        return result;
     }
 }
