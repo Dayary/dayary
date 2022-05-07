@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +39,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,15 +59,15 @@ public class HomeActivity extends AppCompatActivity {
     private Query query0;
     private Query query1;
     private Query query2;
+    private String todayDate;
+    int count = 0;
 
     Retrofit retrofit;
     WeatherApi weatherApi;
     ImageView weatherIconView;
     private final static String appKey = "778f6bedba4efd3041cfb178bee32f77";
 
-
-    int count = 0;
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +77,6 @@ public class HomeActivity extends AppCompatActivity {
         PostModel postModel = (PostModel) intent.getSerializableExtra("model");
         System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-
 
         weatherIconView = (ImageView) findViewById(R.id.weather_icon);
         getWeather();
@@ -88,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
-                        if(dataSnapshot.hasChildren()) {
+                        if (dataSnapshot.hasChildren()) {
                             count++;
                         }
                     }
@@ -96,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
                 String countValue = Integer.toString(count);
                 countView = findViewById(R.id.num_memories);
                 countView.setText(countValue);
+                count = 0;
             }
 
             @Override
@@ -147,6 +149,7 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
         btn_pen = (Button) findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,8 +158,16 @@ public class HomeActivity extends AppCompatActivity {
                 ad.setPositiveButton("Free subject", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getApplicationContext(), normalWrite.class);
-                        intent.putExtra("model", (Serializable) postModel);
+                        todayDate = getTodayDate();
+                        Intent intent;
+                        if (todayDate.equals(lastDate)) {
+                            intent = new Intent(getApplicationContext(), corDel.class);
+                            intent.putExtra("model", (Serializable) postModel);
+                            Toast.makeText(HomeActivity.this, "오늘 작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            intent = new Intent(getApplicationContext(), normalWrite.class);
+                            intent.putExtra("model", (Serializable) postModel);
+                        }
                         startActivity(intent);
                     }
                 });
@@ -164,8 +175,17 @@ public class HomeActivity extends AppCompatActivity {
                 ad.setNegativeButton("Today's question", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getApplicationContext(), writequestion.class);
-                        intent.putExtra("model", (Serializable) postModel);
+
+                        todayDate = getTodayDate();
+                        Intent intent;
+                        if (todayDate.equals(lastDate)) {
+                            intent = new Intent(getApplicationContext(), corDel.class);
+                            intent.putExtra("model", (Serializable) postModel);
+                            Toast.makeText(HomeActivity.this, "오늘 작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            intent = new Intent(getApplicationContext(), writequestion.class);
+                            intent.putExtra("model", (Serializable) postModel);
+                        }
                         startActivity(intent);
                     }
                 });
@@ -174,6 +194,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+
     //날씨 조회
     public void getWeather() {
         System.out.println("test");
@@ -223,5 +244,38 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println(t.getMessage());
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getTodayDate() {
+        //로컬 디바이스의 날짜를 가져옴
+        LocalDate todaysDate = LocalDate.now();
+        int curday = todaysDate.getDayOfWeek().getValue();
+        String CurDate = "";
+        switch (curday) {
+            case 1:
+                CurDate = todaysDate + "-" + "Mon";
+                break;
+            case 2:
+                CurDate = todaysDate + "-" + "Tue";
+                break;
+            case 3:
+                CurDate = todaysDate + "-" + "Wed";
+                break;
+            case 4:
+                CurDate = todaysDate + "-" + "Thur";
+                break;
+            case 5:
+                CurDate = todaysDate + "-" + "Fri";
+                break;
+            case 6:
+                CurDate = todaysDate + "-" + "Sat";
+                break;
+            case 7:
+                CurDate = todaysDate + "-" + "Sun";
+                break;
+        }
+
+        return CurDate;
     }
 }

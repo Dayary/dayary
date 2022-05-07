@@ -38,6 +38,8 @@
             android:layout_marginLeft="9dp"
             android:layout_marginTop="73dp"
             android:background="@drawable/rectangle_1"
+            android:scaleType="fitXY"
+            android:adjustViewBounds= "true"
             />
 
         <!-- icons8-pen-99 1 -->

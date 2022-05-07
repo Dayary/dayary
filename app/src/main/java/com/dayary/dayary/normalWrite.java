@@ -73,7 +73,6 @@ public class normalWrite extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         editText = findViewById(R.id.today_i_am_);
         editLength = findViewById(R.id.some_id);
-        home_view = findViewById(R.id.icons8_home);
 
         //로컬 디바이스의 날짜를 가져옴
         LocalDate todaysDate = LocalDate.now();
@@ -171,6 +170,7 @@ public class normalWrite extends AppCompatActivity {
             }
         });
 
+        home_view = findViewById(R.id.icons8_home);
         //홈으로 이동하는 버튼
         home_view.setOnClickListener(new View.OnClickListener() {
             @Override

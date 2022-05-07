@@ -42,7 +42,6 @@
             android:layout_marginTop="73dp"
             android:adjustViewBounds= "true"
             android:scaleType="fitXY"
-
             android:background="@drawable/rectangle_1" />
 
         <ImageView
