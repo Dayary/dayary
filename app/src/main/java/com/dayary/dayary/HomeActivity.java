@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView contentView;
     private String currentDate;
     private String imgURL;
+    private Query query0;
     private Query query1;
     private Query query2;
 
@@ -81,12 +82,34 @@ public class HomeActivity extends AppCompatActivity {
         getWeather();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("user").child(postModel.userId).addValueEventListener(new ValueEventListener() {
+        /*database.child("user").child(postModel.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
                         count++;
+                    }
+                }
+                String countValue = Integer.toString(count);
+                countView = findViewById(R.id.num_memories);
+                countView.setText(countValue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+        query0 = database.child("user").child(postModel.userId);
+        query0.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
+                        if(dataSnapshot.hasChildren()) {
+                            count++;
+                        }
                     }
                 }
                 String countValue = Integer.toString(count);
@@ -133,10 +156,11 @@ public class HomeActivity extends AppCompatActivity {
                         int idx1 = returnValue.indexOf("photo=");
                         int idx2 = returnValue.indexOf(", photoLongitude");
                         imgURL = returnValue.substring(idx1 + 6, idx2);
-                        Glide.with(getApplicationContext()).load(imgURL).override(352,470).fitCenter().into(contentView);
+                        Glide.with(getApplicationContext()).load(imgURL).override(352, 470).fitCenter().into(contentView);
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
