@@ -106,8 +106,10 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        todayDate = getTodayDate();
         dateView = findViewById(R.id.date);
-        query1 = database.child("user").child(postModel.userId).limitToLast(1);
+        dateView.setText(todayDate);
+        /*query1 = database.child("user").child(postModel.userId).limitToLast(1);
         query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -126,9 +128,10 @@ public class HomeActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-        contentView = findViewById(R.id.image_home_ex);
+        });*/
 
+
+        contentView = findViewById(R.id.image_home_ex);
         query2 = database.child("user").child(postModel.userId).limitToLast(1);
         query2.addValueEventListener(new ValueEventListener() {
             @Override
@@ -163,7 +166,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (todayDate.equals(lastDate)) {
                             intent = new Intent(getApplicationContext(), corDel.class);
                             intent.putExtra("model", (Serializable) postModel);
-                            Toast.makeText(HomeActivity.this, "오늘 작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
                         } else {
                             intent = new Intent(getApplicationContext(), normalWrite.class);
                             intent.putExtra("model", (Serializable) postModel);
@@ -181,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (todayDate.equals(lastDate)) {
                             intent = new Intent(getApplicationContext(), corDel.class);
                             intent.putExtra("model", (Serializable) postModel);
-                            Toast.makeText(HomeActivity.this, "오늘 작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
                         } else {
                             intent = new Intent(getApplicationContext(), writequestion.class);
                             intent.putExtra("model", (Serializable) postModel);
