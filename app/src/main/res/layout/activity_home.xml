@@ -40,7 +40,6 @@
             android:layout_marginTop="67dp"
             android:fontFamily="@font/font1"
             android:gravity="top"
-            android:text="@string/tue_"
             android:textAppearance="@style/tue_"
             android:textSize="30dp" />
 

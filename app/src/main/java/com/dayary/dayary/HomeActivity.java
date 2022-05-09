@@ -109,7 +109,8 @@ public class HomeActivity extends AppCompatActivity {
         todayDate = getTodayDate();
         dateView = findViewById(R.id.date);
         dateView.setText(todayDate);
-        /*query1 = database.child("user").child(postModel.userId).limitToLast(1);
+
+        query1 = database.child("user").child(postModel.userId).limitToLast(1);
         query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -119,7 +120,7 @@ public class HomeActivity extends AppCompatActivity {
                         System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
                         lastDate = returnValue.substring(1, idx);
-                        dateView.setText(lastDate);
+                        //dateView.setText(lastDate);
                     }
                 }
             }
@@ -128,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
 
 
         contentView = findViewById(R.id.image_home_ex);
