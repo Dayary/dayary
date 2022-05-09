@@ -57,6 +57,7 @@ public class normalWrite extends AppCompatActivity {
     private String longitude;
     private EditText editText;
     private TextView editLength;
+    ProgressDialog dialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -124,6 +125,10 @@ public class normalWrite extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                dialog = new ProgressDialog(normalWrite.this);
+                dialog.setMessage("Saving");
+                dialog.show();
+
                 final String uid = postModel.getUserId();
                 FirebaseStorage mStorage = FirebaseStorage.getInstance();
                 final Uri file = Uri.fromFile(new File(imagePath));
@@ -147,16 +152,13 @@ public class normalWrite extends AppCompatActivity {
                         postModel.photoLongitude = longitude;
                         database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
 
-                        ProgressDialog dialog = new ProgressDialog(normalWrite.this);
-                        dialog.setMessage("DB Uploading");
-                        dialog.show();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 dialog.dismiss();
                             }
-                        }, 5000);
+                        }, 3000);
                         Toast.makeText(normalWrite.this, "DB Upload success", Toast.LENGTH_LONG).show();
 
                         finish();
@@ -232,4 +234,9 @@ public class normalWrite extends AppCompatActivity {
         return path;
     }
 
+    @Override
+    protected void onDestroy() {
+        dialog.dismiss();
+        super.onDestroy();
+    }
 }

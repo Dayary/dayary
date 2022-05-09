@@ -50,6 +50,7 @@ public class writequestion extends AppCompatActivity {
     private String longitude;
     private EditText editText;
     private TextView editLength;
+    private ProgressDialog dialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -115,6 +116,10 @@ public class writequestion extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                dialog = new ProgressDialog(writequestion.this);
+                dialog.setMessage("Saving");
+                dialog.show();
+
                 final String uid = postModel.getUserId();
                 FirebaseStorage mStorage = FirebaseStorage.getInstance();
                 final Uri file = Uri.fromFile(new File(imagePath));
@@ -137,16 +142,13 @@ public class writequestion extends AppCompatActivity {
                         postModel.photoLongitude = longitude;
                         database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
 
-                        ProgressDialog dialog = new ProgressDialog(writequestion.this);
-                        dialog.setMessage("DB Uploading");
-                        dialog.show();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 dialog.dismiss();
                             }
-                        }, 5000);
+                        }, 3000);
 
                         Toast.makeText(writequestion.this, "DB Upload success", Toast.LENGTH_LONG).show();
                         finish();
@@ -219,5 +221,11 @@ public class writequestion extends AppCompatActivity {
         c.moveToFirst();
         String path = c.getString(index);
         return path;
+    }
+
+    @Override
+    protected void onDestroy() {
+        dialog.dismiss();
+        super.onDestroy();
     }
 }

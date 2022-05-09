@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
     private Query query2;
     private String todayDate;
     int count = 0;
+    private ProgressDialog dialog;
 
     Retrofit retrofit;
     WeatherApi weatherApi;
@@ -85,17 +86,16 @@ public class HomeActivity extends AppCompatActivity {
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-        ProgressDialog dialog = new ProgressDialog(HomeActivity.this);
+        dialog = new ProgressDialog(HomeActivity.this);
         dialog.setMessage("Loading");
         dialog.show();
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 dialog.dismiss();
             }
-        }, 2000);
+        }, 500);
 
         query0 = database.child("user").child(postModel.userId);
         query0.addValueEventListener(new ValueEventListener() {
@@ -145,7 +145,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //원복
         contentView = findViewById(R.id.image_home_ex);
         query2 = database.child("user").child(postModel.userId).limitToLast(1);
         query2.addValueEventListener(new ValueEventListener() {
@@ -296,4 +295,11 @@ public class HomeActivity extends AppCompatActivity {
 
         return CurDate;
     }
+
+    @Override
+    protected void onDestroy() {
+        dialog.dismiss();
+        super.onDestroy();
+    }
+
 }

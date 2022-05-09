@@ -65,7 +65,7 @@ public class corDel extends AppCompatActivity {
     private Query query2;
     private TextView editLength;
     private int flag = 0;
-
+    private ProgressDialog dialog;
 
     private final int GET_GALLERY_IMAGE = 200;
 
@@ -163,41 +163,45 @@ public class corDel extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //기존 사진/정보 삭제
-                final String uid = postModel.getUserId();
                 database.child("user").child(postModel.userId).child(lastDate).removeValue();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
                 if (flag == 0) {
+                    dialog = new ProgressDialog(corDel.this);
+                    dialog.setMessage("DB Updating");
+                    dialog.show();
+
+                    final String uid = postModel.getUserId();
+
                     postModel.text = editText.getText().toString();
                     postModel.photoName = PhotoName;
                     postModel.photo = imgURL;
                     postModel.photoLatitude = latitude;
                     postModel.photoLongitude = longitude;
                     database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
 
-                    ProgressDialog dialog = new ProgressDialog(corDel.this);
-                    dialog.setMessage("DB Uploading");
-                    dialog.show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             dialog.dismiss();
                         }
-                    }, 5000);
+                    }, 3000);
                     Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
 
                     flag = 0;
                     finish();
 
                 } else if (flag == 1) {
+
                     //새로운 이미지/정보 업로드
                     FirebaseStorage mStorage = FirebaseStorage.getInstance();
+                    final String uid = postModel.getUserId();
+
+                    dialog = new ProgressDialog(corDel.this);
+                    dialog.setMessage("DB Updating");
+                    dialog.show();
+
                     StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(lastDate).child(PhotoName);
                     storageReference.delete();
                     final Uri file = Uri.fromFile(new File(imagePath));
@@ -229,26 +233,17 @@ public class corDel extends AppCompatActivity {
                             Map<String, Object> childUpdate = new HashMap<>();
                             childUpdate.put("/user" + "/" + postModel.userId + "/" + finalCurDate1 + "/" + key, postValue);
                             database.updateChildren(childUpdate);
-                            try {
-                                Thread.sleep(4000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
                             flag = 0;
 
-                            ProgressDialog dialog = new ProgressDialog(corDel.this);
-                            dialog.setMessage("DB Uploading");
-                            dialog.show();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     dialog.dismiss();
                                 }
-                            }, 5000);
+                            }, 3000);
 
                             Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
-
                             finish();
                         }
                     });
@@ -260,16 +255,24 @@ public class corDel extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog = new ProgressDialog(corDel.this);
+                dialog.setMessage("Deleting");
+                dialog.show();
+
                 database.child("user").child(postModel.userId).child(lastDate).removeValue();
                 final String uid = postModel.getUserId();
                 FirebaseStorage mStorage = FirebaseStorage.getInstance();
                 StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(lastDate).child(PhotoName);
                 storageReference.delete();
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 2000);
+
                 Toast.makeText(corDel.this, "일기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -355,5 +358,11 @@ public class corDel extends AppCompatActivity {
         c.moveToFirst();
         String path = c.getString(index);
         return path;
+    }
+
+    @Override
+    protected void onDestroy() {
+        dialog.dismiss();
+        super.onDestroy();
     }
 }
