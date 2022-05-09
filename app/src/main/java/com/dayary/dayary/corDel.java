@@ -5,12 +5,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -177,9 +179,22 @@ public class corDel extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                    ProgressDialog dialog = new ProgressDialog(corDel.this);
+                    dialog.setMessage("DB Uploading");
+                    dialog.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    }, 5000);
                     Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+
                     flag = 0;
                     finish();
+
                 } else if (flag == 1) {
                     //새로운 이미지/정보 업로드
                     FirebaseStorage mStorage = FirebaseStorage.getInstance();
@@ -210,17 +225,30 @@ public class corDel extends AppCompatActivity {
                             System.out.println(postModel.photoLongitude);
                             //database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
                             String key = database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().getKey();
-                            Map<String,Object> postValue = postModel.toMap();
-                            Map<String,Object> childUpdate = new HashMap<>();
-                            childUpdate.put("/user"+"/"+postModel.userId+"/"+finalCurDate1+"/"+key,postValue);
+                            Map<String, Object> postValue = postModel.toMap();
+                            Map<String, Object> childUpdate = new HashMap<>();
+                            childUpdate.put("/user" + "/" + postModel.userId + "/" + finalCurDate1 + "/" + key, postValue);
                             database.updateChildren(childUpdate);
                             try {
                                 Thread.sleep(4000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
                             flag = 0;
+
+                            ProgressDialog dialog = new ProgressDialog(corDel.this);
+                            dialog.setMessage("DB Uploading");
+                            dialog.show();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.dismiss();
+                                }
+                            }, 5000);
+
+                            Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+
                             finish();
                         }
                     });

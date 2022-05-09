@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -134,6 +136,18 @@ public class writequestion extends AppCompatActivity {
                         postModel.photoLatitude = latitude;
                         postModel.photoLongitude = longitude;
                         database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
+
+                        ProgressDialog dialog = new ProgressDialog(writequestion.this);
+                        dialog.setMessage("DB Uploading");
+                        dialog.show();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                            }
+                        }, 5000);
+
                         Toast.makeText(writequestion.this, "DB Upload success", Toast.LENGTH_LONG).show();
                         finish();
                     }

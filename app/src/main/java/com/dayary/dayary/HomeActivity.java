@@ -1,6 +1,7 @@
 package com.dayary.dayary;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -82,6 +84,18 @@ public class HomeActivity extends AppCompatActivity {
         getWeather();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+        ProgressDialog dialog = new ProgressDialog(HomeActivity.this);
+        dialog.setMessage("Loading");
+        dialog.show();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 2000);
 
         query0 = database.child("user").child(postModel.userId);
         query0.addValueEventListener(new ValueEventListener() {
