@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
     private String todayDate;
     int count = 0;
     private ProgressDialog dialog;
+    private PostModel postModel;
 
     Retrofit retrofit;
     WeatherApi weatherApi;
@@ -77,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Intent intent = getIntent();
-        PostModel postModel = (PostModel) intent.getSerializableExtra("model");
+        postModel = (PostModel) intent.getSerializableExtra("model");
         System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
 
@@ -168,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         btn_pen = (Button) findViewById(R.id.icons8_penc);
-        btn_pen.setOnClickListener(new View.OnClickListener() {
+        /*btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder ad = new AlertDialog.Builder(HomeActivity.this);
@@ -208,8 +210,45 @@ public class HomeActivity extends AppCompatActivity {
                 });
                 ad.show();
             }
+        });*/
+        btn_pen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnPopupClick(view);
+            }
         });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        todayDate = getTodayDate();
+        Intent intent = null;
+        if (requestCode == 1) {
+            if (resultCode == 0) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), normalWrite.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+            } else if (resultCode == 1) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), writequestion.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+            }
+        }
     }
 
     //날씨 조회
@@ -294,6 +333,12 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return CurDate;
+    }
+
+    public void mOnPopupClick(View v) {
+        Intent intent = new Intent(this, PopupActivity.class);
+        intent.putExtra("model", (Serializable) postModel);
+        startActivityForResult(intent, 1);
     }
 
     @Override

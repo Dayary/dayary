@@ -34,6 +34,7 @@
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/layout/activity_signup.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1925" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/selection_background.xml" value="0.2995" />
         <entry key="app/src/main/res/layout/activity_cor_del.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/activity_dbtest.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_findpw.xml" value="0.20729166666666668" />
@@ -42,6 +43,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_writequestion.xml" value="0.13722826086956522" />
         <entry key="app/src/main/res/layout/normalwrite.xml" value="0.13722826086956522" />
+        <entry key="app/src/main/res/layout/select.xml" value="0.5" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1890625" />
       </map>
     </option>

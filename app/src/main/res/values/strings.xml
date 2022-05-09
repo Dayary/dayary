@@ -19,5 +19,7 @@
     <string name="happyfootball">Today, I am happy. Because I played football.</string>
     <string name="modify">Modify</string>
     <string name="delete">Delete</string>
+    <string name="free_subjec">Free subject</string>
+    <string name="today_s_que">Today\'s question</string>
 
 </resources>

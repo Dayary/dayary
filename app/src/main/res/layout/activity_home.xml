@@ -161,7 +161,7 @@
             android:layout_marginLeft="97dp"
             android:layout_marginTop="660dp"
             android:background="@drawable/penicon1"
-
+            android:onClick="mOnPopupClick"
             />
 
         <!-- Diary button -->

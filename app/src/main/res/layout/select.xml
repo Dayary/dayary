@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pixel_3a_"
+    android:layout_width="230dp"
+    android:layout_height="196dp"
+    android:clipToOutline="true"
+    android:background="@drawable/selection_background"
+    android:orientation="horizontal"
+
+    >
+
+    <TextView
+        android:id="@+id/free_subjec"
+        android:layout_width="80dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/font1"
+        android:gravity="center_horizontal"
+        android:text="@string/free_subjec"
+        android:textAppearance="@style/free_subjec"
+        android:textSize="15dp"
+
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="162dp"
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="18dp"
+        android:background="#000000" />
+
+    <TextView
+        android:id="@+id/today_s_que"
+        android:layout_width="94dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/font1"
+        android:gravity="center_horizontal"
+        android:text="@string/today_s_que"
+        android:textAppearance="@style/free_subjec"
+        android:textSize="15dp" />
+
+    <View
+        android:id="@+id/icons8_spea"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/icons_free_subject" />
+
+    <View
+        android:id="@+id/icons8_ques"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/icons_question" />
+
+
+
+</RelativeLayout>
