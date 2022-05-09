@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
+        //원복
         contentView = findViewById(R.id.image_home_ex);
         query2 = database.child("user").child(postModel.userId).limitToLast(1);
         query2.addValueEventListener(new ValueEventListener() {
