@@ -141,13 +141,8 @@ public class HomeActivity extends AppCompatActivity {
                     if (dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
                         int idx1 = returnValue.indexOf("photo=");
-                        if(returnValue.contains("photoLongitude")) {
-                            int idx2 = returnValue.indexOf(", photoLongitude");
-                            imgURL = returnValue.substring(idx1 + 6, idx2);
-                        }else{
-                            imgURL = returnValue.substring(idx1 + 6);
-                        }
-
+                        int idx2 = returnValue.indexOf(", photoLongitude");
+                        imgURL = returnValue.substring(idx1 + 6, idx2);
                         Glide.with(getApplicationContext()).load(imgURL).override(352, 470).fitCenter().into(contentView);
                     }
                 }
