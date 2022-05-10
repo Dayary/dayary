@@ -37,6 +37,7 @@
         <activity android:name=".normalWrite" />
         <activity android:name=".writequestion" />
         <activity android:name=".corDel" />
+        <activity android:name=".question_corDel" />
         <activity android:name=".PopupActivity"
             android:theme="@android:style/Theme.Dialog"/>
 

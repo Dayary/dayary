@@ -198,7 +198,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
-                    intent = new Intent(getApplicationContext(), corDel.class);
+                    intent = new Intent(getApplicationContext(), question_corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
                     Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
                 } else {

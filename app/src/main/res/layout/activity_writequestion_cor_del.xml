@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".corDel"
+    tools:context=".question_corDel"
     android:background="@drawable/image_11">
 
     <FrameLayout

@@ -46,7 +46,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class corDel extends AppCompatActivity {
+public class question_corDel extends AppCompatActivity {
     private ImageView imageView;
     private ImageView upload;
     private ImageView delete;
@@ -74,7 +74,7 @@ public class corDel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cor_del);
+        setContentView(R.layout.activity_writequestion_cor_del);
 
         Intent intent = getIntent();
         PostModel postModel = (PostModel) intent.getSerializableExtra("model");
@@ -167,7 +167,7 @@ public class corDel extends AppCompatActivity {
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
                 if (flag == 0) {
-                    dialog = new ProgressDialog(corDel.this);
+                    dialog = new ProgressDialog(question_corDel.this);
                     dialog.setMessage("DB Updating");
                     dialog.show();
 
@@ -187,7 +187,7 @@ public class corDel extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }, 3000);
-                    Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+                    Toast.makeText(question_corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
 
                     flag = 0;
                     finish();
@@ -198,7 +198,7 @@ public class corDel extends AppCompatActivity {
                     FirebaseStorage mStorage = FirebaseStorage.getInstance();
                     final String uid = postModel.getUserId();
 
-                    dialog = new ProgressDialog(corDel.this);
+                    dialog = new ProgressDialog(question_corDel.this);
                     dialog.setMessage("DB Updating");
                     dialog.show();
 
@@ -243,7 +243,7 @@ public class corDel extends AppCompatActivity {
                                 }
                             }, 3000);
 
-                            Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(question_corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     });
@@ -255,7 +255,7 @@ public class corDel extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new ProgressDialog(corDel.this);
+                dialog = new ProgressDialog(question_corDel.this);
                 dialog.setMessage("Deleting");
                 dialog.show();
 
@@ -273,7 +273,7 @@ public class corDel extends AppCompatActivity {
                     }
                 }, 2000);
 
-                Toast.makeText(corDel.this, "일기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(question_corDel.this, "일기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
