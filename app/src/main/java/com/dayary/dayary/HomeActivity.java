@@ -184,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
+                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
             }
@@ -212,8 +212,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-            }
-            else if (resultCode == 1) {
+            } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
@@ -224,8 +223,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 startActivity(intent);
 
-            }
-            else{
+            } else {
 
             }
         }

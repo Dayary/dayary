@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".normalWrite"
+    tools:context=".mapActivity"
+    android:orientation="horizontal"
     android:background="@drawable/image_11">
 
     <FrameLayout
@@ -18,15 +19,15 @@
         <!-- Rectangle 19 -->
         <TextView
             android:id="@+id/dayary"
-            android:layout_width="108dp"
+            android:layout_width="151dp"
             android:layout_height="39dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="144dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginLeft="121dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/font1"
             android:gravity="center_vertical"
-            android:text="@string/dayary"
+            android:text="Diary Map"
             android:textAppearance="@style/dayary"
             android:textColor="#62A60C"
             android:textSize="48dp" />
@@ -34,7 +35,7 @@
         <View
             android:id="@+id/bottom_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -58,7 +59,7 @@
             android:background="@drawable/icon_home" />
 
         <!-- Writing button -->
-        <Button
+        <View
             android:id="@+id/icons8_penc"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -102,6 +103,15 @@
             android:layout_marginLeft="328dp"
             android:layout_marginTop="660dp"
             android:background="@drawable/icon_map" />
+
+        <fragment
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_height="559dp"
+            android:layout_marginTop="86dp"
+            />
+
 
     </FrameLayout>
 </LinearLayout>
