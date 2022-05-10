@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
+    tools:context=".writequestion"
     android:background="@drawable/image_11">
 
     <FrameLayout
@@ -53,6 +54,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="107dp"
+            android:adjustViewBounds= "true"
+            android:scaleType="fitXY"
             android:background="@drawable/rectangle_1"
             />
 
@@ -64,7 +67,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="19dp"
-            android:layout_marginTop="318dp"
+            android:layout_marginTop="320dp"
             android:background="@drawable/icon_pen_2" />
 
         <!-- icons8-eraser-99 1 -->
@@ -75,7 +78,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="62dp"
-            android:layout_marginTop="318dp"
+            android:layout_marginTop="320dp"
             android:background="@drawable/icons_eraser_1" />
 
         <!-- Rectangle 20 -->
@@ -117,195 +120,210 @@
 
 
         <!-- Today, I am happy -->
-        <TextView
+
+        <!-- Line 6 -->
+        <EditText
             android:id="@+id/today_i_am_"
-            android:layout_width="157dp"
+            android:layout_width="376dp"
+            android:layout_height="138dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="426dp"
+            android:background="@null"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:hint="@string/todayimhappy"
+            android:lineSpacingExtra="4dp"
+            android:textColor="#000000"
+            android:textColorHint="#B7A8A8"
+            android:textSize="24sp"
+            android:maxLength="200"
+            />
+
+        <ImageView
+            android:id="@+id/line_6"
+            android:layout_width="372dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="450dp"
+            android:background="@drawable/line_1" />
+
+        <!-- Line 7 -->
+        <ImageView
+            android:id="@+id/line_7"
+            android:layout_width="372dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="478dp"
+            android:background="@drawable/line_1" />
+
+        <!-- Line 8 -->
+        <ImageView
+            android:id="@+id/line_8"
+            android:layout_width="372dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="506dp"
+            android:background="@drawable/line_1" />
+
+        <!-- Line 9 -->
+        <ImageView
+            android:id="@+id/line_9"
+            android:layout_width="372dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="534dp"
+            android:background="@drawable/line_1" />
+
+        <!-- Line 10 -->
+        <View
+            android:id="@+id/line_10"
+            android:layout_width="372dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="9dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="562dp"
+            android:background="@drawable/line_1"
+            />
+
+        <!-- 0/200 -->
+        <TextView
+            android:id="@+id/some_id"
+            android:layout_width="52dp"
+            android:layout_height="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="333dp"
+            android:layout_marginTop="563dp"
+            android:fontFamily="@font/font1"
+            android:gravity="center"
+            android:text="0/200"
+            android:textColor="#000000"
+            />
+
+        <!-- Rectangle 21 -->
+        <ImageView
+            android:id="@+id/rectangle_3"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="610dp"
+            android:background="@drawable/rectangle_2" />
+
+        <!-- Save -->
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="69dp"
             android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="438dp"
-                android:fontFamily="@font/font1"
-                android:gravity="top"
-                android:text="@string/todayimhappy"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="185dp"
+            android:layout_marginTop="613dp"
+            android:fontFamily="@font/font1"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="#000000"
+            android:textSize="32dp" />
 
-            <!-- Line 6 -->
-            <ImageView
-                android:id="@+id/line_6"
-                android:layout_width="372dp"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="466dp"
-                android:background="@drawable/line_1" />
+        <!-- icons8-save-100 1 -->
+        <ImageView
+            android:id="@+id/icons8_save"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="610dp"
+            android:background="@drawable/icons_save_1" />
 
-            <!-- Line 7 -->
-            <ImageView
-                android:id="@+id/line_7"
-                android:layout_width="372dp"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="500dp"
-                android:background="@drawable/line_1" />
+        <View
+            android:id="@+id/bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
 
-            <!-- Line 8 -->
-            <ImageView
-                android:id="@+id/line_8"
-                android:layout_width="372dp"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="534dp"
-                android:background="@drawable/line_1" />
+            android:layout_marginTop="646dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/line_1" />
 
-            <!-- Line 9 -->
-            <ImageView
-                android:id="@+id/line_9"
-                android:layout_width="372dp"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="568dp"
-                android:background="@drawable/line_1" />
+        <!-- homepage button -->
+        <View
+            android:id="@+id/icons8_home"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_home"
+            android:clickable="true"
+            android:focusable="true"
+            />
 
-            <!-- Line 10 -->
-            <View
-                android:id="@+id/line_10"
-                android:layout_width="372dp"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="9dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="602dp"
-                android:background="@drawable/line_1"
-                />
+        <!-- Writing button -->
+        <View
+            android:id="@+id/icons8_penc"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="97dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/penicon1"
 
-            <!-- 17/200 -->
-            <TextView
-                android:id="@+id/some_id"
-                android:layout_width="46dp"
-                android:layout_height="21dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="333dp"
-                android:layout_marginTop="614dp"
-                android:fontFamily="@font/font1"
-                android:gravity="top"
-                android:text="@string/some_id"
-                android:textColor="#000000" />
+            />
 
-            <!-- Rectangle 21 -->
-            <ImageView
-                android:id="@+id/rectangle_3"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="659dp"
-                android:background="@drawable/rectangle_2" />
+        <!-- Diary button -->
+        <View
+            android:id="@+id/icons8_jour"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="174dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_diary"
+            />
 
-            <!-- Save -->
-            <TextView
-                android:id="@+id/save"
-                android:layout_width="69dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="197dp"
-                android:layout_marginTop="675dp"
-                android:fontFamily="@font/font1"
-                android:gravity="top"
-                android:text="@string/save"
-                android:textColor="#000000"
-                android:textSize="32dp" />
+        <!-- Calendar button -->
+        <View
+            android:id="@+id/icons8_cale"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="251dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_calendar"
+            />
 
-            <!-- icons8-save-100 1 -->
-            <ImageView
-                android:id="@+id/icons8_save"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="136dp"
-                android:layout_marginTop="666dp"
-                android:background="@drawable/icons_save_1" />
+        <!-- Map button -->
+        <View
+            android:id="@+id/icons8_loca"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="328dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_map" />
 
-            <!-- Line1 -->
-            <View
-                android:id="@+id/bottom_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="718dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginRight="4dp"
-                android:background="@drawable/line_1" />
+    </FrameLayout>
 
-            <!-- homepage button -->
-            <View
-                android:id="@+id/icons8_home"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="731dp"
-                android:background="@drawable/icon_home" />
-
-            <!-- Diary button -->
-            <View
-                android:id="@+id/icons8_penc"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="97dp"
-                android:layout_marginTop="731dp"
-                android:background="@drawable/penicon1" />
-
-            <View
-                android:id="@+id/icons8_jour"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="174dp"
-                android:layout_marginTop="731dp"
-                android:background="@drawable/icon_diary" />
-
-            <!-- Calendar button -->
-            <ImageView
-                android:id="@+id/icons8_cale"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="251dp"
-                android:layout_marginTop="731dp"
-                android:background="@drawable/icon_calendar" />
-
-            <!-- Map button -->
-            <ImageView
-                android:id="@+id/icons8_loca"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="328dp"
-                android:layout_marginTop="731dp"
-                android:background="@drawable/icon_map" />
-
-        </FrameLayout>
-
-    </LinearLayout>
+</LinearLayout>

@@ -170,47 +170,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         btn_pen = (Button) findViewById(R.id.icons8_penc);
-        /*btn_pen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder ad = new AlertDialog.Builder(HomeActivity.this);
-                ad.setPositiveButton("Free subject", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        todayDate = getTodayDate();
-                        Intent intent;
-                        if (todayDate.equals(lastDate)) {
-                            intent = new Intent(getApplicationContext(), corDel.class);
-                            intent.putExtra("model", (Serializable) postModel);
-                            Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            intent = new Intent(getApplicationContext(), normalWrite.class);
-                            intent.putExtra("model", (Serializable) postModel);
-                        }
-                        startActivity(intent);
-                    }
-                });
-
-                ad.setNegativeButton("Today's question", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        todayDate = getTodayDate();
-                        Intent intent;
-                        if (todayDate.equals(lastDate)) {
-                            intent = new Intent(getApplicationContext(), corDel.class);
-                            intent.putExtra("model", (Serializable) postModel);
-                            Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            intent = new Intent(getApplicationContext(), writequestion.class);
-                            intent.putExtra("model", (Serializable) postModel);
-                        }
-                        startActivity(intent);
-                    }
-                });
-                ad.show();
-            }
-        });*/
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
