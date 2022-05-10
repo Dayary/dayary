@@ -4,22 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 
-public class mapActivity extends AppCompatActivity {
+public class mapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private View home_view;
     private View btn_pen;
-
+    private GoogleMap mMap;
     private FirebaseAuth mAuth;
     private PostModel postModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapView);
+        mapFragment.getMapAsync(this);
+
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
 
@@ -49,4 +59,8 @@ public class mapActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+    }
 }
