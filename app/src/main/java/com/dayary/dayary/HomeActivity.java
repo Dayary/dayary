@@ -65,13 +65,11 @@ public class HomeActivity extends AppCompatActivity {
     private Query query0;
     private Query query1;
     private Query query2;
-    private Query query3;
 
     private String todayDate;
     int count = 0;
     private ProgressDialog dialog;
     private PostModel postModel;
-    private String[] data;
 
 
     private View btn_pen;
@@ -191,46 +189,11 @@ public class HomeActivity extends AppCompatActivity {
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                ArrayList<GeoModel> sampleList = new ArrayList<>();
-                query3 = database.child("user").child(postModel.userId);
-                query3.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String returnValue = snapshot.getValue().toString().substring(1);
-                        Log.d("return value", returnValue + "");
-                        data = returnValue.split("\\}\\}, ");
-                        System.out.println(data.length);
-                        data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
-                        for (int i = 0; i < data.length; i++) {
-                            int idx1 = data[i].indexOf("photoLongitude=");
-                            int idx2 = data[i].indexOf(", text=");
-                            double lng = Double.parseDouble(data[i].substring(idx1 + 15, idx2));
-
-                            int idx3 = data[i].indexOf("photoLatitude=");
-                            double lat = Double.parseDouble(data[i].substring(idx3 + 14, data[i].length() - 1));
-
-                            int idx4 = data[i].indexOf("photo=");
-                            int idx5 = data[i].indexOf(", photoLongitude");
-                            String imgURL = data[i].substring(idx4 + 6, idx5);
-                            Bitmap bitmap = getBitmap(imgURL);
-                            Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
-                            sampleList.add(new GeoModel(lat,lng,smallMaker));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
                 Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
-                intent.putExtra("geo", (Serializable)sampleList);
                 startActivity(intent);
                 finish();
-            }
+                }
         });
 
 
@@ -367,31 +330,7 @@ public class HomeActivity extends AppCompatActivity {
         dialog.dismiss();
         super.onDestroy();
     }
-    public Bitmap getBitmap(String imgPath) {
-        final Bitmap[] bitmap = new Bitmap[1];
-        Thread imgThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(imgPath);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    bitmap[0] = BitmapFactory.decodeStream(is);
-                } catch (IOException e) {
-                }
-            }
-        };
-        imgThread.start();
-        try {
-            imgThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            return bitmap[0];
-        }
-    }
+
 
 
 }
