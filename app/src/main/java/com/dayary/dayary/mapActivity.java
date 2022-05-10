@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -37,8 +38,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private FirebaseAuth mAuth;
     private PostModel postModel;
-    private Query query;
-    private String[] data;
+    ArrayList<GeoModel> sampleList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
-
-        getMarkerItems();
+        sampleList = (ArrayList<GeoModel>) intent.getSerializableExtra("geo");
 
         home_view = findViewById(R.id.icons8_home);
         home_view.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +83,8 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 5));
+        getMarkerItems();
     }
 
     public Marker addMarker(GeoModel geoModel) {
@@ -94,69 +95,10 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void getMarkerItems() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        ArrayList<GeoModel> sampleList = new ArrayList<>();
-        query = database.child("user").child(postModel.userId);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String returnValue = snapshot.getValue().toString().substring(1);
-                Log.d("return value", returnValue + "");
-                data = returnValue.split("\\}\\}, ");
-                System.out.println(data.length);
-                data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
-                for (int i = 0; i < data.length; i++) {
-                    int idx1 = data[i].indexOf("photoLongitude=");
-                    int idx2 = data[i].indexOf(", text=");
-                    double lng = Double.parseDouble(data[i].substring(idx1 + 15, idx2));
 
-                    int idx3 = data[i].indexOf("photoLatitude=");
-                    double lat = Double.parseDouble(data[i].substring(idx3 + 14, data[i].length() - 1));
-
-                    int idx4 = data[i].indexOf("photo=");
-                    int idx5 = data[i].indexOf(", photoLongitude");
-                    String imgURL = data[i].substring(idx4 + 6, idx5);
-                    Bitmap bitmap = getBitmap(imgURL);
-                    Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
-                    sampleList.add(new GeoModel(lat,lng,smallMaker));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         for(GeoModel geoModel : sampleList)
             System.out.println(geoModel);
         for(GeoModel geoModel : sampleList)
             addMarker(geoModel);
     }
-
-    public Bitmap getBitmap(String imgPath) {
-        final Bitmap[] bitmap = new Bitmap[1];
-        Thread imgThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(imgPath);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    bitmap[0] = BitmapFactory.decodeStream(is);
-                } catch (IOException e) {
-                }
-            }
-        };
-        imgThread.start();
-        try {
-            imgThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            return bitmap[0];
-        }
-    }
-
 }
