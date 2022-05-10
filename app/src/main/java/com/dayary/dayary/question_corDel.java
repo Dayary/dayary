@@ -76,6 +76,11 @@ public class question_corDel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writequestion_cor_del);
 
+        dialog = new ProgressDialog(question_corDel.this);
+        dialog.setMessage("Loading");
+        dialog.show();
+        dialog.dismiss();
+
         Intent intent = getIntent();
         PostModel postModel = (PostModel) intent.getSerializableExtra("model");
         System.out.println(postModel.getUserId());
@@ -162,14 +167,14 @@ public class question_corDel extends AppCompatActivity {
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog = new ProgressDialog(question_corDel.this);
+                dialog.setMessage("Updating");
+                dialog.show();
                 //기존 사진/정보 삭제
                 database.child("user").child(postModel.userId).child(lastDate).removeValue();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
                 if (flag == 0) {
-                    dialog = new ProgressDialog(question_corDel.this);
-                    dialog.setMessage("DB Updating");
-                    dialog.show();
 
                     final String uid = postModel.getUserId();
 
@@ -197,10 +202,6 @@ public class question_corDel extends AppCompatActivity {
                     //새로운 이미지/정보 업로드
                     FirebaseStorage mStorage = FirebaseStorage.getInstance();
                     final String uid = postModel.getUserId();
-
-                    dialog = new ProgressDialog(question_corDel.this);
-                    dialog.setMessage("DB Updating");
-                    dialog.show();
 
                     StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(lastDate).child(PhotoName);
                     storageReference.delete();
@@ -362,6 +363,7 @@ public class question_corDel extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        dialog.dismiss();
         super.onDestroy();
     }
 }
