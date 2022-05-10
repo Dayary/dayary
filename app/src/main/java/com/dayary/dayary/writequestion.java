@@ -38,7 +38,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class writequestion extends AppCompatActivity {
-    private View home_view;
     private ImageView upload;
     private ImageView save;
     private ImageView imageView;
@@ -51,6 +50,9 @@ public class writequestion extends AppCompatActivity {
     private EditText editText;
     private TextView editLength;
     private ProgressDialog dialog;
+
+    private View home_view;
+    private View btn_loc;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -179,6 +181,16 @@ public class writequestion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+            }
+        });
+        //지도로 이동하는 버튼
+        btn_loc = findViewById(R.id.icons8_loca);
+        btn_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
             }

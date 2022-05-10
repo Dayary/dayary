@@ -152,7 +152,7 @@
             android:background="@drawable/icon_home" />
 
         <!-- Writing button -->
-        <Button
+        <View
             android:id="@+id/icons8_penc"
             android:layout_width="45dp"
             android:layout_height="45dp"

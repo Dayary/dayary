@@ -53,7 +53,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private Button btn_pen;
     private TextView countView;
     private TextView dateView;
     private ImageView contentView;
@@ -66,6 +65,9 @@ public class HomeActivity extends AppCompatActivity {
     int count = 0;
     private ProgressDialog dialog;
     private PostModel postModel;
+
+    private View btn_pen;
+    private View btn_loc;
 
     Retrofit retrofit;
     WeatherApi weatherApi;
@@ -168,8 +170,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        btn_pen = (Button) findViewById(R.id.icons8_penc);
+        //글쓰기 이동하는 버튼
+        btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,12 +179,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //지도로 이동하는 버튼
+        btn_loc = findViewById(R.id.icons8_loca);
+        btn_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println(requestCode);
+        System.out.println(resultCode);
         todayDate = getTodayDate();
         Intent intent = null;
         if (requestCode == 1) {
@@ -196,7 +212,8 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-            } else if (resultCode == 1) {
+            }
+            else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
@@ -206,6 +223,10 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
+
+            }
+            else{
+
             }
         }
     }
@@ -296,7 +317,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
-        intent.putExtra("model", (Serializable) postModel);
+        //intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
     }
 
