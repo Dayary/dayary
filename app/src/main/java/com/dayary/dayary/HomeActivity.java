@@ -187,6 +187,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
 
