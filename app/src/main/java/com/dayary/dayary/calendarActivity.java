@@ -127,7 +127,7 @@ public class calendarActivity extends AppCompatActivity {
         @Override
         protected List<CalendarDay> doInBackground(Void... voids) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
