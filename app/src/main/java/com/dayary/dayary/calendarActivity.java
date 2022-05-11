@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.text.Edits;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -30,15 +31,17 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
 
 public class calendarActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
 
     private View btn_pen;
     private View btn_loc;
@@ -55,38 +58,7 @@ public class calendarActivity extends AppCompatActivity {
         HashSet<CalendarDay> dayCollection = new HashSet<CalendarDay>();
         //기록 날짜 추출
         Intent intent = getIntent();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         postModel = (PostModel) intent.getSerializableExtra("model");
-        mAuth = FirebaseAuth.getInstance();
-        query0 = database.child("user").child(postModel.userId);
-        query0.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Calendar cal = Calendar.getInstance();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        if (dataSnapshot.hasChildren()) {
-                            String temp = dataSnapshot.getKey();
-                            temp = temp.substring(0, 10);
-
-                            String[] arr = temp.split("-");
-                            cal.set(Calendar.YEAR, Integer.parseInt(arr[0]));
-                            cal.set(Calendar.MONTH, Integer.parseInt(arr[1]));
-                            cal.set(Calendar.DATE, Integer.parseInt(arr[2]));
-
-                            dayCollection.add(CalendarDay.from(cal));
-                            System.out.println();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
@@ -95,7 +67,7 @@ public class calendarActivity extends AppCompatActivity {
                 new SundayDecorator(),
                 new oneDayDecorator()
         );
-        calendarView.addDecorators(new EventDecorator(Color.parseColor("#62A60C"), dayCollection));
+        new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
         calendarView.setTitleFormatter(new TitleFormatter() {
             @Override
             public CharSequence format(CalendarDay day) {
@@ -138,6 +110,62 @@ public class calendarActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PopupActivity.class);
         intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
+    }
+
+    private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
+
+        protected void onPreExecute(@NonNull List<CalendarDay> calendarDays) {
+            super.onPostExecute(calendarDays);
+
+            if (isFinishing()) {
+                return;
+            }
+
+            calendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays));
+        }
+
+        @Override
+        protected List<CalendarDay> doInBackground(Void... voids) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            Calendar calendar = Calendar.getInstance();
+            ArrayList<CalendarDay> dates = new ArrayList<>();
+
+            query0 = database.child("user").child(postModel.userId);
+            query0.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        if (dataSnapshot != null) {
+                            if (dataSnapshot.hasChildren()) {
+                                String temp = dataSnapshot.getKey();
+                                temp = temp.substring(0, 10);
+
+                                String[] arr = temp.split("-");
+                                calendar.set(Calendar.YEAR, Integer.parseInt(arr[0]));
+                                calendar.set(Calendar.MONTH, Integer.parseInt(arr[1]));
+                                calendar.set(Calendar.DATE, Integer.parseInt(arr[2]));
+
+                                dates.add(CalendarDay.from(calendar));
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            return dates;
+        }
     }
 }
 
@@ -198,9 +226,9 @@ class EventDecorator implements DayViewDecorator {
     private final int color;
     private final HashSet<CalendarDay> dates;
 
-    public EventDecorator(int color, HashSet<CalendarDay> dayCollection) {
+    public EventDecorator(int color, Collection<CalendarDay> dayCollection) {
         this.color = color;
-        this.dates = dayCollection;
+        this.dates = new HashSet<>(dayCollection);
     }
 
     @Override
