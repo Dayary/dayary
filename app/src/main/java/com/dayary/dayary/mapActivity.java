@@ -154,7 +154,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void run() {
                 dialog.dismiss();
             }
-        }, 1000);
+        }, 2000);
     }
 
     public Bitmap getBitmap(String imgPath) {
