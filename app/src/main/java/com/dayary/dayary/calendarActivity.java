@@ -3,6 +3,7 @@ package com.dayary.dayary;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.icu.text.Edits;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -33,6 +34,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class calendarActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -42,21 +44,22 @@ public class calendarActivity extends AppCompatActivity {
 
     private PostModel postModel;
     private Query query0;
-    private Collection<CalendarDay> dayCollection;
+
     private MaterialCalendarView calendarView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        HashSet<CalendarDay> dayCollection = new HashSet<CalendarDay>();
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
         calendarView.addDecorators(
                 new SaturdayDecorator(),
                 new SundayDecorator(),
-                new oneDayDecorator()
-                //new EventDecorator(Color.parseColor("#62A60C"),)
+                new oneDayDecorator(),
+                new EventDecorator(Color.parseColor("#62A60C"), dayCollection)
         );
         calendarView.setTitleFormatter(new TitleFormatter() {
             @Override
@@ -81,30 +84,32 @@ public class calendarActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         query0 = database.child("user").child(postModel.userId);
-        query0.addValueEventListener(new ValueEventListener() {
+        query0.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Calendar cal = Calendar.getInstance();
+                CalendarDay day;
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
                         if (dataSnapshot.hasChildren()) {
-                            Date date = null;
+
                             String temp = dataSnapshot.getKey();
                             temp = temp.substring(0, 10);
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            try {
-                                date = formatter.parse(temp.substring(0, 10));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(date);
-                            System.out.println(cal);
-                            CalendarDay day = null;
-                            day.copyTo(cal);
-                            System.out.println(day);
-                            dayCollection.add(day);
+
+                            String[] arr = temp.split("-");
+                            cal.set(Calendar.YEAR, Integer.parseInt(arr[0]));
+                            cal.set(Calendar.MONTH, Integer.parseInt(arr[1]));
+                            cal.set(Calendar.DATE, Integer.parseInt(arr[2]));
                         }
+                        day.copyTo(cal);
+                        System.out.println("here" + day.getCalendar());
+                        dayCollection.add(day);
                     }
+                }
+                Iterator iter = dayCollection.iterator();
+                while (iter.hasNext()) {
+                    System.out.print(iter.next() + " ");
                 }
             }
 
@@ -113,7 +118,6 @@ public class calendarActivity extends AppCompatActivity {
 
             }
         });
-
 
         btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +142,7 @@ public class calendarActivity extends AppCompatActivity {
 
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
-        //intent.putExtra("model", (Serializable) postModel);
+        intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
     }
 }
@@ -191,7 +195,6 @@ class oneDayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        System.out.println(date);
         view.addSpan(new StyleSpan(Typeface.BOLD));
         view.addSpan(new ForegroundColorSpan(Color.parseColor("#62A60C")));
     }
@@ -213,6 +216,7 @@ class EventDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
+
         view.addSpan(new DotSpan(5, color));
     }
 }
