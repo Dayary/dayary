@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,9 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
@@ -69,64 +73,54 @@ public class calendarActivity extends AppCompatActivity {
             @Override
             public void run() {
                 dialog.dismiss();
-                new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+                //new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
             }
         }, 3000);
 
         //달력 커스텀
-        calendarView = findViewById(R.id.calendarView);
-        calendarView.addDecorators(
-                new SaturdayDecorator(),
-                new SundayDecorator(),
-                new oneDayDecorator()
-        );
-        calendarView.setTitleFormatter(new TitleFormatter() {
+        calendarView  = findViewById(R.id.calendarView);
+        calendarView.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setMinimumDate(CalendarDay.from(2017, 0, 1)) // 달력의 시작
+                .setMaximumDate(CalendarDay.from(2030, 11, 31)) // 달력의 끝
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
+                .commit();
+
+        String[] result = {"2022,03,18","2022,04,18","2022,05,18","2022,06,18"};
+
+        new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
-            public CharSequence format(CalendarDay day) {
-                Date inputText = day.getDate();
-                String[] calendarHeaderElements = inputText.toString().split(" ");
-                StringBuilder calendarHeaderBuilder = new StringBuilder();
-                calendarHeaderBuilder.append(calendarHeaderElements[5])
-                        .append(" ")
-                        .append(calendarHeaderElements[1]);
-                return calendarHeaderBuilder.toString();
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                int Year = date.getYear();
+                int Month = date.getMonth() + 1;
+                int Day = date.getDay();
+
+                Log.i("Year test", Year + "");
+                Log.i("Month test", Month + "");
+                Log.i("Day test", Day + "");
+
+                String shot_Day = Year + "," + Month + "," + Day;
+
+                Log.i("shot_Day test", shot_Day + "");
+                calendarView.clearSelection();
+
+                Toast.makeText(getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
             }
         });
-        calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
-        calendarView.setHeaderTextAppearance(R.style.CustomHeaderTextAppearance);
-        calendarView.setDateTextAppearance(R.style.CustomDateTextAppearance);
-
-
-        btn_pen = findViewById(R.id.icons8_penc);
-        btn_pen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mOnPopupClick(view);
-            }
-        });
-
-        //지도로 이동하는 버튼
-        btn_loc = findViewById(R.id.icons8_loca);
-        btn_loc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
-
-    public void mOnPopupClick(View v) {
-        Intent intent = new Intent(this, PopupActivity.class);
-        intent.putExtra("model", (Serializable) postModel);
-        startActivityForResult(intent, 1);
     }
 
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
+
+        String[] Time_Result;
+
+        ApiSimulator(String[] Time_Result){
+            this.Time_Result = Time_Result;
+        }
+
         @Override
-        protected List<CalendarDay> doInBackground(Void... voids) {
+        protected List<CalendarDay> doInBackground(@NonNull Void... voids) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -135,32 +129,24 @@ public class calendarActivity extends AppCompatActivity {
 
             Calendar calendar = Calendar.getInstance();
             ArrayList<CalendarDay> dates = new ArrayList<>();
-            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            query0 = database.child("user").child(postModel.userId);
-            query0.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        if (dataSnapshot != null) {
-                            if (dataSnapshot.hasChildren()) {
-                                String temp = dataSnapshot.getKey();
-                                temp = temp.substring(0, 10);
+            /*특정날짜 달력에 점표시해주는곳*/
+            /*월은 0이 1월 년,일은 그대로*/
+            //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
+            for(int i = 0 ; i < Time_Result.length ; i ++){
+                CalendarDay day = CalendarDay.from(calendar);
+                String[] time = Time_Result[i].split(",");
+                int year = Integer.parseInt(time[0]);
+                int month = Integer.parseInt(time[1]);
+                int dayy = Integer.parseInt(time[2]);
 
-                                String[] arr = temp.split("-");
-                                calendar.set(Calendar.YEAR, Integer.parseInt(arr[0]));
-                                calendar.set(Calendar.MONTH, Integer.parseInt(arr[1]));
-                                calendar.set(Calendar.DATE, Integer.parseInt(arr[2]));
-                                dates.add(CalendarDay.from(calendar));
-                            }
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                dates.add(day);
+                System.out.println(day);
+                calendar.set(year,month-1,dayy);
+            }
 
-                }
-            });
+
+
             return dates;
         }
 
@@ -175,69 +161,15 @@ public class calendarActivity extends AppCompatActivity {
             calendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays));
         }
     }
-
 }
-
-class SaturdayDecorator implements DayViewDecorator {
-    private final Calendar calendar = Calendar.getInstance();
-
-    public SaturdayDecorator() {
-    }
-
-    @Override
-    public boolean shouldDecorate(CalendarDay day) {
-        day.copyTo(calendar);
-        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
-        return weekDay == Calendar.SATURDAY;
-    }
-
-    @Override
-    public void decorate(DayViewFacade view) {
-        view.addSpan(new ForegroundColorSpan(Color.BLUE));
-    }
-}
-
-class SundayDecorator implements DayViewDecorator {
-    private final Calendar calendar = Calendar.getInstance();
-
-    public SundayDecorator() {
-    }
-
-    @Override
-    public boolean shouldDecorate(CalendarDay day) {
-        day.copyTo(calendar);
-        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
-        return weekDay == Calendar.SUNDAY;
-    }
-
-    @Override
-    public void decorate(DayViewFacade view) {
-        view.addSpan(new ForegroundColorSpan(Color.RED));
-    }
-}
-
-class oneDayDecorator implements DayViewDecorator {
-    private CalendarDay date = CalendarDay.today();
-
-    @Override
-    public boolean shouldDecorate(CalendarDay day) {
-        return day.equals(date);
-    }
-
-    @Override
-    public void decorate(DayViewFacade view) {
-        view.addSpan(new StyleSpan(Typeface.BOLD));
-        view.addSpan(new ForegroundColorSpan(Color.parseColor("#62A60C")));
-    }
-}
-
 class EventDecorator implements DayViewDecorator {
-    private final int color;
-    private final HashSet<CalendarDay> dates;
 
-    public EventDecorator(int color, Collection<CalendarDay> dayCollection) {
+    private int color;
+    private HashSet<CalendarDay> dates;
+
+    public EventDecorator(int color, Collection<CalendarDay> dates) {
         this.color = color;
-        this.dates = new HashSet<>(dayCollection);
+        this.dates = new HashSet<>(dates);
     }
 
     @Override
@@ -247,8 +179,7 @@ class EventDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-
-        view.addSpan(new DotSpan(5, color));
+        view.addSpan(new DotSpan(5, color)); // 날자밑에 점
     }
 }
 
