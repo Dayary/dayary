@@ -24,8 +24,8 @@
             android:fontFamily="@font/font1"
             android:gravity="top"
             android:text="@string/dayary"
-            android:textColor = "#62A60C"
             android:textAppearance="@style/dayary"
+            android:textColor="#62A60C"
             android:textSize="48dp" />
 
 
@@ -46,8 +46,6 @@
         <!-- Weather Icon -->
 
 
-
-
         <ImageView
             android:id="@+id/weather_icon"
             android:layout_width="70dp"
@@ -55,8 +53,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="307dp"
-            android:layout_marginTop="55dp"
-            />
+            android:layout_marginTop="55dp" />
 
         <!-- Saving ~ -->
 
@@ -161,8 +158,7 @@
             android:layout_marginLeft="97dp"
             android:layout_marginTop="660dp"
             android:background="@drawable/penicon1"
-            android:onClick="mOnPopupClick"
-            />
+            android:onClick="mOnPopupClick" />
 
         <!-- Diary button -->
         <View
@@ -190,7 +186,7 @@
         <View
             android:id="@+id/icons8_loca"
             android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_height="38dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="328dp"

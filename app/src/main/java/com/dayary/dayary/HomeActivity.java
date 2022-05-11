@@ -74,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private View btn_pen;
     private View btn_loc;
+    private View btn_cal;
 
     Retrofit retrofit;
     WeatherApi weatherApi;
@@ -194,6 +195,14 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 }
+        });
+        btn_cal = findViewById(R.id.icons8_cale);
+        btn_cal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
+                startActivity(intent);
+            }
         });
 
 

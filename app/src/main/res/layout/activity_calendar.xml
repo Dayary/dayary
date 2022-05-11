@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:clipToOutline="true"
     android:orientation="horizontal"
+    tools:context=".calendarActivity"
     android:background="@drawable/image_11">
 
     <FrameLayout
@@ -29,11 +30,12 @@
             android:textSize="48dp" />
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="97dp"
-            app:mcv_showOtherDates="defaults" />
+            />
 
         <View
             android:id="@+id/bottom_line"
