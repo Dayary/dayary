@@ -148,13 +148,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             }
         });
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, 3000);
+        dialog.dismiss();
     }
 
     public Bitmap getBitmap(String imgPath) {
