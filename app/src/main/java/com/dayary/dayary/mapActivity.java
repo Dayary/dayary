@@ -1,9 +1,11 @@
 package com.dayary.dayary;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -42,6 +44,8 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     ArrayList<GeoModel> sampleList = new ArrayList<>();
     private Query query3;
     private String[] data;
+
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +112,10 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void getData() {
+        dialog = new ProgressDialog(mapActivity.this);
+        dialog.setMessage("Saving");
+        dialog.show();
+
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         query3 = database.child("user").child(postModel.userId);
         query3.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -133,16 +141,20 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
                     sampleList.add(new GeoModel(lat, lng, smallMaker));
                 }
-                System.out.println(sampleList.get(0).getLat());
-                System.out.println(sampleList.get(1).getLat());
-                System.out.println(sampleList.get(2).getLat());
-                System.out.println(sampleList.get(3).getLat());
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 3000);
     }
 
     public Bitmap getBitmap(String imgPath) {
@@ -169,5 +181,10 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         } finally {
             return bitmap[0];
         }
+    }
+    @Override
+    protected void onDestroy() {
+        dialog.dismiss();
+        super.onDestroy();
     }
 }
