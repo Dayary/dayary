@@ -113,7 +113,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void getData() {
         dialog = new ProgressDialog(mapActivity.this);
-        dialog.setMessage("Saving");
+        dialog.setMessage("Map Loading");
         dialog.show();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -154,7 +154,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void run() {
                 dialog.dismiss();
             }
-        }, 3000);
+        }, 1000);
     }
 
     public Bitmap getBitmap(String imgPath) {
