@@ -1,5 +1,8 @@
 package com.dayary.dayary;
 
+import static com.google.firebase.database.core.RepoManager.clear;
+
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -112,9 +115,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void getData() {
-        dialog = new ProgressDialog(mapActivity.this);
-        dialog.setMessage("DB Loading");
-        dialog.show();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         query3 = database.child("user").child(postModel.userId);
@@ -137,8 +137,10 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     int idx4 = data[i].indexOf("photo=");
                     int idx5 = data[i].indexOf(", photoLongitude");
                     String imgURL = data[i].substring(idx4 + 6, idx5);
+                    System.out.println(imgURL);
                     Bitmap bitmap = getBitmap(imgURL);
-                    Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+                    System.out.println(bitmap);
+                    Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
                     sampleList.add(new GeoModel(lat, lng, smallMaker));
                 }
 
@@ -148,13 +150,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             }
         });
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, 1000);
     }
 
     public Bitmap getBitmap(String imgPath) {

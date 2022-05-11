@@ -24,6 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_check_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
+
         android:usesCleartextTraffic="true">
         <uses-library
             android:name="org.apache.http.legacy"
