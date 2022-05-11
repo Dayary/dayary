@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class calendarActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -51,16 +52,50 @@ public class calendarActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        HashSet<CalendarDay> dayCollection = new HashSet<>();
+        HashSet<CalendarDay> dayCollection = new HashSet<CalendarDay>();
+        //기록 날짜 추출
+        Intent intent = getIntent();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        postModel = (PostModel) intent.getSerializableExtra("model");
+        mAuth = FirebaseAuth.getInstance();
+        query0 = database.child("user").child(postModel.userId);
+        query0.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Calendar cal = Calendar.getInstance();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
+                        if (dataSnapshot.hasChildren()) {
+                            String temp = dataSnapshot.getKey();
+                            temp = temp.substring(0, 10);
+
+                            String[] arr = temp.split("-");
+                            cal.set(Calendar.YEAR, Integer.parseInt(arr[0]));
+                            cal.set(Calendar.MONTH, Integer.parseInt(arr[1]));
+                            cal.set(Calendar.DATE, Integer.parseInt(arr[2]));
+
+                            dayCollection.add(CalendarDay.from(cal));
+                            System.out.println();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
         calendarView.addDecorators(
                 new SaturdayDecorator(),
                 new SundayDecorator(),
-                new oneDayDecorator(),
-                new EventDecorator(Color.parseColor("#62A60C"), dayCollection)
+                new oneDayDecorator()
         );
+        calendarView.addDecorators(new EventDecorator(Color.parseColor("#62A60C"), dayCollection));
         calendarView.setTitleFormatter(new TitleFormatter() {
             @Override
             public CharSequence format(CalendarDay day) {
@@ -77,43 +112,6 @@ public class calendarActivity extends AppCompatActivity {
         calendarView.setHeaderTextAppearance(R.style.CustomHeaderTextAppearance);
         calendarView.setDateTextAppearance(R.style.CustomDateTextAppearance);
 
-        //기록 날짜 추출
-        Intent intent = getIntent();
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        postModel = (PostModel) intent.getSerializableExtra("model");
-        mAuth = FirebaseAuth.getInstance();
-
-        query0 = database.child("user").child(postModel.userId);
-        query0.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Calendar cal = Calendar.getInstance();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        if (dataSnapshot.hasChildren()) {
-
-                            String temp = dataSnapshot.getKey();
-                            temp = temp.substring(0, 10);
-
-                            String[] arr = temp.split("-");
-                            cal.set(Calendar.YEAR, Integer.parseInt(arr[0]));
-                            cal.set(Calendar.MONTH, Integer.parseInt(arr[1]));
-                            cal.set(Calendar.DATE, Integer.parseInt(arr[2]));
-
-                            CalendarDay day = CalendarDay.from(cal);
-                            System.out.println("here" + day.getCalendar());
-                            dayCollection.add(day);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
@@ -200,9 +198,9 @@ class EventDecorator implements DayViewDecorator {
     private final int color;
     private final HashSet<CalendarDay> dates;
 
-    public EventDecorator(int color, HashSet<CalendarDay> dates) {
+    public EventDecorator(int color, HashSet<CalendarDay> dayCollection) {
         this.color = color;
-        this.dates = dates;
+        this.dates = dayCollection;
     }
 
     @Override
