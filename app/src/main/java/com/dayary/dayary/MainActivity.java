@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Log.d("MainActivity", "error");
             }
         }
     }
@@ -194,9 +193,6 @@ public class MainActivity extends AppCompatActivity {
                             // 로그인 성공
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Toast.makeText(MainActivity.this, "success_login", Toast.LENGTH_LONG).show();
-                            Log.d("MainActivity", "personAddress " + account.getAccount());
-                            Log.d("MainActivity", "personName " + account.getDisplayName());
-                            Log.d("MainActivity", "personUid " + account.getId());
 
                             PostModel model = new PostModel();
                             model.setUserId(firebaseAuth.getCurrentUser().getUid());

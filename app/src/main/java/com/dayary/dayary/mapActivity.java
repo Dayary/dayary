@@ -88,9 +88,9 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        getMarkerItems();
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 10));
-        getMarkerItems();
     }
 
     public Marker addMarker(GeoModel geoModel) {
@@ -134,6 +134,9 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     sampleList.add(new GeoModel(lat, lng, smallMaker));
                 }
                 System.out.println(sampleList.get(0).getLat());
+                System.out.println(sampleList.get(1).getLat());
+                System.out.println(sampleList.get(2).getLat());
+                System.out.println(sampleList.get(3).getLat());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
