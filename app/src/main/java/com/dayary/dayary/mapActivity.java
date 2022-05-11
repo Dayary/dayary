@@ -88,7 +88,8 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 5));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 10));
         getMarkerItems();
     }
 
@@ -132,9 +133,11 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
                     sampleList.add(new GeoModel(lat, lng, smallMaker));
                 }
+                System.out.println(sampleList.get(0).getLat());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

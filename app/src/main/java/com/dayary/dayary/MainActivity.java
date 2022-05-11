@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.putExtra("model", (Serializable) model);
                             startActivity(intent);
+                            finish();
                         } else {
                             // 로그인 실패
                             Toast.makeText(MainActivity.this, "아이디 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -201,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
                             model.setUserId(firebaseAuth.getCurrentUser().getUid());
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.putExtra("model", (Serializable) model);
-
                             startActivity(intent);
+                            finish();
                         } else {
                             // 로그인 실패
                             Toast.makeText(MainActivity.this, "failed_login", Toast.LENGTH_LONG).show();
