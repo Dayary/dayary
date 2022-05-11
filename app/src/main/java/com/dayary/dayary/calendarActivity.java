@@ -1,11 +1,13 @@
 package com.dayary.dayary;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.text.Edits;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
@@ -48,6 +50,7 @@ public class calendarActivity extends AppCompatActivity {
 
     private PostModel postModel;
     private Query query0;
+    ProgressDialog dialog;
 
     private MaterialCalendarView calendarView;
 
@@ -55,10 +58,20 @@ public class calendarActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        HashSet<CalendarDay> dayCollection = new HashSet<CalendarDay>();
         //기록 날짜 추출
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
+        dialog = new ProgressDialog(calendarActivity.this);
+        dialog.setMessage("Loading");
+        dialog.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+            }
+        }, 3000);
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
@@ -67,7 +80,6 @@ public class calendarActivity extends AppCompatActivity {
                 new SundayDecorator(),
                 new oneDayDecorator()
         );
-        new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
         calendarView.setTitleFormatter(new TitleFormatter() {
             @Override
             public CharSequence format(CalendarDay day) {
@@ -113,31 +125,19 @@ public class calendarActivity extends AppCompatActivity {
     }
 
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
-
-        protected void onPreExecute(@NonNull List<CalendarDay> calendarDays) {
-            super.onPostExecute(calendarDays);
-
-            if (isFinishing()) {
-                return;
-            }
-
-            calendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays));
-        }
-
         @Override
         protected List<CalendarDay> doInBackground(Void... voids) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             Calendar calendar = Calendar.getInstance();
             ArrayList<CalendarDay> dates = new ArrayList<>();
-
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             query0 = database.child("user").child(postModel.userId);
-            query0.addListenerForSingleValueEvent(new ValueEventListener() {
+            query0.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -151,22 +151,31 @@ public class calendarActivity extends AppCompatActivity {
                                 calendar.set(Calendar.YEAR, Integer.parseInt(arr[0]));
                                 calendar.set(Calendar.MONTH, Integer.parseInt(arr[1]));
                                 calendar.set(Calendar.DATE, Integer.parseInt(arr[2]));
-
                                 dates.add(CalendarDay.from(calendar));
                             }
                         }
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-
             return dates;
         }
+
+        @Override
+        protected void onPostExecute(@NonNull List<CalendarDay> calendarDays) {
+            super.onPostExecute(calendarDays);
+
+            if (isFinishing()) {
+                return;
+            }
+
+            calendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays));
+        }
     }
+
 }
 
 class SaturdayDecorator implements DayViewDecorator {
