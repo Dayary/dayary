@@ -98,7 +98,7 @@ public class calendarActivity extends AppCompatActivity {
                             }
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(date);
-
+                            System.out.println(cal);
                             CalendarDay day = null;
                             day.copyTo(cal);
                             System.out.println(day);
