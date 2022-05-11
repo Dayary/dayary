@@ -177,9 +177,5 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
             return bitmap[0];
         }
     }
-    @Override
-    protected void onDestroy() {
-        dialog.dismiss();
-        super.onDestroy();
-    }
+
 }
