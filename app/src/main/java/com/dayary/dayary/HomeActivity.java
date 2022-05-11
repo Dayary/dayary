@@ -39,10 +39,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,19 +56,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private Button btn_pen;
     private TextView countView;
     private TextView dateView;
     private ImageView contentView;
     private String lastDate;
     private String imgURL;
+
     private Query query0;
     private Query query1;
     private Query query2;
+
     private String todayDate;
     int count = 0;
     private ProgressDialog dialog;
     private PostModel postModel;
+
+
+    private View btn_pen;
+    private View btn_loc;
 
     Retrofit retrofit;
     WeatherApi weatherApi;
@@ -136,7 +144,6 @@ public class HomeActivity extends AppCompatActivity {
                         System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
                         lastDate = returnValue.substring(1, idx);
-                        //dateView.setText(lastDate);
                     }
                 }
             }
@@ -168,8 +175,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        btn_pen = (Button) findViewById(R.id.icons8_penc);
+        //글쓰기 이동하는 버튼
+        btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,12 +184,27 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //지도로 이동하는 버튼
+        btn_loc = findViewById(R.id.icons8_loca);
+        btn_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+                finish();
+                }
+        });
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println(requestCode);
+        System.out.println(resultCode);
         todayDate = getTodayDate();
         Intent intent = null;
         if (requestCode == 1) {
@@ -206,6 +228,9 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
+
+            } else {
+
             }
         }
     }
@@ -296,7 +321,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
-        intent.putExtra("model", (Serializable) postModel);
+        //intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
     }
 
@@ -305,5 +330,7 @@ public class HomeActivity extends AppCompatActivity {
         dialog.dismiss();
         super.onDestroy();
     }
+
+
 
 }

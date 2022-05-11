@@ -5,15 +5,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
 
     <queries>
 
-        <provider android:authorities="com.google.android.apps.wellbeing.api"/>
+        <provider android:authorities="com.google.android.apps.wellbeing.api" />
 
     </queries>
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_check"
         android:label="@string/app_name"
@@ -21,7 +24,14 @@
         android:roundIcon="@mipmap/ic_launcher_check_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
+
         android:usesCleartextTraffic="true">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCcnLo41KVe5pX9YuNal2GH8yTzsIIFFMY" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -38,8 +48,10 @@
         <activity android:name=".writequestion" />
         <activity android:name=".corDel" />
         <activity android:name=".question_corDel" />
-        <activity android:name=".PopupActivity"
-            android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".mapActivity" />
+        <activity
+            android:name=".PopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
 
     </application>
 

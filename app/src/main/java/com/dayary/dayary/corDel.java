@@ -51,7 +51,6 @@ public class corDel extends AppCompatActivity {
     private ImageView upload;
     private ImageView delete;
     private ImageView modify;
-    private View home_view;
     private FirebaseAuth mAuth;
     private EditText editText;
     private String CurDate = "";
@@ -67,6 +66,9 @@ public class corDel extends AppCompatActivity {
     private int flag = 0;
     private ProgressDialog dialog;
 
+    private View home_view;
+    private View btn_loc;
+
     private final int GET_GALLERY_IMAGE = 200;
 
 
@@ -74,7 +76,7 @@ public class corDel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_writequestion_cor_del);
+        setContentView(R.layout.activity_cor_del);
 
         dialog = new ProgressDialog(corDel.this);
         dialog.setMessage("Loading");
@@ -278,12 +280,24 @@ public class corDel extends AppCompatActivity {
                 finish();
             }
         });
-        home_view = findViewById(R.id.icons8_home);
+
         //홈으로 이동하는 버튼
+        home_view = findViewById(R.id.icons8_home);
         home_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+            }
+        });
+
+        //지도로 이동하는 버튼
+        btn_loc = findViewById(R.id.icons8_loca);
+        btn_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
             }

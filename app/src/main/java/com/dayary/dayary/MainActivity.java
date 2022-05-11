@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Log.d("MainActivity", "error");
             }
         }
     }
@@ -174,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.putExtra("model", (Serializable) model);
                             startActivity(intent);
+                            finish();
                         } else {
                             // 로그인 실패
                             Toast.makeText(MainActivity.this, "아이디 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -193,16 +193,13 @@ public class MainActivity extends AppCompatActivity {
                             // 로그인 성공
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Toast.makeText(MainActivity.this, "success_login", Toast.LENGTH_LONG).show();
-                            Log.d("MainActivity", "personAddress " + account.getAccount());
-                            Log.d("MainActivity", "personName " + account.getDisplayName());
-                            Log.d("MainActivity", "personUid " + account.getId());
 
                             PostModel model = new PostModel();
                             model.setUserId(firebaseAuth.getCurrentUser().getUid());
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             intent.putExtra("model", (Serializable) model);
-
                             startActivity(intent);
+                            finish();
                         } else {
                             // 로그인 실패
                             Toast.makeText(MainActivity.this, "failed_login", Toast.LENGTH_LONG).show();

@@ -45,7 +45,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class normalWrite extends AppCompatActivity {
-    private View home_view;
     private ImageView upload;
     private ImageView save;
     private ImageView imageView;
@@ -57,6 +56,10 @@ public class normalWrite extends AppCompatActivity {
     private String longitude;
     private EditText editText;
     private TextView editLength;
+
+    private View home_view;
+    private View btn_loc;
+
     ProgressDialog dialog;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -186,12 +189,22 @@ public class normalWrite extends AppCompatActivity {
             }
         });
 
-        home_view = findViewById(R.id.icons8_home);
         //홈으로 이동하는 버튼
+        home_view = findViewById(R.id.icons8_home);
         home_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+            }
+        });
+        //지도로 이동하는 버튼
+        btn_loc = findViewById(R.id.icons8_loca);
+        btn_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
             }
