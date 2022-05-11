@@ -24,10 +24,15 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 public class calendarActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -37,7 +42,7 @@ public class calendarActivity extends AppCompatActivity {
 
     private PostModel postModel;
     private Query query0;
-
+    private Collection<CalendarDay> dayCollection;
     private MaterialCalendarView calendarView;
 
     @Override
@@ -51,6 +56,7 @@ public class calendarActivity extends AppCompatActivity {
                 new SaturdayDecorator(),
                 new SundayDecorator(),
                 new oneDayDecorator()
+                //new EventDecorator(Color.parseColor("#62A60C"),)
         );
         calendarView.setTitleFormatter(new TitleFormatter() {
             @Override
@@ -79,9 +85,24 @@ public class calendarActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null){
+                    if (dataSnapshot != null) {
                         if (dataSnapshot.hasChildren()) {
-                            System.out.println(dataSnapshot.getKey());
+                            Date date = null;
+                            String temp = dataSnapshot.getKey();
+                            temp = temp.substring(0, 10);
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            try {
+                                date = formatter.parse(temp.substring(0, 10));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(date);
+
+                            CalendarDay day = null;
+                            day.copyTo(cal);
+                            System.out.println(day);
+                            dayCollection.add(day);
                         }
                     }
                 }
@@ -94,8 +115,7 @@ public class calendarActivity extends AppCompatActivity {
         });
 
 
-
-                btn_pen = findViewById(R.id.icons8_penc);
+        btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,8 +191,29 @@ class oneDayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
+        System.out.println(date);
         view.addSpan(new StyleSpan(Typeface.BOLD));
         view.addSpan(new ForegroundColorSpan(Color.parseColor("#62A60C")));
+    }
+}
+
+class EventDecorator implements DayViewDecorator {
+    private final int color;
+    private final HashSet<CalendarDay> dates;
+
+    public EventDecorator(int color, HashSet<CalendarDay> dates) {
+        this.color = color;
+        this.dates = dates;
+    }
+
+    @Override
+    public boolean shouldDecorate(CalendarDay day) {
+        return dates.contains(day);
+    }
+
+    @Override
+    public void decorate(DayViewFacade view) {
+        view.addSpan(new DotSpan(5, color));
     }
 }
 
