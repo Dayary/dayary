@@ -51,7 +51,7 @@ public class calendarActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        HashSet<CalendarDay> dayCollection = new HashSet<CalendarDay>();
+        HashSet<CalendarDay> dayCollection = new HashSet<>();
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
@@ -88,7 +88,6 @@ public class calendarActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Calendar cal = Calendar.getInstance();
-                CalendarDay day;
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
@@ -101,15 +100,12 @@ public class calendarActivity extends AppCompatActivity {
                             cal.set(Calendar.YEAR, Integer.parseInt(arr[0]));
                             cal.set(Calendar.MONTH, Integer.parseInt(arr[1]));
                             cal.set(Calendar.DATE, Integer.parseInt(arr[2]));
+
+                            CalendarDay day = CalendarDay.from(cal);
+                            System.out.println("here" + day.getCalendar());
+                            dayCollection.add(day);
                         }
-                        day.copyTo(cal);
-                        System.out.println("here" + day.getCalendar());
-                        dayCollection.add(day);
                     }
-                }
-                Iterator iter = dayCollection.iterator();
-                while (iter.hasNext()) {
-                    System.out.print(iter.next() + " ");
                 }
             }
 
