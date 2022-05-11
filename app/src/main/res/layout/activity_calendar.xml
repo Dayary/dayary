@@ -8,7 +8,9 @@
     android:clipToOutline="true"
     android:orientation="horizontal"
     tools:context=".calendarActivity"
-    android:background="@drawable/image_11">
+    android:background="@drawable/image_11"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -35,6 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="97dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:mcv_showOtherDates="none"
             />
 
         <View
@@ -107,5 +112,6 @@
             android:layout_marginLeft="328dp"
             android:layout_marginTop="660dp"
             android:background="@drawable/icon_map" />
+
     </FrameLayout>
 </LinearLayout>

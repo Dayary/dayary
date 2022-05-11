@@ -201,7 +201,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
 
