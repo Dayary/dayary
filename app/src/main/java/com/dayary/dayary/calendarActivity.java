@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +40,9 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -47,6 +50,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.Executors;
 
@@ -59,8 +63,10 @@ public class calendarActivity extends AppCompatActivity {
 
     private String todayDate;
     private String lastDate;
+    private String imgURL;
 
     private Query query;
+    private Query query2;
     private PostModel postModel;
     ProgressDialog dialog;
 
@@ -84,10 +90,42 @@ public class calendarActivity extends AppCompatActivity {
                 new SundayDecorator(),
                 new oneDayDecorator()
         );
-        calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
+        calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
         calendarView.setHeaderTextAppearance(R.style.CustomHeaderTextAppearance);
         calendarView.setDateTextAppearance(R.style.CustomDateTextAppearance);
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                //날짜 추출
+                int idx1 = date.toString().indexOf("{");
+                int idx2 = date.toString().indexOf("}");
+                String[] time = date.toString().substring(idx1 + 1, idx2).split("-");
+                int year = Integer.parseInt(time[0]);
+                int month = Integer.parseInt(time[1]) + 1;
+                int dayy = Integer.parseInt(time[2]);
+                LocalDate tempDate = LocalDate.of(year, month, dayy);
+                DayOfWeek dayOfWeek = tempDate.getDayOfWeek();
+                String queryDate = "";
+                if (month < 10) {
+                    if (dayy < 10)
+                        queryDate = year + "-" + "0" + month + "-" + "0" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                    else
+                        queryDate = year + "-" + "0" + month + "-" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                } else {
+                    if (dayy < 10)
+                        queryDate = year + "-" + month + "-" + "0" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                    else
+                        queryDate = year + "-" + month + "-" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                }
+                Intent intent = new Intent(getApplicationContext(), showActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                intent.putExtra("query", queryDate);
+                startActivity(intent);
+
+            }
+        });
 
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -173,12 +211,8 @@ public class calendarActivity extends AppCompatActivity {
 
                 calendar.set(year, month - 1, dayy);
                 CalendarDay day = CalendarDay.from(calendar);
-
                 dates.add(day);
-                System.out.println(day);
             }
-
-
             return dates;
         }
 

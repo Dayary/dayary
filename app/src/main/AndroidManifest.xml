@@ -50,6 +50,7 @@
         <activity android:name=".question_corDel" />
         <activity android:name=".mapActivity" />
         <activity android:name=".calendarActivity" />
+        <activity android:name=".showActivity" />
         <activity
             android:name=".PopupActivity"
             android:theme="@android:style/Theme.Dialog" />
