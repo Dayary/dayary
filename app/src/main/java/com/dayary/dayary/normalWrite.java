@@ -196,11 +196,11 @@ public class normalWrite extends AppCompatActivity {
                         int idx1 = returnValue.indexOf("photo=");
                         int idx2 = returnValue.indexOf(", photoLongitude");
                         imgURL = returnValue.substring(idx1 + 6, idx2);
-                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
+                        //Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
                         int idx3 = returnValue.indexOf("text=");
                         int idx4 = returnValue.indexOf(", photoName=");
                         String editTextData = returnValue.substring(idx3 + 5, idx4);
-                        editText.setText(editTextData);
+                        //editText.setText(editTextData);
                         int idx5 = returnValue.indexOf("photoName=");
                         int idx6 = returnValue.indexOf(", userId=");
                         PhotoName = returnValue.substring(idx5 + 10, idx6);
@@ -317,7 +317,9 @@ public class normalWrite extends AppCompatActivity {
 
             try {
                 ExifInterface exif = new ExifInterface(imagePath);
+                System.out.println(exif);
                 float[] latLong = new float[2];
+                System.out.println(exif.getLatLong(latLong));
                 exif.getLatLong(latLong);
                 latitude = String.valueOf(latLong[0]);
                 longitude = String.valueOf(latLong[1]);
