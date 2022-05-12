@@ -24,12 +24,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -52,13 +57,21 @@ public class normalWrite extends AppCompatActivity {
     private String imagePath;
     private Uri selectedImageUri;
     private final int GET_GALLERY_IMAGE = 200;
+    private String PhotoName;
     private String latitude;
     private String longitude;
     private EditText editText;
     private TextView editLength;
-
-    private View home_view;
+    private String todayDate;
+    private String lastDate = "";
+    private String imgURL;
+    private Query query2;
+    private View btn_home;
+    private View btn_pen;
     private View btn_loc;
+    private View btn_cal;
+    private PostModel postModel;
+
 
     ProgressDialog dialog;
 
@@ -70,7 +83,7 @@ public class normalWrite extends AppCompatActivity {
 
         //Intent를 통해서 기존의 정보를 가져옴
         Intent intent = getIntent();
-        PostModel postModel = (PostModel) intent.getSerializableExtra("model");
+        postModel = (PostModel) intent.getSerializableExtra("model");
         System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
@@ -79,35 +92,6 @@ public class normalWrite extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         editText = findViewById(R.id.today_i_am_);
         editLength = findViewById(R.id.some_id);
-
-        //로컬 디바이스의 날짜를 가져옴
-        LocalDate todaysDate = LocalDate.now();
-        int curday = todaysDate.getDayOfWeek().getValue();
-        String CurDate = "";
-        switch (curday) {
-            case 1:
-                CurDate = todaysDate + "-" + "Mon";
-                break;
-            case 2:
-                CurDate = todaysDate + "-" + "Tue";
-                break;
-            case 3:
-                CurDate = todaysDate + "-" + "Wed";
-                break;
-            case 4:
-                CurDate = todaysDate + "-" + "Thur";
-                break;
-            case 5:
-                CurDate = todaysDate + "-" + "Fri";
-                break;
-            case 6:
-                CurDate = todaysDate + "-" + "Sat";
-                break;
-            case 7:
-                CurDate = todaysDate + "-" + "Sun";
-                break;
-        }
-        System.out.println(CurDate);
 
         //upload 버튼 동작시 갤러리에서 이미지를 가져옴.
         upload = findViewById(R.id.rectangle_2);
@@ -122,8 +106,8 @@ public class normalWrite extends AppCompatActivity {
         });
         //save 버튼 동작시 파이어베이스 realtimeDB, Storage에 저장
         save = findViewById(R.id.rectangle_3);
-        String finalCurDate = CurDate;
-        String finalCurDate1 = CurDate;
+        String finalCurDate = getTodayDate();
+        String finalCurDate1 = getTodayDate();
         save.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -189,29 +173,71 @@ public class normalWrite extends AppCompatActivity {
             }
         });
 
-        //홈으로 이동하는 버튼
-        home_view = findViewById(R.id.icons8_home);
-        home_view.setOnClickListener(new View.OnClickListener() {
+        //하단 버튼 이동
+        //홈으로 이동
+        btn_home = findViewById(R.id.icons8_home);
+        btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
-        //지도로 이동하는 버튼
+        //글쓰기 이동
+        btn_pen = findViewById(R.id.icons8_penc);
+        btn_pen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnPopupClick(view);
+            }
+        });
+        //Map 이동
         btn_loc = findViewById(R.id.icons8_loca);
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
+                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
+            }
+        });
+        // 캘린더 이동
+        btn_cal = findViewById(R.id.icons8_cale);
+        btn_cal.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                            value[0] = value[0].substring(1);
+                            for (int i = 0; i < value.length; i++) {
+                                value[i] = value[i].substring(0, 10);
+                            }
+                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                            intent.putExtra("cal", value);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
             }
         });
     }
 
-    //이미지를 가져오는 onActivityResult
+    //갤러리에서 이미지를 가져오는 onActivityResult + 글쓰기 Pop창 선택 onActivityResult
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -225,7 +251,9 @@ public class normalWrite extends AppCompatActivity {
 
             try {
                 ExifInterface exif = new ExifInterface(imagePath);
+                System.out.println(exif);
                 float[] latLong = new float[2];
+                System.out.println(exif.getLatLong(latLong));
                 exif.getLatLong(latLong);
                 latitude = String.valueOf(latLong[0]);
                 longitude = String.valueOf(latLong[1]);
@@ -235,6 +263,75 @@ public class normalWrite extends AppCompatActivity {
 
             imageView.setImageURI(selectedImageUri);
         }
+
+        //Pop창 선택
+        todayDate = getTodayDate();
+        Intent intent = null;
+        if (requestCode == 1) {
+            if (resultCode == 0) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(normalWrite.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), normalWrite.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+                finish();
+            } else if (resultCode == 1) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), question_corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(normalWrite.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), writequestion.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+                finish();
+            } else {
+
+            }
+        }
+
+    }
+    public void mOnPopupClick(View v) {
+        Intent intent = new Intent(this, PopupActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getTodayDate() {
+        //로컬 디바이스의 날짜를 가져옴
+        LocalDate todaysDate = LocalDate.now();
+        int curday = todaysDate.getDayOfWeek().getValue();
+        String day = "";
+        switch (curday) {
+            case 1:
+                day = todaysDate + "-" + "Mon";
+                break;
+            case 2:
+                day = todaysDate + "-" + "Tue";
+                break;
+            case 3:
+                day = todaysDate + "-" + "Wed";
+                break;
+            case 4:
+                day = todaysDate + "-" + "Thur";
+                break;
+            case 5:
+                day = todaysDate + "-" + "Fri";
+                break;
+            case 6:
+                day = todaysDate + "-" + "Sat";
+                break;
+            case 7:
+                day = todaysDate + "-" + "Sun";
+                break;
+        }
+
+        return day;
     }
 
     //이미지 URL -> 이미지 절대경로를 가져옴

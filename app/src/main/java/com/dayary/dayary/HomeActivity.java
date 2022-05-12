@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +40,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +50,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
     int count = 0;
     private ProgressDialog dialog;
     private PostModel postModel;
-
+    private String[] arr = null;
 
     private View btn_pen;
     private View btn_loc;
@@ -176,7 +181,9 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-        //글쓰기 이동하는 버튼
+
+        //하단 버튼 이동
+        //글쓰기 이동
         btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +192,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //지도로 이동하는 버튼
+        //Map 이동
         btn_loc = findViewById(R.id.icons8_loca);
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,16 +201,36 @@ public class HomeActivity extends AppCompatActivity {
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
                 finish();
-                }
+            }
         });
+        // 캘린더 이동
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                startActivity(intent);
-                finish();
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                            value[0] = value[0].substring(1);
+                            for(int i = 0; i < value.length;i++) {
+                                value[i] = value[i].substring(0,10);
+                            }
+                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                            intent.putExtra("cal",value);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
             }
         });
 
@@ -221,6 +248,8 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == 0) {
                 if (todayDate.equals(lastDate)) {
+                    System.out.println("1"+lastDate);
+                    System.out.println("2"+todayDate);
                     intent = new Intent(getApplicationContext(), corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
                     Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
@@ -229,6 +258,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
+                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -239,7 +269,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-
+                finish();
             } else {
 
             }
@@ -332,7 +362,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
-        //intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
     }
 
@@ -341,7 +370,6 @@ public class HomeActivity extends AppCompatActivity {
         dialog.dismiss();
         super.onDestroy();
     }
-
 
 
 }

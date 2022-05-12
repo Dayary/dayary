@@ -65,10 +65,13 @@ public class question_corDel extends AppCompatActivity {
     private TextView editLength;
     private int flag = 0;
     private ProgressDialog dialog;
+    private PostModel postModel;
+    private String todayDate;
 
-
-    private View home_view;
+    private View btn_home;
+    private View btn_pen;
     private View btn_loc;
+    private View btn_cal;
 
     private final int GET_GALLERY_IMAGE = 200;
 
@@ -85,7 +88,7 @@ public class question_corDel extends AppCompatActivity {
         dialog.dismiss();
 
         Intent intent = getIntent();
-        PostModel postModel = (PostModel) intent.getSerializableExtra("model");
+        postModel = (PostModel) intent.getSerializableExtra("model");
         System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
@@ -281,29 +284,74 @@ public class question_corDel extends AppCompatActivity {
                 finish();
             }
         });
-        //홈으로 이동하는 버튼
-        home_view = findViewById(R.id.icons8_home);
-        home_view.setOnClickListener(new View.OnClickListener() {
+        //하단 버튼 이동
+        //홈으로 이동
+        btn_home = findViewById(R.id.icons8_home);
+        btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
-        //지도로 이동하는 버튼
+        //글쓰기 이동
+        btn_pen = findViewById(R.id.icons8_penc);
+        btn_pen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnPopupClick(view);
+            }
+        });
+        //Map 이동
         btn_loc = findViewById(R.id.icons8_loca);
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),mapActivity.class);
+                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
+            }
+        });
+        // 캘린더 이동
+        btn_cal = findViewById(R.id.icons8_cale);
+        btn_cal.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                            value[0] = value[0].substring(1);
+                            for (int i = 0; i < value.length; i++) {
+                                value[i] = value[i].substring(0, 10);
+                            }
+                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                            intent.putExtra("cal", value);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
             }
         });
     }
-
-    //갤러리에서 이미지를 가져오는 onActivityResult
+    public void mOnPopupClick(View v) {
+        Intent intent = new Intent(this, PopupActivity.class);
+        startActivityForResult(intent, 1);
+    }
+    //갤러리에서 이미지를 가져오는 onActivityResult + 글쓰기 Pop창 선택 onActivityResult
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -328,6 +376,36 @@ public class question_corDel extends AppCompatActivity {
             imageView.setImageURI(selectedImageUri);
             //flag == 1 사진 수정 작업 진행
             flag = 1;
+        }
+        //Pop창 선택
+        todayDate = getTodayDate();
+        Intent intent = null;
+        if (requestCode == 1) {
+            if (resultCode == 0) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(question_corDel.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), normalWrite.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+                finish();
+            } else if (resultCode == 1) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), question_corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(question_corDel.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), writequestion.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+                finish();
+            } else {
+
+            }
         }
     }
 
