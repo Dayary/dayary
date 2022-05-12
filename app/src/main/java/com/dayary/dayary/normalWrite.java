@@ -154,43 +154,6 @@ public class normalWrite extends AppCompatActivity {
             }
 
         });
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        query2 = database.child("user").child(postModel.userId).child(lastDate).limitToLast(1);
-        query2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        String returnValue = snapshot.getValue().toString();
-                        int idx0 = returnValue.indexOf("=");
-                        lastDate = returnValue.substring(1, idx0);
-                        int idx1 = returnValue.indexOf("photo=");
-                        int idx2 = returnValue.indexOf(", photoLongitude");
-                        imgURL = returnValue.substring(idx1 + 6, idx2);
-                        //Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
-                        int idx3 = returnValue.indexOf("text=");
-                        int idx4 = returnValue.indexOf(", photoName=");
-                        String editTextData = returnValue.substring(idx3 + 5, idx4);
-                        //editText.setText(editTextData);
-                        int idx5 = returnValue.indexOf("photoName=");
-                        int idx6 = returnValue.indexOf(", userId=");
-                        PhotoName = returnValue.substring(idx5 + 10, idx6);
-                        int idx7 = returnValue.indexOf("photoLatitude=");
-                        int idx8 = returnValue.indexOf("}}}");
-                        latitude = returnValue.substring(idx7 + 14, idx8);
-                        int idx9 = returnValue.indexOf("photoLongitude=");
-                        int idx10 = returnValue.indexOf(", text");
-                        longitude = returnValue.substring(idx9 + 15, idx10);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
         //현재 글자수 표현
         editText.addTextChangedListener(new TextWatcher() {
