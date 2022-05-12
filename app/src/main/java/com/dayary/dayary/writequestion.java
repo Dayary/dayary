@@ -76,34 +76,6 @@ public class writequestion extends AppCompatActivity {
         editText = findViewById(R.id.today_i_am_);
         editLength = findViewById(R.id.some_id);
 
-        LocalDate todaysDate = LocalDate.now();
-        int curday = todaysDate.getDayOfWeek().getValue();
-        String CurDate = "";
-        switch (curday) {
-            case 1:
-                CurDate = todaysDate + "-" + "Mon";
-                break;
-            case 2:
-                CurDate = todaysDate + "-" + "Tue";
-                break;
-            case 3:
-                CurDate = todaysDate + "-" + "Wed";
-                break;
-            case 4:
-                CurDate = todaysDate + "-" + "Thur";
-                break;
-            case 5:
-                CurDate = todaysDate + "-" + "Fri";
-                break;
-            case 6:
-                CurDate = todaysDate + "-" + "Sat";
-                break;
-            case 7:
-                CurDate = todaysDate + "-" + "Sun";
-                break;
-        }
-        System.out.println(CurDate);
-
         //upload 버튼 동작시 갤러리에서 이미지를 가져옴.
         upload = findViewById(R.id.rectangle_2);
         upload.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +89,8 @@ public class writequestion extends AppCompatActivity {
         });
         //save 버튼 동작시 파이어베이스 realtimeDB, Storage에 저장
         save = findViewById(R.id.rectangle_3);
-        String finalCurDate = CurDate;
-        String finalCurDate1 = CurDate;
+        String finalCurDate = getTodayDate();
+        String finalCurDate1 = getTodayDate();
         save.setOnClickListener(new View.OnClickListener() {
 
             @Override
