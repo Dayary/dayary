@@ -181,7 +181,9 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-        //글쓰기 이동하는 버튼
+        //하단 버튼 이동
+
+        //글쓰기 이동
         btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +192,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //지도로 이동하는 버튼
+        //Map 이동
         btn_loc = findViewById(R.id.icons8_loca);
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +203,7 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+        // 캘린더 이동
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
 
@@ -214,7 +217,6 @@ public class HomeActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data", task.getException());
                         } else {
-                            System.out.println(" ! : " + task.getResult().getValue());
                             String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
                             value[0] = value[0].substring(1);
                             for(int i = 0; i < value.length;i++) {
@@ -254,6 +256,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
+                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -264,7 +267,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-
+                finish();
             } else {
 
             }
@@ -357,7 +360,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
-        //intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
     }
 

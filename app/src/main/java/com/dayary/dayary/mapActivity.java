@@ -7,12 +7,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +27,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,17 +42,24 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class mapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private View home_view;
-    private View btn_pen;
     private GoogleMap mMap;
     private FirebaseAuth mAuth;
     private PostModel postModel;
     ArrayList<GeoModel> sampleList = new ArrayList<>();
+    private Query query1;
     private Query query3;
     private String[] data;
+    private String todayDate;
+    private String lastDate;
+
+
+    private View btn_home;
+    private View btn_pen;
+    private View btn_cal;
 
     ProgressDialog dialog;
 
@@ -54,19 +67,41 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
         getData();
-
-        //sampleList = (ArrayList<GeoModel>) intent.getSerializableExtra("geo");
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
 
-        home_view = findViewById(R.id.icons8_home);
-        home_view.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        query1 = database.child("user").child(postModel.userId).limitToLast(1);
+        query1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot != null) {
+                        String returnValue = snapshot.getValue().toString();
+                        System.out.println(returnValue);
+                        int idx = returnValue.indexOf("=");
+                        lastDate = returnValue.substring(1, idx);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //하단 버튼 이동
+        //홈으로 이동
+        btn_home = findViewById(R.id.icons8_home);
+        btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -75,8 +110,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 finish();
             }
         });
-
-        //글쓰기 이동하는 버튼
+        //글쓰기 이동
         btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +118,113 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mOnPopupClick(view);
             }
         });
+        //캘린더 이동
+        btn_cal = findViewById(R.id.icons8_cale);
+        btn_cal.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                            value[0] = value[0].substring(1);
+                            for (int i = 0; i < value.length; i++) {
+                                value[i] = value[i].substring(0, 10);
+                            }
+                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                            intent.putExtra("cal", value);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+
+            }
+        });
     }
+
 
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         intent.putExtra("model", (Serializable) postModel);
         startActivityForResult(intent, 1);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getTodayDate() {
+        //로컬 디바이스의 날짜를 가져옴
+        LocalDate todaysDate = LocalDate.now();
+        int curday = todaysDate.getDayOfWeek().getValue();
+        String CurDate = "";
+        switch (curday) {
+            case 1:
+                CurDate = todaysDate + "-" + "Mon";
+                break;
+            case 2:
+                CurDate = todaysDate + "-" + "Tue";
+                break;
+            case 3:
+                CurDate = todaysDate + "-" + "Wed";
+                break;
+            case 4:
+                CurDate = todaysDate + "-" + "Thur";
+                break;
+            case 5:
+                CurDate = todaysDate + "-" + "Fri";
+                break;
+            case 6:
+                CurDate = todaysDate + "-" + "Sat";
+                break;
+            case 7:
+                CurDate = todaysDate + "-" + "Sun";
+                break;
+        }
+
+        return CurDate;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println(requestCode);
+        System.out.println(resultCode);
+        todayDate = getTodayDate();
+        Intent intent = null;
+        if (requestCode == 1) {
+            if (resultCode == 0) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(mapActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), normalWrite.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+                finish();
+            } else if (resultCode == 1) {
+                if (todayDate.equals(lastDate)) {
+                    intent = new Intent(getApplicationContext(), question_corDel.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    Toast.makeText(mapActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), writequestion.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                }
+                startActivity(intent);
+                finish();
+            } else {
+
+            }
+        }
     }
 
     @Override
@@ -145,6 +280,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
