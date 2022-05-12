@@ -181,8 +181,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-        //하단 버튼 이동
 
+        //하단 버튼 이동
         //글쓰기 이동
         btn_pen = findViewById(R.id.icons8_penc);
         btn_pen.setOnClickListener(new View.OnClickListener() {

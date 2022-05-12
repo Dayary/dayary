@@ -286,6 +286,8 @@ public class corDel extends AppCompatActivity {
             }
         });
 
+        //하단 버튼 이동
+        //홈으로 이동
         btn_home = findViewById(R.id.icons8_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,6 +317,7 @@ public class corDel extends AppCompatActivity {
                 finish();
             }
         });
+        // 캘린더 이동
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
 
