@@ -166,15 +166,16 @@ public class calendarActivity extends AppCompatActivity {
             ArrayList<CalendarDay> dates = new ArrayList<>();
 
             for (int i = 0; i < Time_Result.length; i++) {
-                CalendarDay day = CalendarDay.from(calendar);
                 String[] time = Time_Result[i].split("-");
                 int year = Integer.parseInt(time[0]);
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
 
+                calendar.set(year, month - 1, dayy);
+                CalendarDay day = CalendarDay.from(calendar);
+
                 dates.add(day);
                 System.out.println(day);
-                calendar.set(year, month - 1, dayy);
             }
 
 
