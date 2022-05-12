@@ -250,7 +250,6 @@ public class calendarActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -261,7 +260,6 @@ public class calendarActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }

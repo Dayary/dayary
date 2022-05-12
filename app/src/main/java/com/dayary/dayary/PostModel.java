@@ -75,14 +75,14 @@ public class PostModel implements Serializable {
     }
 
     @Exclude
-    public Map<String,Object> toMap(){
-        HashMap<String,Object>result = new HashMap<>();
-        result.put("photo",photo);
-        result.put("photoLatitude",photoLatitude);
-        result.put("photoLongitude",photoLongitude);
-        result.put("photoName",photoName);
-        result.put("text",text);
-        result.put("userId",userId);
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("photo", photo);
+        result.put("photoLatitude", photoLatitude);
+        result.put("photoLongitude", photoLongitude);
+        result.put("photoName", photoName);
+        result.put("text", text);
+        result.put("userId", userId);
         return result;
     }
 }

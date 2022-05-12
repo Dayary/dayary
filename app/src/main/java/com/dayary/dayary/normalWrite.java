@@ -148,6 +148,9 @@ public class normalWrite extends AppCompatActivity {
                         }, 3000);
                         Toast.makeText(normalWrite.this, "DB Upload success", Toast.LENGTH_LONG).show();
 
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.putExtra("model", (Serializable) postModel);
+                        startActivity(intent);
                         finish();
                     }
                 });
@@ -278,7 +281,6 @@ public class normalWrite extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -289,13 +291,13 @@ public class normalWrite extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }
         }
 
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);

@@ -198,11 +198,14 @@ public class question_corDel extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }, 3000);
-                    Toast.makeText(question_corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+                    Toast.makeText(question_corDel.this, "업로드 성공", Toast.LENGTH_LONG).show();
 
                     flag = 0;
-                    finish();
 
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    startActivity(intent);
+                    finish();
                 } else if (flag == 1) {
 
                     //새로운 이미지/정보 업로드
@@ -250,7 +253,11 @@ public class question_corDel extends AppCompatActivity {
                                 }
                             }, 3000);
 
-                            Toast.makeText(question_corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(question_corDel.this, "업로드 성공", Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
                             finish();
                         }
                     });
@@ -281,6 +288,10 @@ public class question_corDel extends AppCompatActivity {
                 }, 2000);
 
                 Toast.makeText(question_corDel.this, "일기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
                 finish();
             }
         });
@@ -346,10 +357,12 @@ public class question_corDel extends AppCompatActivity {
             }
         });
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
     }
+
     //갤러리에서 이미지를 가져오는 onActivityResult + 글쓰기 Pop창 선택 onActivityResult
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -391,7 +404,6 @@ public class question_corDel extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -402,7 +414,6 @@ public class question_corDel extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }

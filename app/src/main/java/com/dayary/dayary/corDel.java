@@ -203,8 +203,11 @@ public class corDel extends AppCompatActivity {
                     Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
 
                     flag = 0;
-                    finish();
 
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.putExtra("model", (Serializable) postModel);
+                    startActivity(intent);
+                    finish();
                 } else if (flag == 1) {
 
                     //새로운 이미지/정보 업로드
@@ -252,6 +255,10 @@ public class corDel extends AppCompatActivity {
                             }, 3000);
 
                             Toast.makeText(corDel.this, "DB Update success", Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
                             finish();
                         }
                     });
@@ -282,6 +289,10 @@ public class corDel extends AppCompatActivity {
                 }, 2000);
 
                 Toast.makeText(corDel.this, "일기가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
                 finish();
             }
         });
@@ -333,11 +344,11 @@ public class corDel extends AppCompatActivity {
                         } else {
                             String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
                             value[0] = value[0].substring(1);
-                            for(int i = 0; i < value.length;i++) {
-                                value[i] = value[i].substring(0,10);
+                            for (int i = 0; i < value.length; i++) {
+                                value[i] = value[i].substring(0, 10);
                             }
                             Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal",value);
+                            intent.putExtra("cal", value);
                             intent.putExtra("model", (Serializable) postModel);
                             startActivity(intent);
                             finish();
@@ -348,6 +359,7 @@ public class corDel extends AppCompatActivity {
             }
         });
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
@@ -362,9 +374,6 @@ public class corDel extends AppCompatActivity {
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             imagePath = getRealPath(selectedImageUri);
-
-            System.out.println(selectedImageUri);
-            System.out.println(imagePath);
 
             try {
                 ExifInterface exif = new ExifInterface(imagePath);
@@ -395,7 +404,6 @@ public class corDel extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -406,7 +414,6 @@ public class corDel extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }

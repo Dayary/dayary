@@ -67,7 +67,7 @@ public class writequestion extends AppCompatActivity {
         setContentView(R.layout.activity_writequestion);
 
         Intent intent = getIntent();
-         postModel = (PostModel) intent.getSerializableExtra("model");
+        postModel = (PostModel) intent.getSerializableExtra("model");
         System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
@@ -129,7 +129,11 @@ public class writequestion extends AppCompatActivity {
                             }
                         }, 3000);
 
-                        Toast.makeText(writequestion.this, "DB Upload success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(writequestion.this, "업로드 성공", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.putExtra("model", (Serializable) postModel);
+                        startActivity(intent);
                         finish();
                     }
                 });
@@ -200,11 +204,11 @@ public class writequestion extends AppCompatActivity {
                         } else {
                             String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
                             value[0] = value[0].substring(1);
-                            for(int i = 0; i < value.length;i++) {
-                                value[i] = value[i].substring(0,10);
+                            for (int i = 0; i < value.length; i++) {
+                                value[i] = value[i].substring(0, 10);
                             }
                             Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal",value);
+                            intent.putExtra("cal", value);
                             intent.putExtra("model", (Serializable) postModel);
                             startActivity(intent);
                             finish();
@@ -217,10 +221,12 @@ public class writequestion extends AppCompatActivity {
 
 
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
     }
+
     //갤러리에서 이미지를 가져오는 onActivityResult + 글쓰기 Pop창 선택 onActivityResult
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -260,7 +266,6 @@ public class writequestion extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -271,12 +276,12 @@ public class writequestion extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getTodayDate() {
         //로컬 디바이스의 날짜를 가져옴
@@ -309,6 +314,7 @@ public class writequestion extends AppCompatActivity {
 
         return day;
     }
+
     //이미지 URL -> 이미지 절대경로를 가져옴
     public String getRealPath(Uri uri) {
         String[] proj = {MediaStore.Images.Media.DATA};

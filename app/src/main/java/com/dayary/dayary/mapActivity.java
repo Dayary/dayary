@@ -209,7 +209,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -220,7 +219,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }

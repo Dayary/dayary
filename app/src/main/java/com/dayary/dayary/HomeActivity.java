@@ -219,11 +219,11 @@ public class HomeActivity extends AppCompatActivity {
                         } else {
                             String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
                             value[0] = value[0].substring(1);
-                            for(int i = 0; i < value.length;i++) {
-                                value[i] = value[i].substring(0,10);
+                            for (int i = 0; i < value.length; i++) {
+                                value[i] = value[i].substring(0, 10);
                             }
                             Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal",value);
+                            intent.putExtra("cal", value);
                             intent.putExtra("model", (Serializable) postModel);
                             startActivity(intent);
                             finish();
@@ -248,8 +248,8 @@ public class HomeActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == 0) {
                 if (todayDate.equals(lastDate)) {
-                    System.out.println("1"+lastDate);
-                    System.out.println("2"+todayDate);
+                    System.out.println("1" + lastDate);
+                    System.out.println("2" + todayDate);
                     intent = new Intent(getApplicationContext(), corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
                     Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
@@ -258,7 +258,6 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else if (resultCode == 1) {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
@@ -269,7 +268,6 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }

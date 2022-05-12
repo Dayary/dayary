@@ -41,8 +41,8 @@ public class PopupActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("result",0);
-                setResult(0,intent);
+                intent.putExtra("result", 0);
+                setResult(0, intent);
                 finish();
             }
         });
@@ -51,31 +51,34 @@ public class PopupActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("result",1);
-                setResult(1,intent);
+                intent.putExtra("result", 1);
+                setResult(1, intent);
                 finish();
             }
         });
 
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //바깥레이어 클릭시 안닫히게
-        if(event.getAction()==MotionEvent.ACTION_OUTSIDE){
+        if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
             Intent intent = new Intent();
-            setResult(-1,intent);
+            setResult(-1, intent);
             finish();
         }
 
         return true;
     }
+
     @Override
     public void onBackPressed() {
         //안드로이드 백버튼 막기
         Intent intent = new Intent();
-        setResult(-1,intent);
+        setResult(-1, intent);
         finish();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getTodayDate() {
         //로컬 디바이스의 날짜를 가져옴

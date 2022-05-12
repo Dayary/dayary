@@ -36,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         editTextEmail = (EditText) findViewById(R.id.e_mail);
         editTextPassword = (EditText) findViewById(R.id.password);
-        editTextCheckPassWord = (EditText)findViewById(R.id.confirm_pas);
+        editTextCheckPassWord = (EditText) findViewById(R.id.confirm_pas);
         buttonJoin = (TextView) findViewById(R.id.register2);
         buttonBack = (RelativeLayout) findViewById(R.id.pageBack);
 
@@ -93,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        buttonBack.setOnClickListener(new View.OnClickListener(){
+        buttonBack.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
