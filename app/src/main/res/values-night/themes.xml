@@ -138,4 +138,16 @@
 
     </style>
 
+    <style name="my_diary">
+
+        <item name="android:textSize">
+            48sp
+        </item>
+
+        <item name="android:textColor">
+            #62A60C
+        </item>
+
+    </style>
+
 </resources>
