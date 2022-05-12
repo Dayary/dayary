@@ -71,36 +71,9 @@ public class calendarActivity extends AppCompatActivity {
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
-        calendarView.state().edit()
-                .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setMinimumDate(CalendarDay.from(2017, 0, 1)) // 달력의 시작
-                .setMaximumDate(CalendarDay.from(2030, 11, 31)) // 달력의 끝
-                .setCalendarDisplayMode(CalendarMode.MONTHS)
-                .commit();
-
-        //String[] result = {"2022,03,18","2022,04,18","2022,05,18","2022,06,18"};
 
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
-        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                int Year = date.getYear();
-                int Month = date.getMonth() + 1;
-                int Day = date.getDay();
-
-                Log.i("Year test", Year + "");
-                Log.i("Month test", Month + "");
-                Log.i("Day test", Day + "");
-
-                String shot_Day = Year + "," + Month + "," + Day;
-
-                Log.i("shot_Day test", shot_Day + "");
-                calendarView.clearSelection();
-
-                Toast.makeText(getApplicationContext(), shot_Day, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
@@ -122,12 +95,9 @@ public class calendarActivity extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
             ArrayList<CalendarDay> dates = new ArrayList<>();
 
-            /*특정날짜 달력에 점표시해주는곳*/
-            /*월은 0이 1월 년,일은 그대로*/
-            //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
             for (int i = 0; i < Time_Result.length; i++) {
                 CalendarDay day = CalendarDay.from(calendar);
-                String[] time = Time_Result[i].split(",");
+                String[] time = Time_Result[i].split("-");
                 int year = Integer.parseInt(time[0]);
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
@@ -149,7 +119,7 @@ public class calendarActivity extends AppCompatActivity {
                 return;
             }
 
-            calendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays));
+            calendarView.addDecorator(new EventDecorator(Color.parseColor("#62A60C"), calendarDays));
         }
     }
 }
@@ -171,7 +141,7 @@ class EventDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(5, color)); // 날자밑에 점
+        view.addSpan(new DotSpan(8, color)); // 날자밑에 점
     }
 }
 
