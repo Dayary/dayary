@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +48,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
     int count = 0;
     private ProgressDialog dialog;
     private PostModel postModel;
-
+    private String[] arr = null;
 
     private View btn_pen;
     private View btn_loc;
@@ -198,10 +201,43 @@ public class HomeActivity extends AppCompatActivity {
         });
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
+            Bundle bundle = new Bundle();
+
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                query0 = database.child("user").child(postModel.userId);
+                query0.addValueEventListener(new ValueEventListener() {
+                    int i = 0;
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        arr = new String[(int) snapshot.getChildrenCount()];
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot != null) {
+                                if (dataSnapshot.hasChildren()) {
+                                    String temp = dataSnapshot.getKey();
+                                    temp = temp.substring(0, 10);
+                                    arr[i] = temp;
+                                    i++;
+                                }
+                            }
+                        }
+                        for(int i = 0; i<arr.length;i++){
+                            System.out.println(arr[i]);
+                        }
+                        bundle.putParcelableArrayList("cal",(ArrayList<? extends Parcelable>) arr);
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                bundle.putSerializable("model", (Serializable) postModel);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
             }

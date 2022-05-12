@@ -64,21 +64,14 @@ public class calendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         //기록 날짜 추출
         Intent intent = getIntent();
-        postModel = (PostModel) intent.getSerializableExtra("model");
-        dialog = new ProgressDialog(calendarActivity.this);
-        dialog.setMessage("Loading");
-        dialog.show();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                //new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
-            }
-        }, 3000);
+        Bundle bundle = intent.getExtras();
+        postModel = (PostModel) bundle.getSerializable("model");
+        String[] result = bundle.getStringArray("cal");
+        for (int i = 0; i < result.length; i++)
+            System.out.println(result[i]);
 
         //달력 커스텀
-        calendarView  = findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.calendarView);
         calendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
                 .setMinimumDate(CalendarDay.from(2017, 0, 1)) // 달력의 시작
@@ -86,7 +79,7 @@ public class calendarActivity extends AppCompatActivity {
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
 
-        String[] result = {"2022,03,18","2022,04,18","2022,05,18","2022,06,18"};
+        //String[] result = {"2022,03,18","2022,04,18","2022,05,18","2022,06,18"};
 
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
@@ -106,7 +99,7 @@ public class calendarActivity extends AppCompatActivity {
                 Log.i("shot_Day test", shot_Day + "");
                 calendarView.clearSelection();
 
-                Toast.makeText(getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), shot_Day, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -115,7 +108,7 @@ public class calendarActivity extends AppCompatActivity {
 
         String[] Time_Result;
 
-        ApiSimulator(String[] Time_Result){
+        ApiSimulator(String[] Time_Result) {
             this.Time_Result = Time_Result;
         }
 
@@ -133,7 +126,7 @@ public class calendarActivity extends AppCompatActivity {
             /*특정날짜 달력에 점표시해주는곳*/
             /*월은 0이 1월 년,일은 그대로*/
             //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
-            for(int i = 0 ; i < Time_Result.length ; i ++){
+            for (int i = 0; i < Time_Result.length; i++) {
                 CalendarDay day = CalendarDay.from(calendar);
                 String[] time = Time_Result[i].split(",");
                 int year = Integer.parseInt(time[0]);
@@ -142,9 +135,8 @@ public class calendarActivity extends AppCompatActivity {
 
                 dates.add(day);
                 System.out.println(day);
-                calendar.set(year,month-1,dayy);
+                calendar.set(year, month - 1, dayy);
             }
-
 
 
             return dates;
@@ -162,6 +154,7 @@ public class calendarActivity extends AppCompatActivity {
         }
     }
 }
+
 class EventDecorator implements DayViewDecorator {
 
     private int color;
