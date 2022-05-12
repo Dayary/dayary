@@ -71,7 +71,14 @@ public class calendarActivity extends AppCompatActivity {
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
-
+        calendarView.addDecorators(
+                new SaturdayDecorator(),
+                new SundayDecorator(),
+                new oneDayDecorator()
+        );
+        calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
+        calendarView.setHeaderTextAppearance(R.style.CustomHeaderTextAppearance);
+        calendarView.setDateTextAppearance(R.style.CustomDateTextAppearance);
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
     }
@@ -142,6 +149,56 @@ class EventDecorator implements DayViewDecorator {
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new DotSpan(8, color)); // 날자밑에 점
+    }
+}
+class SaturdayDecorator implements DayViewDecorator{
+    private final Calendar calendar = Calendar.getInstance();
+
+    public SaturdayDecorator() {
+    }
+
+    @Override
+    public boolean shouldDecorate(CalendarDay day) {
+        day.copyTo(calendar);
+        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+        return weekDay == Calendar.SATURDAY;
+    }
+
+    @Override
+    public void decorate(DayViewFacade view) {
+        view.addSpan(new ForegroundColorSpan(Color.BLUE));
+    }
+}
+class SundayDecorator implements DayViewDecorator{
+    private final Calendar calendar = Calendar.getInstance();
+
+    public SundayDecorator() {
+    }
+
+    @Override
+    public boolean shouldDecorate(CalendarDay day) {
+        day.copyTo(calendar);
+        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+        return weekDay == Calendar.SUNDAY;
+    }
+
+    @Override
+    public void decorate(DayViewFacade view) {
+        view.addSpan(new ForegroundColorSpan(Color.RED));
+    }
+}
+class oneDayDecorator implements DayViewDecorator{
+    private CalendarDay date = CalendarDay.today();
+
+    @Override
+    public boolean shouldDecorate(CalendarDay day) {
+        return day.equals(date);
+    }
+
+    @Override
+    public void decorate(DayViewFacade view) {
+        view.addSpan(new StyleSpan(Typeface.BOLD));
+        view.addSpan(new ForegroundColorSpan(Color.parseColor("#62A60C")));
     }
 }
 
