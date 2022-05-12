@@ -27,7 +27,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -197,49 +199,36 @@ public class HomeActivity extends AppCompatActivity {
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
                 finish();
-                }
+            }
         });
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
-            Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
-            Bundle bundle = new Bundle();
 
             @Override
             public void onClick(View v) {
+
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                query0 = database.child("user").child(postModel.userId);
-                query0.addValueEventListener(new ValueEventListener() {
-                    int i = 0;
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        arr = new String[(int) snapshot.getChildrenCount()];
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            if (dataSnapshot != null) {
-                                if (dataSnapshot.hasChildren()) {
-                                    String temp = dataSnapshot.getKey();
-                                    temp = temp.substring(0, 10);
-                                    arr[i] = temp;
-                                    i++;
-                                }
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            System.out.println(" ! : " + task.getResult().getValue());
+                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                            value[0] = value[0].substring(1);
+                            for(int i = 0; i < value.length;i++) {
+                                value[i] = value[i].substring(0,10);
                             }
+                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                            intent.putExtra("cal",value);
+                            intent.putExtra("model", (Serializable) postModel);
+                            startActivity(intent);
+                            finish();
                         }
-                        for(int i = 0; i<arr.length;i++){
-                            System.out.println(arr[i]);
-                        }
-                        bundle.putParcelableArrayList("cal",(ArrayList<? extends Parcelable>) arr);
-
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
 
-
-                bundle.putSerializable("model", (Serializable) postModel);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -377,7 +366,6 @@ public class HomeActivity extends AppCompatActivity {
         dialog.dismiss();
         super.onDestroy();
     }
-
 
 
 }

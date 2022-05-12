@@ -64,9 +64,8 @@ public class calendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         //기록 날짜 추출
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        postModel = (PostModel) bundle.getSerializable("model");
-        String[] result = bundle.getStringArray("cal");
+        postModel = (PostModel) intent.getSerializableExtra("model");
+        String[] result = intent.getStringArrayExtra("cal");
         for (int i = 0; i < result.length; i++)
             System.out.println(result[i]);
 
