@@ -273,7 +273,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     System.out.println(imgURL);
                     Bitmap bitmap = getBitmap(imgURL);
                     System.out.println(bitmap);
-                    Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
+                    Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
                     sampleList.add(new GeoModel(lat, lng, smallMaker));
                 }
 

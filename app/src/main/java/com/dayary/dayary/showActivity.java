@@ -27,6 +27,8 @@ public class showActivity extends AppCompatActivity {
     private String imgURL;
     private ImageView imageView;
     private TextView textView;
+    private TextView textLength;
+
 
     ProgressDialog dialog;
 
@@ -41,6 +43,7 @@ public class showActivity extends AppCompatActivity {
         System.out.println(queryData);
         imageView = findViewById(R.id.rectangle_1);
         textView = findViewById(R.id.today_i_am_);
+        textLength = findViewById(R.id.some_id);
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         query = database.child("user").child(postModel.userId).child(queryData);
@@ -63,6 +66,7 @@ public class showActivity extends AppCompatActivity {
                             int idx4 = returnValue.indexOf(", photoName=");
                             String textData = returnValue.substring(idx3 + 5, idx4);
                             textView.setText(textData);
+                            textLength.setText(textView.length()+"/200");
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
