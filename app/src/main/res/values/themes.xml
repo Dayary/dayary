@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomDateTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Date">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/font1</item>
+    </style>
+    <style name="CustomHeaderTextAppearance" parent="TextAppearance.MaterialCalendarWidget.Header">
+        <item name="android:textColor">#62A60C</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">@font/font1</item>
+    </style>
+
+
+</resources>
