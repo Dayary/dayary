@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +57,7 @@ public class calendarActivity extends AppCompatActivity {
 
     private Query query;
     private Query query2;
+    private int flag = -1;
     private PostModel postModel;
     ProgressDialog dialog;
 
@@ -107,14 +110,51 @@ public class calendarActivity extends AppCompatActivity {
                     else
                         queryDate = year + "-" + month + "-" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
                 }
-                Intent intent = new Intent(getApplicationContext(), showFreeActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                intent.putExtra("query", queryDate);
-                startActivity(intent);
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                query2 = database.child("user").child(postModel.userId).child(queryDate);
+                String finalQueryDate = queryDate;
+                query2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        try {
+                            String returnValue = snapshot.getValue().toString();
+                            if (returnValue != null) {
+                                int idx1 = returnValue.indexOf("text=");
+                                int idx2 = returnValue.indexOf(", photoName=");
+                                String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
+                                System.out.println(tempFlag);
+                                if(tempFlag.equals("[free]"))
+                                    flag = 1;
+                                else if (tempFlag.equals("[ques]"))
+                                    flag = 0;
 
+                                if(flag == 1) {
+                                    flag = -1;
+                                    Intent intent = new Intent(getApplicationContext(), showFreeActivity.class);
+                                    intent.putExtra("model", (Serializable) postModel);
+                                    intent.putExtra("query", finalQueryDate);
+                                    startActivity(intent);
+                                }
+                                else if (flag == 0) {
+                                    flag = -1;
+                                    Intent intent = new Intent(getApplicationContext(), showQuesActivity.class);
+                                    intent.putExtra("model", (Serializable) postModel);
+                                    intent.putExtra("query", finalQueryDate);
+                                    startActivity(intent);
+                                }
+
+                            }
+                        } catch (NullPointerException e) {
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
-
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         query = database.child("user").child(postModel.userId).limitToLast(1);
@@ -136,6 +176,7 @@ public class calendarActivity extends AppCompatActivity {
 
             }
         });
+
 
         //하단 버튼 이동
         //홈으로 이동

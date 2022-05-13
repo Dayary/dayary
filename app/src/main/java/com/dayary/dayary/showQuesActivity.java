@@ -35,7 +35,7 @@ public class showQuesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show);
+        setContentView(R.layout.activity_show_ques);
 
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");

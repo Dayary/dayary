@@ -51,6 +51,7 @@
         <activity android:name=".mapActivity" />
         <activity android:name=".calendarActivity" />
         <activity android:name=".showFreeActivity" />
+        <activity android:name=".showQuesActivity" />
         <activity
             android:name=".PopupActivity"
             android:theme="@android:style/Theme.Dialog" />
