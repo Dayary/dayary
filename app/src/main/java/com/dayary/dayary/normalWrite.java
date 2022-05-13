@@ -80,6 +80,7 @@ public class normalWrite extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.normalwrite);
+        dialog = new ProgressDialog(normalWrite.this);
 
         //Intent를 통해서 기존의 정보를 가져옴
         Intent intent = getIntent();

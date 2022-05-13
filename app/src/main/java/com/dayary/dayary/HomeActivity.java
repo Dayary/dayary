@@ -198,7 +198,6 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
-                finish();
             }
         });
         // 캘린더 이동
@@ -224,7 +223,6 @@ public class HomeActivity extends AppCompatActivity {
                             intent.putExtra("cal", value);
                             intent.putExtra("model", (Serializable) postModel);
                             startActivity(intent);
-                            finish();
                         }
                     }
                 });

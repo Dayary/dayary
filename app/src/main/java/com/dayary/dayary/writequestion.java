@@ -66,6 +66,8 @@ public class writequestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writequestion);
 
+        dialog = new ProgressDialog(writequestion.this);
+
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
         mAuth = FirebaseAuth.getInstance();
