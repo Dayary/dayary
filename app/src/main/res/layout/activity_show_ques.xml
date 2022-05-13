@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
-    tools:context=".showFreeActivity"
+    tools:context=".showQuesActivity"
     android:background="@drawable/image_11">
 
     <FrameLayout
@@ -14,6 +14,21 @@
         android:layout_height="match_parent">
 
         <!-- Dayary -->
+
+        <!-- Rectangle 19 -->
+        <TextView
+            android:id="@+id/q_what_s_yo2"
+            android:layout_width="340dp"
+            android:layout_height="29dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="69dp"
+            android:fontFamily="@font/font1"
+            android:gravity="top"
+            android:text="@string/question"
+            android:textColor="#000000"
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/dayary"
@@ -34,9 +49,9 @@
         <ImageView
             android:id="@+id/rectangle_1"
             android:layout_width="372dp"
-            android:layout_height="295dp"
+            android:layout_height="260dp"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="73dp"
+            android:layout_marginTop="108dp"
             android:adjustViewBounds="true"
             android:background="@drawable/rectangle_1"
             android:scaleType="fitXY" />

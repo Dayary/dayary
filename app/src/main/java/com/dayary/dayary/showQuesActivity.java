@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class showActivity extends AppCompatActivity {
+public class showQuesActivity extends AppCompatActivity {
 
     private PostModel postModel;
     private Query query;
@@ -50,7 +50,7 @@ public class showActivity extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dialog = new ProgressDialog(showActivity.this);
+                dialog = new ProgressDialog(showQuesActivity.this);
                 dialog.setMessage("Loading");
                 dialog.show();
                 try {
@@ -75,7 +75,7 @@ public class showActivity extends AppCompatActivity {
                     }
                 } catch (NullPointerException e) {
                     finish();
-                    Toast.makeText(showActivity.this, "작성한 글이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(showQuesActivity.this, "작성한 글이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -89,4 +89,5 @@ public class showActivity extends AppCompatActivity {
     public void onBackPressed() {
         this.finish();
     }
+
 }
