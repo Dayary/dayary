@@ -40,7 +40,7 @@ public class showActivity extends AppCompatActivity {
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
         String queryData = intent.getStringExtra("query");
-        System.out.println(queryData);
+
         imageView = findViewById(R.id.rectangle_1);
         textView = findViewById(R.id.today_i_am_);
         textLength = findViewById(R.id.some_id);
@@ -50,36 +50,32 @@ public class showActivity extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (snapshot.getKey().equals(queryData)) {
-                        dialog = new ProgressDialog(showActivity.this);
-                        dialog.setMessage("Loading");
-                        dialog.show();
-                        if (dataSnapshot != null) {
-                            String returnValue = snapshot.getValue().toString();
-                            System.out.println(returnValue);
-                            int idx1 = returnValue.indexOf("photo=");
-                            int idx2 = returnValue.indexOf(", photoLongitude");
-                            imgURL = returnValue.substring(idx1 + 6, idx2);
-                            Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
-                            int idx3 = returnValue.indexOf("text=");
-                            int idx4 = returnValue.indexOf(", photoName=");
-                            String textData = returnValue.substring(idx3 + 5, idx4);
-                            textView.setText(textData);
-                            textLength.setText(textView.length()+"/200");
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    dialog.dismiss();
-                                }
-                            }, 500);
-                        }
+                dialog = new ProgressDialog(showActivity.this);
+                dialog.setMessage("Loading");
+                dialog.show();
+                try {
+                    String returnValue = snapshot.getValue().toString();
+                    if (returnValue != null) {
+                        int idx1 = returnValue.indexOf("photo=");
+                        int idx2 = returnValue.indexOf(", photoLongitude");
+                        imgURL = returnValue.substring(idx1 + 6, idx2);
+                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
+                        int idx3 = returnValue.indexOf("text=");
+                        int idx4 = returnValue.indexOf(", photoName=");
+                        String textData = returnValue.substring(idx3 + 5, idx4);
+                        textView.setText(textData);
+                        textLength.setText(textView.length() + "/200");
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                            }
+                        }, 1000);
                     }
-                    else{
-                        System.out.println("here");
-                        finish();
-                    }
+                } catch (NullPointerException e) {
+                    finish();
+                    Toast.makeText(showActivity.this, "작성한 글이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
