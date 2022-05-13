@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/image_11"
+    android:id="@+id/scrollViewLayout"
+    tools:context=".listActivity"
     android:clipToOutline="true">
 
     <FrameLayout
@@ -29,8 +31,10 @@
 
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="531dp"
+            android:layout_marginTop="110dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -45,20 +49,22 @@
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="26dp"
-                    android:layout_marginTop="90dp"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/font1"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:textAppearance="@style/tue_"
-                    android:textSize="30dp" />
+                    android:textColor="#000000"
+                    android:textSize="32dp" />
 
 
                 <LinearLayout
+                    android:id="@+id/layout0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/layout1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -70,29 +76,29 @@
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
                             android:layout_marginTop="20dp"
                             android:fontFamily="@font/font1"
-                            android:gravity="top"
+                            android:gravity="center"
                             android:textAppearance="@style/tue_"
-                            android:textSize="20dp" />
+                            android:textSize="28dp" />
 
                         <!-- Diary_list1 -->
-                        <View
+                        <ImageView
                             android:id="@+id/image_list1"
                             android:layout_width="160dp"
                             android:layout_height="160dp"
                             android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="30dp"
                             android:layout_alignParentTop="true"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="8dp"
                             android:background="#00000000"
-                            android:elevation="4dp"
-                            />
+                            android:elevation="4dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layout2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -104,25 +110,24 @@
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="34.8dp"
                             android:layout_marginTop="20dp"
                             android:fontFamily="@font/font1"
-                            android:gravity="top"
+                            android:gravity="center"
                             android:textAppearance="@style/tue_"
-                            android:textSize="20dp" />
+                            android:textSize="28dp" />
 
                         <!-- Diary_list2 -->
-                        <View
+                        <ImageView
                             android:id="@+id/image_list2"
                             android:layout_width="160dp"
                             android:layout_height="160dp"
                             android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="30dp"
                             android:layout_alignParentTop="true"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="34.8dp"
+                            android:layout_marginTop="8dp"
                             android:background="#00000000"
-                            android:elevation="4dp"
-                            />
+                            android:elevation="4dp" />
 
                     </LinearLayout>
                 </LinearLayout>
