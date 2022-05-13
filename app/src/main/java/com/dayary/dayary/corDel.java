@@ -131,7 +131,7 @@ public class corDel extends AppCompatActivity {
                         Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
                         int idx3 = returnValue.indexOf("text=");
                         int idx4 = returnValue.indexOf(", photoName=");
-                        String editTextData = returnValue.substring(idx3 + 5, idx4);
+                        String editTextData = returnValue.substring(idx3 + 5 + 6, idx4);
                         editText.setText(editTextData);
                         int idx5 = returnValue.indexOf("photoName=");
                         int idx6 = returnValue.indexOf(", userId=");
@@ -186,7 +186,7 @@ public class corDel extends AppCompatActivity {
 
                     final String uid = postModel.getUserId();
 
-                    postModel.text = editText.getText().toString();
+                    postModel.text = "[free]"+editText.getText().toString();
                     postModel.photoName = PhotoName;
                     postModel.photo = imgURL;
                     postModel.photoLatitude = latitude;
@@ -229,7 +229,7 @@ public class corDel extends AppCompatActivity {
                             System.out.println(user);
                             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                             System.out.println(database);
-                            postModel.text = editText.getText().toString();
+                            postModel.text = "[free]"+editText.getText().toString();
                             postModel.photoName = file.getLastPathSegment();
                             postModel.photo = imageUrl.getResult().toString();
                             postModel.photoLatitude = latitude;
