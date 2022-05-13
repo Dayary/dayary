@@ -71,8 +71,6 @@ public class calendarActivity extends AppCompatActivity {
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
         String[] result = intent.getStringArrayExtra("cal");
-        for (int i = 0; i < result.length; i++)
-            System.out.println(result[i]);
 
         //달력 커스텀
         calendarView = findViewById(R.id.calendarView);
@@ -122,7 +120,6 @@ public class calendarActivity extends AppCompatActivity {
                                 int idx1 = returnValue.indexOf("text=");
                                 int idx2 = returnValue.indexOf(", photoName=");
                                 String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
-                                System.out.println(tempFlag);
                                 if(tempFlag.equals("[free]"))
                                     flag = 1;
                                 else if (tempFlag.equals("[ques]"))
@@ -164,7 +161,6 @@ public class calendarActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
-                        System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
                         lastDate = returnValue.substring(1, idx);
                     }
@@ -299,8 +295,6 @@ public class calendarActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode);
-        System.out.println(resultCode);
         todayDate = getTodayDate();
         Intent intent = null;
         if (requestCode == 1) {

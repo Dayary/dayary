@@ -217,27 +217,18 @@ public class question_corDel extends AppCompatActivity {
                     final Uri file = Uri.fromFile(new File(imagePath));
                     Log.d("Photo", "photo file : " + file);
                     storageReference = mStorage.getReference().child("userImages").child(uid).child(finalCurDate).child(file.getLastPathSegment());
-                    System.out.println(file.getPath());
                     storageReference.putFile(selectedImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
                             while (!imageUrl.isComplete()) ;
 
-                            System.out.println(user);
                             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                            System.out.println(database);
                             postModel.text = "[ques]"+editText.getText().toString();
                             postModel.photoName = file.getLastPathSegment();
                             postModel.photo = imageUrl.getResult().toString();
                             postModel.photoLatitude = latitude;
                             postModel.photoLongitude = longitude;
-                            System.out.println(postModel.text);
-                            System.out.println(postModel.photoName);
-                            System.out.println(postModel.photo);
-                            System.out.println(postModel.photoLatitude);
-                            System.out.println(postModel.photoLongitude);
-                            //database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
                             String key = database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().getKey();
                             Map<String, Object> postValue = postModel.toMap();
                             Map<String, Object> childUpdate = new HashMap<>();
@@ -372,9 +363,6 @@ public class question_corDel extends AppCompatActivity {
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             imagePath = getRealPath(selectedImageUri);
-
-            System.out.println(selectedImageUri);
-            System.out.println(imagePath);
 
             try {
                 ExifInterface exif = new ExifInterface(imagePath);

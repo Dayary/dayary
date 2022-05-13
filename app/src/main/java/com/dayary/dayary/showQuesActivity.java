@@ -109,7 +109,6 @@ public class showQuesActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
-                        System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
                         lastDate = returnValue.substring(1, idx);
                     }

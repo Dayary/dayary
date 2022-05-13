@@ -84,7 +84,6 @@ public class normalWrite extends AppCompatActivity {
         //Intent를 통해서 기존의 정보를 가져옴
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
-        System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
@@ -122,16 +121,13 @@ public class normalWrite extends AppCompatActivity {
                 Log.d("Photo", "photo file : " + file);
 
                 StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(finalCurDate).child(file.getLastPathSegment());
-                System.out.println(file.getPath());
                 storageReference.putFile(selectedImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
                         while (!imageUrl.isComplete()) ;
 
-                        System.out.println(user);
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        System.out.println(database);
                         postModel.text = "[free]"+editText.getText().toString();
                         postModel.photoName = file.getLastPathSegment();
                         postModel.photo = imageUrl.getResult().toString();
@@ -249,14 +245,9 @@ public class normalWrite extends AppCompatActivity {
             selectedImageUri = data.getData();
             imagePath = getRealPath(selectedImageUri);
 
-            System.out.println(selectedImageUri);
-            System.out.println(imagePath);
-
             try {
                 ExifInterface exif = new ExifInterface(imagePath);
-                System.out.println(exif);
                 float[] latLong = new float[2];
-                System.out.println(exif.getLatLong(latLong));
                 exif.getLatLong(latLong);
                 latitude = String.valueOf(latLong[0]);
                 longitude = String.valueOf(latLong[1]);

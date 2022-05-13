@@ -85,7 +85,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
-                        System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
                         lastDate = returnValue.substring(1, idx);
                     }
@@ -194,8 +193,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode);
-        System.out.println(resultCode);
         todayDate = getTodayDate();
         Intent intent = null;
         if (requestCode == 1) {
@@ -257,7 +254,6 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 String returnValue = snapshot.getValue().toString().substring(1);
                 Log.d("return value", returnValue + "");
                 data = returnValue.split("\\}\\}, ");
-                System.out.println(data.length);
                 data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
                 for (int i = 0; i < data.length; i++) {
                     int idx1 = data[i].indexOf("photoLongitude=");
@@ -270,9 +266,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     int idx4 = data[i].indexOf("photo=");
                     int idx5 = data[i].indexOf(", photoLongitude");
                     String imgURL = data[i].substring(idx4 + 6, idx5);
-                    System.out.println(imgURL);
                     Bitmap bitmap = getBitmap(imgURL);
-                    System.out.println(bitmap);
                     Bitmap smallMaker = Bitmap.createScaledBitmap(bitmap, 150, 150, false);
                     sampleList.add(new GeoModel(lat, lng, smallMaker));
                 }

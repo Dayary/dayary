@@ -94,7 +94,6 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
-        System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
 
         weatherIconView = (ImageView) findViewById(R.id.weather_icon);
@@ -147,7 +146,6 @@ public class HomeActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot != null) {
                         String returnValue = snapshot.getValue().toString();
-                        System.out.println(returnValue);
                         int idx = returnValue.indexOf("=");
                         lastDate = returnValue.substring(1, idx);
                     }
@@ -241,15 +239,11 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode);
-        System.out.println(resultCode);
         todayDate = getTodayDate();
         Intent intent = null;
         if (requestCode == 1) {
             if (resultCode == 0) {
                 if (todayDate.equals(lastDate)) {
-                    System.out.println("1" + lastDate);
-                    System.out.println("2" + todayDate);
                     intent = new Intent(getApplicationContext(), corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
                     Toast.makeText(HomeActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
@@ -276,7 +270,6 @@ public class HomeActivity extends AppCompatActivity {
 
     //날씨 조회
     public void getWeather() {
-        System.out.println("test");
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -320,7 +313,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<WeatherModel> call, Throwable t) {
                 Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println(t.getMessage());
             }
         });
     }

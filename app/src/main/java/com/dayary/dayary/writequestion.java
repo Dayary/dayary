@@ -68,7 +68,6 @@ public class writequestion extends AppCompatActivity {
 
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
-        System.out.println(postModel.getUserId());
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
 
@@ -111,9 +110,7 @@ public class writequestion extends AppCompatActivity {
                         final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
                         while (!imageUrl.isComplete()) ;
 
-                        System.out.println(user);
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        System.out.println(database);
                         postModel.text = "[ques]"+editText.getText().toString();
                         postModel.photoName = file.getLastPathSegment();
                         postModel.photo = imageUrl.getResult().toString();
@@ -236,9 +233,6 @@ public class writequestion extends AppCompatActivity {
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             imagePath = getRealPath(selectedImageUri);
-
-            System.out.println(selectedImageUri);
-            System.out.println(imagePath);
 
             try {
                 ExifInterface exif = new ExifInterface(imagePath);
