@@ -8,14 +8,14 @@
 
     <TextView
         android:layout_width="190dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/font1"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="Do you want to exit the app?"
         android:textAppearance="@style/free_subjec"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
 
     <View
         android:layout_width="1dp"
@@ -31,7 +31,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/font1"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="YES!!"
         android:textAppearance="@style/free_subjec"
         android:textSize="35dp" />
@@ -43,7 +43,7 @@
         android:layout_marginLeft="150dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/font1"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="No!!"
         android:textAppearance="@style/free_subjec"
         android:textSize="35dp" />

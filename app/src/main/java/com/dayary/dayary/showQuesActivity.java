@@ -220,7 +220,6 @@ public class showQuesActivity extends AppCompatActivity {
                     intent.putExtra("model", (Serializable) postModel);
                 }
                 startActivity(intent);
-                finish();
             } else {
 
             }

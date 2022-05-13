@@ -80,10 +80,13 @@ public class HomeActivity extends AppCompatActivity {
     private View btn_pen;
     private View btn_loc;
     private View btn_cal;
+    private long backKeyPressedTime = 0;
+
 
     Retrofit retrofit;
     WeatherApi weatherApi;
     ImageView weatherIconView;
+
     private final static String appKey = "778f6bedba4efd3041cfb178bee32f77";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -232,7 +235,19 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 1500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            return;
+        }
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1500) {
+            Intent intent = new Intent(this,PopupExitActivity.class);
+            startActivity(intent);
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -261,6 +276,12 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 startActivity(intent);
             } else {
+
+            }
+        }
+
+        if(requestCode == 2){
+            if(resultCode == 1){
 
             }
         }

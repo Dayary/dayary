@@ -21,7 +21,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/my_diary"
             android:textAppearance="@style/my_diary"
-            android:gravity="top"
+            android:gravity="center"
             android:fontFamily="@font/font1"
             android:textColor = "#62A60C"
             android:textSize="48dp"
@@ -48,7 +48,7 @@
                     android:layout_marginLeft="26dp"
                     android:layout_marginTop="90dp"
                     android:fontFamily="@font/font1"
-                    android:gravity="top"
+                    android:gravity="center_vertical"
                     android:textAppearance="@style/tue_"
                     android:textSize="30dp" />
 

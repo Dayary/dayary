@@ -23,7 +23,7 @@
             android:layout_marginLeft="144dp"
             android:layout_marginTop="9dp"
             android:fontFamily="@font/font1"
-            android:gravity="top"
+            android:gravity="center_vertical"
             android:text="@string/dayary"
             android:textAppearance="@style/dayary"
             android:textColor="#62A60C"
@@ -40,7 +40,7 @@
             android:layout_marginTop="69dp"
             android:text="@string/question"
             android:fontFamily="@font/font1"
-            android:gravity="top"
+            android:gravity="center"
             android:textColor="#000000"
             android:textSize="28sp"
             />

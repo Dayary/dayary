@@ -26,7 +26,7 @@
             android:layout_marginLeft="121dp"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/font1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="Diary Map"
             android:textAppearance="@style/dayary"
             android:textColor="#62A60C"
@@ -105,11 +105,10 @@
 
         <fragment
             android:id="@+id/mapView"
-            android:layout_width="match_parent"
             android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
             android:layout_height="559dp"
-            android:layout_marginTop="86dp"
-            />
+            android:layout_marginTop="86dp" />
 
 
     </FrameLayout>
