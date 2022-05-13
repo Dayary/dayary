@@ -62,7 +62,7 @@ public class showFreeActivity extends AppCompatActivity {
                         Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
                         int idx3 = returnValue.indexOf("text=");
                         int idx4 = returnValue.indexOf(", photoName=");
-                        String textData = returnValue.substring(idx3 + 5, idx4);
+                        String textData = returnValue.substring(idx3 + 5 + 6, idx4);
                         textView.setText(textData);
                         textLength.setText(textView.length() + "/200");
                         Handler handler = new Handler();
