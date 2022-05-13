@@ -38,6 +38,7 @@
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/layout/activity_signup.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.112" />
+        <entry key="app/src/main/res/drawable/selection_background.xml" value="0.219" />
         <entry key="app/src/main/res/layout/activity_cor_del.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/activity_findpw.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.15307971014492755" />
@@ -49,7 +50,9 @@
         <entry key="app/src/main/res/layout/activity_writequestion.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/activity_writequestion_cor_del.xml" value="0.3540763302125793" />
         <entry key="app/src/main/res/layout/activity_writequstion.xml" value="0.16992696126302087" />
+        <entry key="app/src/main/res/layout/exit.xml" value="0.9424530029296876" />
         <entry key="app/src/main/res/layout/normalwrite.xml" value="0.20299835205078123" />
+        <entry key="app/src/main/res/layout/select.xml" value="0.47432783565501907" />
         <entry key="app/src/main/res/layout/show_ques.xml" value="0.3880208333333333" />
       </map>
     </option>
@@ -63,7 +66,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.15799102783203126" />
+        <option name="scale" value="0.9424530029296876" />
       </ProjectState>
     </option>
   </component>
