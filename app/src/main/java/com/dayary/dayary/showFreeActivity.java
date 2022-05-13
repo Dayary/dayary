@@ -187,6 +187,7 @@ public class showFreeActivity extends AppCompatActivity {
     public void onBackPressed() {
         this.finish();
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
@@ -225,6 +226,7 @@ public class showFreeActivity extends AppCompatActivity {
             }
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getTodayDate() {
         //로컬 디바이스의 날짜를 가져옴

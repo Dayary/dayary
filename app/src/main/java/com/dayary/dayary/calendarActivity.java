@@ -120,19 +120,18 @@ public class calendarActivity extends AppCompatActivity {
                                 int idx1 = returnValue.indexOf("text=");
                                 int idx2 = returnValue.indexOf(", photoName=");
                                 String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
-                                if(tempFlag.equals("[free]"))
+                                if (tempFlag.equals("[free]"))
                                     flag = 1;
                                 else if (tempFlag.equals("[ques]"))
                                     flag = 0;
 
-                                if(flag == 1) {
+                                if (flag == 1) {
                                     flag = -1;
                                     Intent intent = new Intent(getApplicationContext(), showFreeActivity.class);
                                     intent.putExtra("model", (Serializable) postModel);
                                     intent.putExtra("query", finalQueryDate);
                                     startActivity(intent);
-                                }
-                                else if (flag == 0) {
+                                } else if (flag == 0) {
                                     flag = -1;
                                     Intent intent = new Intent(getApplicationContext(), showQuesActivity.class);
                                     intent.putExtra("model", (Serializable) postModel);

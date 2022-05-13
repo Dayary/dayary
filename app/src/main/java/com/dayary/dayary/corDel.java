@@ -185,7 +185,7 @@ public class corDel extends AppCompatActivity {
 
                     final String uid = postModel.getUserId();
 
-                    postModel.text = "[free]"+editText.getText().toString();
+                    postModel.text = "[free]" + editText.getText().toString();
                     postModel.photoName = PhotoName;
                     postModel.photo = imgURL;
                     postModel.photoLatitude = latitude;
@@ -225,7 +225,7 @@ public class corDel extends AppCompatActivity {
                             while (!imageUrl.isComplete()) ;
 
                             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                            postModel.text = "[free]"+editText.getText().toString();
+                            postModel.text = "[free]" + editText.getText().toString();
                             postModel.photoName = file.getLastPathSegment();
                             postModel.photo = imageUrl.getResult().toString();
                             postModel.photoLatitude = latitude;

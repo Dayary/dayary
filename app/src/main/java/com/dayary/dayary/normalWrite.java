@@ -128,7 +128,7 @@ public class normalWrite extends AppCompatActivity {
                         while (!imageUrl.isComplete()) ;
 
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        postModel.text = "[free]"+editText.getText().toString();
+                        postModel.text = "[free]" + editText.getText().toString();
                         postModel.photoName = file.getLastPathSegment();
                         postModel.photo = imageUrl.getResult().toString();
                         postModel.photoLatitude = latitude;

@@ -111,7 +111,7 @@ public class writequestion extends AppCompatActivity {
                         while (!imageUrl.isComplete()) ;
 
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        postModel.text = "[ques]"+editText.getText().toString();
+                        postModel.text = "[ques]" + editText.getText().toString();
                         postModel.photoName = file.getLastPathSegment();
                         postModel.photo = imageUrl.getResult().toString();
                         postModel.photoLatitude = latitude;
