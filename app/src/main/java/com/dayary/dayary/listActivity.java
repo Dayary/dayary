@@ -124,7 +124,6 @@ public class listActivity extends AppCompatActivity {
         });
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
