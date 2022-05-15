@@ -75,7 +75,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         getData();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapView);
+                .findFragmentById(R.id.googleView);
         mapFragment.getMapAsync(this);
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -118,6 +118,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
         //글쓰기 이동
@@ -238,7 +239,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
         getMarkerItems();
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 8));
     }
 
     public Marker addMarker(GeoModel geoModel) {

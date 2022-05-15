@@ -104,7 +104,7 @@
             android:background="@drawable/icon_map" />
 
         <fragment
-            android:id="@+id/mapView"
+            android:id="@+id/googleView"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="559dp"

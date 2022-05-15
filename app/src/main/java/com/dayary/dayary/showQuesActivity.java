@@ -161,6 +161,7 @@ public class showQuesActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
         btn_cal = findViewById(R.id.icons8_cale);

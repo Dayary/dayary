@@ -308,6 +308,7 @@ public class question_corDel extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
         //글쓰기 이동

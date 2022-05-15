@@ -329,6 +329,7 @@ public class corDel extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
         // 캘린더 이동

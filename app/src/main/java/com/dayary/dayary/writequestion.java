@@ -186,6 +186,7 @@ public class writequestion extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
         //Map 이동

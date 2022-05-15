@@ -202,6 +202,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
         //리스트 이동
@@ -212,6 +213,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -238,7 +240,6 @@ public class HomeActivity extends AppCompatActivity {
                             intent.putExtra("cal", value);
                             intent.putExtra("model", (Serializable) postModel);
                             startActivity(intent);
-                            //잠시 finish 추가
                             finish();
                         }
                     }
