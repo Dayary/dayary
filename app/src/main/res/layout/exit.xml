@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="230dp"
-    android:layout_height="98dp"
+    android:layout_height="196dp"
     android:background="@drawable/selection_background"
     android:orientation="horizontal"
     >
@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="13dp"
         android:fontFamily="@font/font1"
         android:gravity="center"
         android:text="Do you want to exit the app?"
@@ -18,34 +18,49 @@
         android:textSize="20dp" />
 
     <View
+        android:id="@+id/ok"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="63dp"
+        android:background="@drawable/sad" />
+    <View
+        android:id="@+id/no"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/smile"
+        android:layout_marginLeft="135dp"
+        android:layout_marginTop="63dp"
+        />
+
+    <View
         android:layout_width="1dp"
-        android:layout_height="53dp"
+        android:layout_height="133dp"
         android:layout_marginLeft="115dp"
         android:layout_marginTop="40dp"
         android:background="#000000" />
 
     <TextView
-        android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="154dp"
         android:fontFamily="@font/font1"
         android:gravity="center"
-        android:text="YES!!"
+        android:text="YES.."
         android:textAppearance="@style/free_subjec"
-        android:textSize="35dp" />
+        android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/no"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="158dp"
+        android:layout_marginTop="154dp"
         android:fontFamily="@font/font1"
         android:gravity="center"
         android:text="No!!"
         android:textAppearance="@style/free_subjec"
-        android:textSize="35dp" />
+        android:textSize="15dp" />
 
 </RelativeLayout>

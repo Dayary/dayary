@@ -238,6 +238,8 @@ public class HomeActivity extends AppCompatActivity {
                             intent.putExtra("cal", value);
                             intent.putExtra("model", (Serializable) postModel);
                             startActivity(intent);
+                            //잠시 finish 추가
+                            finish();
                         }
                     }
                 });
