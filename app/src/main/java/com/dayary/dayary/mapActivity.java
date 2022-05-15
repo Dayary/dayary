@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -55,7 +56,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String[] data;
     private String todayDate;
     private String lastDate;
-
+    Bitmap compressBitmap;
 
     private View btn_home;
     private View btn_pen;
@@ -239,7 +240,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
         getMarkerItems();
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 8));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 10));
     }
 
     public Marker addMarker(GeoModel geoModel) {
@@ -304,6 +305,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     conn.connect();
                     InputStream is = conn.getInputStream();
                     bitmap[0] = BitmapFactory.decodeStream(is);
+                    compressBitmap = compressBitmap(bitmap[0]);
                 } catch (IOException e) {
                 }
             }
@@ -314,8 +316,14 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            return bitmap[0];
+            return compressBitmap;
         }
     }
-
+    private Bitmap compressBitmap(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,40, stream);
+        byte[] byteArray = stream.toByteArray();
+        Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+        return compressedBitmap;
+    }
 }
