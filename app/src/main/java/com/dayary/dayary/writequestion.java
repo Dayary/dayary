@@ -58,6 +58,8 @@ public class writequestion extends AppCompatActivity {
     private View btn_pen;
     private View btn_loc;
     private View btn_cal;
+    private View btn_list;
+
     private PostModel postModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -174,6 +176,16 @@ public class writequestion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mOnPopupClick(view);
+            }
+        });
+        //리스트 이동
+        btn_list = findViewById(R.id.icons8_jour);
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), listActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
             }
         });
         //Map 이동

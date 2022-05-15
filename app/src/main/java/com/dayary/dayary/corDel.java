@@ -72,6 +72,8 @@ public class corDel extends AppCompatActivity {
     private View btn_pen;
     private View btn_loc;
     private View btn_cal;
+    private View btn_list;
+
     private PostModel postModel;
 
 
@@ -317,6 +319,16 @@ public class corDel extends AppCompatActivity {
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
                 finish();
+            }
+        });
+        //리스트 이동
+        btn_list = findViewById(R.id.icons8_jour);
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), listActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
             }
         });
         // 캘린더 이동

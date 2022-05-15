@@ -60,6 +60,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     private View btn_home;
     private View btn_pen;
     private View btn_cal;
+    private View btn_list;
 
     ProgressDialog dialog;
 
@@ -107,6 +108,16 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
                 finish();
+            }
+        });
+        //리스트 이동
+        btn_list = findViewById(R.id.icons8_jour);
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), listActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
             }
         });
         //글쓰기 이동
