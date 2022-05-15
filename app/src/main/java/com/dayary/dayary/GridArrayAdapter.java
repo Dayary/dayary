@@ -1,10 +1,8 @@
 package com.dayary.dayary;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +18,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.logging.LogRecord;
 
 public class GridArrayAdapter extends ArrayAdapter<GridItem> {
     private static final int LAYOUT_ID = R.layout.sub3;
@@ -27,7 +25,9 @@ public class GridArrayAdapter extends ArrayAdapter<GridItem> {
     private Bitmap bitmap;
     private Bitmap smallBitmap;
     private Context mContext;
-    private List<GridItem> mItemList;
+    private static List<GridItem> mItemList;
+    private listActivity.ImageItemClickListener mImageItemClickListener;
+
 
     public GridArrayAdapter(@NonNull Context context, @NonNull List<GridItem> itemList) {
         super(context, LAYOUT_ID, itemList);
@@ -48,9 +48,11 @@ public class GridArrayAdapter extends ArrayAdapter<GridItem> {
         final GridItem item = mItemList.get(position);
         viewHolder.textView.setText(item.getYear() + "/" + item.getMonth() + "/" + item.getDay());
         drawImage(item.getURL(), viewHolder.imageView);
-        Handler handler = new Handler();
 
         return convertView;
+    }
+    public void setImageItemClickListener(listActivity.ImageItemClickListener listener) {
+        mImageItemClickListener = listener;
     }
 
     public void drawImage(String imgURL, ImageView view) {

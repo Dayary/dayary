@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -23,11 +24,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class listActivity extends AppCompatActivity {
 
@@ -35,15 +39,22 @@ public class listActivity extends AppCompatActivity {
     private Query query1;
     private String[] data;
     private String[][] covertData;
+    private Query query2;
+    private int flag = -1;
 
     private View btn_home;
     private View btn_pen;
     private View btn_loc;
     private View btn_cal;
 
+
+    private GridView gridView;
     private String lastDate = "";
     private String todayDate;
 
+    public interface ImageItemClickListener {
+        void onImageItemClick(int a_imageResId) ;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +90,7 @@ public class listActivity extends AppCompatActivity {
 
             }
         });
+
         //하단 버튼 이동
         //홈으로 이동
         btn_home = findViewById(R.id.icons8_home);
@@ -145,11 +157,80 @@ public class listActivity extends AppCompatActivity {
     private void bindGrid() {
         List<GridItem> itemList = new ArrayList<>();
         for (int i = 0; i < covertData.length; i++) {
-            itemList.add(new GridItem(covertData[i][0], covertData[i][1], covertData[i][2], covertData[i][3]));
+            itemList.add(new GridItem(i,covertData[i][0], covertData[i][1], covertData[i][2], covertData[i][3]));
         }
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+
+        gridView = (GridView) findViewById(R.id.gridView);
         GridArrayAdapter gridAdapter = new GridArrayAdapter(this, itemList);
         gridView.setAdapter(gridAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onItemClick(AdapterView<?> a_parent, View a_view, int a_position, long a_id) {
+                final GridItem item = (GridItem) gridAdapter.getItem(a_position);
+                int year = Integer.parseInt(item.getYear());
+                int month = Integer.parseInt(item.getMonth());
+                int dayy = Integer.parseInt(item.getDay());
+
+                LocalDate tempDate = LocalDate.of(year, month, dayy);
+                DayOfWeek dayOfWeek = tempDate.getDayOfWeek();
+                String queryDate = "";
+                if (month < 10) {
+                    if (dayy < 10)
+                        queryDate = year + "-" + "0" + month + "-" + "0" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                    else
+                        queryDate = year + "-" + "0" + month + "-" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                } else {
+                    if (dayy < 10)
+                        queryDate = year + "-" + month + "-" + "0" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                    else
+                        queryDate = year + "-" + month + "-" + dayy + "-" + dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+                }
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                query2 = database.child("user").child(postModel.userId).child(queryDate);
+                String finalQueryDate = queryDate;
+                query2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        try {
+                            String returnValue = snapshot.getValue().toString();
+                            if (returnValue != null) {
+                                int idx1 = returnValue.indexOf("text=");
+                                int idx2 = returnValue.indexOf(", photoName=");
+                                String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
+                                if (tempFlag.equals("[free]"))
+                                    flag = 1;
+                                else if (tempFlag.equals("[ques]"))
+                                    flag = 0;
+
+                                if (flag == 1) {
+                                    flag = -1;
+                                    Intent intent = new Intent(getApplicationContext(), showFreeActivity.class);
+                                    intent.putExtra("model", (Serializable) postModel);
+                                    intent.putExtra("query", finalQueryDate);
+                                    startActivity(intent);
+                                } else if (flag == 0) {
+                                    flag = -1;
+                                    Intent intent = new Intent(getApplicationContext(), showQuesActivity.class);
+                                    intent.putExtra("model", (Serializable) postModel);
+                                    intent.putExtra("query", finalQueryDate);
+                                    startActivity(intent);
+                                }
+
+                            }
+                        } catch (NullPointerException e) {
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
     }
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
