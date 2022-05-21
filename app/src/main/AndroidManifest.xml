@@ -51,6 +51,7 @@
         <activity android:name=".listActivity" />
         <activity android:name=".showFreeActivity" />
         <activity android:name=".showQuesActivity" />
+        <activity android:name=".drawing" />
         <activity
             android:name=".PopupActivity"
             android:theme="@android:style/Theme.Dialog" />
