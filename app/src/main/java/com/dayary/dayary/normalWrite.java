@@ -69,6 +69,7 @@ public class normalWrite extends AppCompatActivity {
     private View btn_cal;
     private View btn_list;
     private View btn_drawing;
+    private View btn_eras;
     private int saveflag;
 
     Bitmap image;
@@ -105,7 +106,13 @@ public class normalWrite extends AppCompatActivity {
                 startActivityForResult(intent, 200);
             }
         });
-
+        btn_eras = findViewById(R.id.icons8_eras);
+        btn_eras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setImageResource(0);
+            }
+        });
 
         //upload 버튼 동작시 갤러리에서 이미지를 가져옴.
         upload = findViewById(R.id.rectangle_2);
@@ -155,8 +162,8 @@ public class normalWrite extends AppCompatActivity {
                                 postModel.text = "[free]" + editText.getText().toString();
                                 postModel.photoName = "drawing Image";
                                 postModel.photo = String.valueOf(downloadUri);
-                                postModel.photoLatitude = "-1";
-                                postModel.photoLongitude = "-1";
+                                postModel.photoLatitude = "999999.999999";
+                                postModel.photoLongitude = "999999.999999";
                                 database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
 
                                 Handler handler = new Handler();

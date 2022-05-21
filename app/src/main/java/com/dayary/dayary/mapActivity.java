@@ -265,6 +265,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String returnValue = snapshot.getValue().toString().substring(1);
+                System.out.println(returnValue);
                 Log.d("return value", returnValue + "");
                 data = returnValue.split("\\}\\}, ");
                 data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
@@ -321,7 +322,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
     private Bitmap compressBitmap(Bitmap bitmap){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,40, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
         byte[] byteArray = stream.toByteArray();
         Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
         return compressedBitmap;
