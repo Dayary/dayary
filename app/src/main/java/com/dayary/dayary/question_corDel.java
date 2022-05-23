@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -72,6 +73,7 @@ public class question_corDel extends AppCompatActivity {
     private ProgressDialog dialog;
     private PostModel postModel;
     private String todayDate;
+    private TextView queText;
 
     private View btn_home;
     private View btn_pen;
@@ -107,6 +109,13 @@ public class question_corDel extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         editText = findViewById(R.id.today_i_am_);
         editLength = findViewById(R.id.some_id);
+
+        queText = findViewById(R.id.q_what_s_yo);
+        todayDate = getTodayDate();
+        int day = Integer.parseInt(todayDate.substring(8, 10));
+        Resources res = getResources();
+        String[] planets = res.getStringArray(R.array.queList);
+        queText.setText(planets[day%16]);
 
         //로컬 디바이스의 날짜를 가져옴
         CurDate = getTodayDate();

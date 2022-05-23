@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -56,6 +57,7 @@ public class writequestion extends AppCompatActivity {
     private EditText editText;
     private TextView editLength;
     private ProgressDialog dialog;
+    private TextView queText;
     private String todayDate;
     private String lastDate = "";
 
@@ -89,6 +91,14 @@ public class writequestion extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         editText = findViewById(R.id.today_i_am_);
         editLength = findViewById(R.id.some_id);
+
+        queText = findViewById(R.id.q_what_s_yo);
+        todayDate = getTodayDate();
+        int day = Integer.parseInt(todayDate.substring(8, 10));
+        Resources res = getResources();
+        String[] planets = res.getStringArray(R.array.queList);
+        queText.setText(planets[day%16]);
+
 
         btn_drawing = findViewById(R.id.icons8_pen_);
         btn_drawing.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +203,6 @@ public class writequestion extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
 
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -470,6 +479,7 @@ public class writequestion extends AppCompatActivity {
         dialog.dismiss();
         super.onDestroy();
     }
+
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
         Matrix matrix = new Matrix();
         switch (orientation) {
@@ -506,8 +516,7 @@ public class writequestion extends AppCompatActivity {
             Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             bitmap.recycle();
             return bmRotated;
-        }
-        catch (OutOfMemoryError e) {
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
             return null;
         }
