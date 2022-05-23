@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,34 +22,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 
 public class normalWrite extends AppCompatActivity {
     private ImageView upload;
@@ -66,12 +63,19 @@ public class normalWrite extends AppCompatActivity {
     private String lastDate = "";
     private String imgURL;
     private Query query2;
+    Intent intentView;
 
     private View btn_home;
     private View btn_pen;
     private View btn_loc;
     private View btn_cal;
     private View btn_list;
+    private View btn_drawing;
+    private View btn_eras;
+    private int saveflag;
+
+    Bitmap image;
+    Bitmap image2;
 
     private PostModel postModel;
 
@@ -85,6 +89,8 @@ public class normalWrite extends AppCompatActivity {
         setContentView(R.layout.normalwrite);
         dialog = new ProgressDialog(normalWrite.this);
 
+        //그림일기 = 1, 사진 = 2
+        saveflag = 0;
         //Intent를 통해서 기존의 정보를 가져옴
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
@@ -95,6 +101,21 @@ public class normalWrite extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         editText = findViewById(R.id.today_i_am_);
         editLength = findViewById(R.id.some_id);
+        btn_drawing = findViewById(R.id.icons8_pen_);
+        btn_drawing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), drawing.class);
+                startActivityForResult(intent, 200);
+            }
+        });
+        btn_eras = findViewById(R.id.icons8_eras);
+        btn_eras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setImageResource(0);
+            }
+        });
 
         //upload 버튼 동작시 갤러리에서 이미지를 가져옴.
         upload = findViewById(R.id.rectangle_2);
@@ -118,42 +139,122 @@ public class normalWrite extends AppCompatActivity {
                 dialog = new ProgressDialog(normalWrite.this);
                 dialog.setMessage("Saving");
                 dialog.show();
+                if (saveflag == 1) {
+                    final String uid = postModel.getUserId();
+                    FirebaseStorage mStorage = FirebaseStorage.getInstance();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
-                final String uid = postModel.getUserId();
-                FirebaseStorage mStorage = FirebaseStorage.getInstance();
-                final Uri file = Uri.fromFile(new File(imagePath));
-                Log.d("Photo", "photo file : " + file);
+                    byte[] data = baos.toByteArray();
+                    StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(finalCurDate).child("drawImage");
+                    UploadTask uploadTask = storageReference.putBytes(data);
 
-                StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(finalCurDate).child(file.getLastPathSegment());
-                storageReference.putFile(selectedImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
-                        while (!imageUrl.isComplete()) ;
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful())
+                                throw task.getException();
+                            return storageReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                System.out.println(downloadUri);
+                                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                                postModel.text = "[free]" + editText.getText().toString();
+                                postModel.photoName = "drawing Image";
+                                postModel.photo = String.valueOf(downloadUri);
+                                postModel.photoLatitude = "999999.999999";
+                                postModel.photoLongitude = "999999.999999";
+                                database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
 
-                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        postModel.text = "[free]" + editText.getText().toString();
-                        postModel.photoName = file.getLastPathSegment();
-                        postModel.photo = imageUrl.getResult().toString();
-                        postModel.photoLatitude = latitude;
-                        postModel.photoLongitude = longitude;
-                        database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                    }
+                                }, 3000);
+                                Toast.makeText(normalWrite.this, "DB Upload success", Toast.LENGTH_LONG).show();
 
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialog.dismiss();
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } else {
+
                             }
-                        }, 3000);
-                        Toast.makeText(normalWrite.this, "DB Upload success", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else if (saveflag == 2) {
+                    final String uid = postModel.getUserId();
+                    FirebaseStorage mStorage = FirebaseStorage.getInstance();
+                    final File file = new File(imagePath);
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        intent.putExtra("model", (Serializable) postModel);
-                        startActivity(intent);
-                        finish();
+                    //이미지 자동회전 방지
+                    try {
+                        ExifInterface exif = new ExifInterface(imagePath);
+                        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                ExifInterface.ORIENTATION_UNDEFINED);
+                        bitmap = rotateBitmap(bitmap, orientation);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
+
+
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    image2 = Bitmap.createScaledBitmap(bitmap, 300, 400, false);
+                    image2.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    byte[] data = baos.toByteArray();
+                    StorageReference storageReference = mStorage.getReference().child("userImages").child(uid).child(finalCurDate).child(file.getName());
+                    UploadTask uploadTask = storageReference.putBytes(data);
+
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful())
+                                throw task.getException();
+                            return storageReference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                System.out.println(downloadUri);
+                                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                                postModel.text = "[free]" + editText.getText().toString();
+                                postModel.photoName = file.getName();
+                                postModel.photo = String.valueOf(downloadUri);
+                                postModel.photoLatitude = latitude;
+                                postModel.photoLongitude = longitude;
+                                database.child("user").child(postModel.getUserId()).child(String.valueOf(finalCurDate1)).push().setValue(postModel);
+
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                    }
+                                }, 3000);
+                                Toast.makeText(normalWrite.this, "DB Upload success", Toast.LENGTH_LONG).show();
+
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // Handle failures
+                                // ...
+                            }
+                        }
+                    });
+
+                }
             }
 
         });
@@ -254,6 +355,7 @@ public class normalWrite extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent intent = null;
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
@@ -262,20 +364,31 @@ public class normalWrite extends AppCompatActivity {
 
             try {
                 ExifInterface exif = new ExifInterface(imagePath);
+
                 float[] latLong = new float[2];
-                exif.getLatLong(latLong);
-                latitude = String.valueOf(latLong[0]);
-                longitude = String.valueOf(latLong[1]);
+
+                if (exif == null) {
+                    latLong[0] = Float.parseFloat("999999.999999");
+                    latLong[1] = Float.parseFloat("999999.999999");
+                } else {
+                    exif.getLatLong(latLong);
+
+                    latitude = String.valueOf(latLong[0]);
+                    longitude = String.valueOf(latLong[1]);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             imageView.setImageURI(selectedImageUri);
+            saveflag = 2;
+
         }
 
         //Pop창 선택
         todayDate = getTodayDate();
-        Intent intent = null;
+
         if (requestCode == 1) {
             if (resultCode == 0) {
                 if (todayDate.equals(lastDate)) {
@@ -301,6 +414,17 @@ public class normalWrite extends AppCompatActivity {
 
             }
         }
+        //오류 잡기
+        if (requestCode == 200) {
+            if (resultCode == 200) {
+                if (data != null) {
+                    image = (Bitmap) data.getExtras().get("image");
+                    saveflag = 1;
+                    imageView.setImageBitmap(image);
+                }
+            }
+        }
+
 
     }
 
@@ -356,5 +480,48 @@ public class normalWrite extends AppCompatActivity {
     protected void onDestroy() {
         dialog.dismiss();
         super.onDestroy();
+
+    }
+    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_NORMAL:
+                return bitmap;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle();
+            return bmRotated;
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

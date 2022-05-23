@@ -1,23 +1,29 @@
 package com.dayary.dayary;
 
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.PersistableBundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -27,22 +33,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class showQuesActivity extends AppCompatActivity {
+public class drawing extends AppCompatActivity {
+    drawingView view;
+    int tColor, n = 0;
+    LinearLayout container;
+    LinearLayout.LayoutParams params;
+    Resources res;
+    Bitmap bitmap;
 
     private PostModel postModel;
-    private Query query;
-    private String imgURL;
-    private ImageView imageView;
-    private TextView textView;
-    private TextView textLength;
-
-    private String lastDate = "";
     private String todayDate;
+    private String lastDate = "";
     private Query query1;
-    private TextView queText;
 
     private View btn_home;
     private View btn_pen;
@@ -51,81 +57,79 @@ public class showQuesActivity extends AppCompatActivity {
     private View btn_list;
 
 
-    ProgressDialog dialog;
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_ques);
-
+        setContentView(R.layout.activity_drawingboard1);
         Intent intent = getIntent();
         postModel = (PostModel) intent.getSerializableExtra("model");
-        String queryData = intent.getStringExtra("query");
-
-        imageView = findViewById(R.id.rectangle_1);
-        textView = findViewById(R.id.today_i_am_);
-        textLength = findViewById(R.id.some_id);
-
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-        query = database.child("user").child(postModel.userId).child(queryData);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dialog = new ProgressDialog(showQuesActivity.this);
-                dialog.setMessage("Loading");
-                dialog.show();
-                try {
-                    String returnValue = snapshot.getValue().toString();
-                    if (returnValue != null) {
-                        int idx1 = returnValue.indexOf("photo=");
-                        int idx2 = returnValue.indexOf(", photoLongitude");
-                        imgURL = returnValue.substring(idx1 + 6, idx2);
-                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
-                        int idx3 = returnValue.indexOf("text=");
-                        int idx4 = returnValue.indexOf(", photoName=");
-                        String textData = returnValue.substring(idx3 + 5 + 6, idx4);
-                        textView.setText(textData);
-                        textLength.setText(textView.length() + "/200");
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialog.dismiss();
-                            }
-                        }, 1000);
-                    }
-                } catch (NullPointerException e) {
-                    finish();
-                    Toast.makeText(showQuesActivity.this, "작성한 글이 없습니다.", Toast.LENGTH_SHORT).show();
-                }
-            }
+        view = new drawingView(this);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        container = findViewById(R.id.container);
+        res = getResources();
 
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        container.addView(view, params);
+
+        View btn = findViewById(R.id.icons8_palette);
+        View btn2 = findViewById(R.id.icons8_line);
+        View btn3 = findViewById(R.id.icons8_eras);
+        View btn4 = findViewById(R.id.icons8_save);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openColorPicker();
             }
         });
-
-        query1 = database.child("user").child(postModel.userId).limitToLast(1);
-        query1.addValueEventListener(new ValueEventListener() {
+        btn2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot != null) {
-                        String returnValue = snapshot.getValue().toString();
-                        int idx = returnValue.indexOf("=");
-                        lastDate = returnValue.substring(1, idx);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onClick(View v) {
+                show();
             }
         });
+        btn3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                initView();
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getBitmap();
+                Intent intent = new Intent();
+                intent.putExtra("image",bitmap);
+                setResult(200, intent);
+                finish();
+            }
+        });
+        try {
+            query1 = database.child("user").child(postModel.userId).limitToLast(1);
+            query1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        if (dataSnapshot != null) {
+                            String returnValue = snapshot.getValue().toString();
+                            int idx = returnValue.indexOf("=");
+                            lastDate = returnValue.substring(1, idx);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception e){
+            System.out.println();
+        }
         //하단 버튼 이동
         //홈으로 이동
         btn_home = findViewById(R.id.icons8_home);
@@ -133,6 +137,17 @@ public class showQuesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.putExtra("model", (Serializable) postModel);
+                startActivity(intent);
+                finish();
+            }
+        });
+        //리스트 이동
+        btn_list = findViewById(R.id.icons8_jour);
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
                 finish();
@@ -157,17 +172,7 @@ public class showQuesActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //리스트 이동
-        btn_list = findViewById(R.id.icons8_jour);
-        btn_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), listActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                startActivity(intent);
-                finish();
-            }
-        });
+        // 캘린더 이동
         btn_cal = findViewById(R.id.icons8_cale);
         btn_cal.setOnClickListener(new View.OnClickListener() {
 
@@ -200,15 +205,57 @@ public class showQuesActivity extends AppCompatActivity {
 
     }
 
-    public void onBackPressed() {
-        this.finish();
+    private void initView() {
+        view.initView();
     }
 
+    private void getBitmap() {
+        bitmap = view.saveBitmap();
+    }
+
+    private void show() {
+        final EditText editText = new EditText(this);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("dayary");
+        builder.setMessage("굵기 입력");
+        builder.setView(editText);
+        builder.setPositiveButton("입력",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        view.setStrokeWidth(Integer.parseInt(editText.getText().toString()));
+
+                    }
+                });
+        builder.setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
+
+    private void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, tColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                view.setColor(color);
+            }
+        });
+        colorPicker.show();
+    }
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
     }
-
     //글쓰기 Pop창 선택 onActivityResult
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -221,7 +268,7 @@ public class showQuesActivity extends AppCompatActivity {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
-                    Toast.makeText(showQuesActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(drawing.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
                 } else {
                     intent = new Intent(getApplicationContext(), normalWrite.class);
                     intent.putExtra("model", (Serializable) postModel);
@@ -231,7 +278,7 @@ public class showQuesActivity extends AppCompatActivity {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
-                    Toast.makeText(showQuesActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(drawing.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
                 } else {
                     intent = new Intent(getApplicationContext(), writequestion.class);
                     intent.putExtra("model", (Serializable) postModel);
@@ -275,4 +322,6 @@ public class showQuesActivity extends AppCompatActivity {
 
         return day;
     }
+
+
 }

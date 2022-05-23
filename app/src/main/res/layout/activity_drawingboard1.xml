@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pixel_3a_"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_11"
+    android:clipToOutline="true"
+    android:orientation="vertical"
+    tools:context=".drawing">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/dayary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:fontFamily="@font/font1"
+            android:gravity="center"
+            android:text="Dayary Drawing"
+            android:textAppearance="@style/dayary"
+            android:textColor="#62A60C"
+            android:textSize="48dp" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="479dp"
+            android:layout_marginTop="97dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/icons8_palette"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="56dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_palette"
+            />
+
+        <View
+            android:id="@+id/icons8_line"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="140dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_lines"
+            />
+
+        <!-- icons8-erase-96 -->
+        <View
+            android:id="@+id/icons8_eras"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="224dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_eraser"
+            />
+
+        <!-- icons8-save-90 1 -->
+        <View
+            android:id="@+id/icons8_save"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="308dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_save"
+            />
+
+
+
+
+
+        <View
+            android:id="@+id/bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="646dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/line_1" />
+
+
+        <View
+            android:id="@+id/icons8_home"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_home"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Writing button -->
+        <View
+            android:id="@+id/icons8_penc"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="97dp"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/penicon1"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Diary button -->
+        <View
+            android:id="@+id/icons8_jour"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="174dp"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_diary"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Calendar button -->
+        <View
+            android:id="@+id/icons8_cale"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="251dp"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_calendar"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Map button -->
+        <View
+            android:id="@+id/icons8_loca"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="328dp"
+            android:layout_marginTop="660dp"
+            android:background="@drawable/icon_map"
+            android:clickable="true"
+            android:focusable="true" />
+    </FrameLayout>
+
+</LinearLayout>
