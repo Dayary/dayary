@@ -481,9 +481,9 @@ public class normalWrite extends AppCompatActivity {
     protected void onDestroy() {
         dialog.dismiss();
         super.onDestroy();
+
     }
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
-
         Matrix matrix = new Matrix();
         switch (orientation) {
             case ExifInterface.ORIENTATION_NORMAL:
