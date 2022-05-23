@@ -78,6 +78,9 @@ public class corDel extends AppCompatActivity {
     private View btn_loc;
     private View btn_cal;
     private View btn_list;
+    private View btn_drawing;
+    private View btn_eras;
+
     private int saveflag;
 
     private PostModel postModel;
@@ -109,6 +112,22 @@ public class corDel extends AppCompatActivity {
 
         //로컬 디바이스의 날짜를 가져옴
         CurDate = getTodayDate();
+
+        btn_drawing = findViewById(R.id.icons8_pen_);
+        btn_drawing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), drawing.class);
+                startActivityForResult(intent, 200);
+            }
+        });
+        btn_eras = findViewById(R.id.icons8_eras);
+        btn_eras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setImageResource(0);
+            }
+        });
 
         upload = findViewById(R.id.rectangle_2);
         upload.setOnClickListener(new View.OnClickListener() {
