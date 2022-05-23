@@ -380,8 +380,6 @@ public class normalWrite extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(latitude);
-            System.out.println(longitude);
 
             imageView.setImageURI(selectedImageUri);
             saveflag = 2;
@@ -390,6 +388,7 @@ public class normalWrite extends AppCompatActivity {
 
         //Pop창 선택
         todayDate = getTodayDate();
+
         if (requestCode == 1) {
             if (resultCode == 0) {
                 if (todayDate.equals(lastDate)) {

@@ -594,12 +594,6 @@ public class corDel extends AppCompatActivity {
         String path = c.getString(index);
         return path;
     }
-
-    @Override
-    protected void onDestroy() {
-        dialog.dismiss();
-        super.onDestroy();
-    }
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
         Matrix matrix = new Matrix();
         switch (orientation) {

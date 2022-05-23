@@ -532,6 +532,16 @@ public class question_corDel extends AppCompatActivity {
 
             }
         }
+        if (requestCode == 200) {
+            if (resultCode == 200) {
+                if (data != null) {
+                    image = (Bitmap) data.getExtras().get("image");
+                    flag = 1;
+                    saveflag = 1;
+                    imageView.setImageBitmap(image);
+                }
+            }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
