@@ -10,15 +10,10 @@
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/find_pw.xml" value="0.2895" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1955" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/image_11.xml" value="0.1955" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/line1.xml" value="0.327" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/line2.xml" value="0.327" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/line3.xml" value="0.327" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/line4.xml" value="0.327" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/rectangle_2.xml" value="0.2895" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/drawable/some_id.xml" value="0.1955" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_calendar.xml" value="0.25" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_cor_del.xml" value="0.2753623188405797" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_diary_list.xml" value="0.33" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_diary_list.xml" value="0.18963963963963965" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_find_pw.xml" value="0.39405829596412556" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_findpw.xml" value="0.25" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_home.xml" value="0.18963963963963965" />
@@ -26,21 +21,13 @@
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_login_com.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_login_register.xml" value="0.18963963963963965" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_main.xml" value="0.3813559322033898" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_map.xml" value="0.22" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_map.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_show.xml" value="0.22" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_show_ques.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_signup.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_writequestion.xml" value="0.33" />
+        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_writequestion.xml" value="0.18963963963963965" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/activity_writequestion_cor_del.xml" value="0.2" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/dfdf.xml" value="0.12702702702702703" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/exit.xml" value="0.67" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/normalwrite.xml" value="0.25" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/select.xml" value="0.16306306306306306" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/sub.xml" value="0.22" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/sub1.xml" value="0.25" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/sub2.xml" value="0.25" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/sub3.xml" value="0.33" />
-        <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/layout/temp1.xml" value="0.25" />
         <entry key="..\:/Users/HOME/Documents/GitHub/dayary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1955" />
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/font/font.xml" value="0.2838541666666667" />
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/layout/activity_diary_list.xml" value="0.264" />
@@ -51,15 +38,24 @@
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/user/git/dayary/app/src/main/res/layout/activity_signup.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.112" />
-        <entry key="app/src/main/res/layout/activity_cor_del.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/activity_calendar.xml" value="0.1726608276367188" />
+        <entry key="app/src/main/res/layout/activity_cor_del.xml" value="0.49232482910156256" />
+        <entry key="app/src/main/res/layout/activity_diary_list.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_findpw.xml" value="0.20729166666666668" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.24261932373046877" />
         <entry key="app/src/main/res/layout/activity_login_register.xml" value="0.38333333333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15307971014492755" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/activity_normalwrite.xml" value="0.2925466918945313" />
-        <entry key="app/src/main/res/layout/activity_writequestion_cor_del.xml" value="0.2056159420289855" />
+        <entry key="app/src/main/res/layout/activity_show.xml" value="0.2916366577148438" />
+        <entry key="app/src/main/res/layout/activity_show_ques.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/activity_writequestion.xml" value="0.18506469726562505" />
+        <entry key="app/src/main/res/layout/activity_writequestion_cor_del.xml" value="0.38824991419695426" />
         <entry key="app/src/main/res/layout/activity_writequstion.xml" value="0.16992696126302087" />
-        <entry key="app/src/main/res/layout/normalwrite.xml" value="0.20299835205078123" />
+        <entry key="app/src/main/res/layout/exit.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/normalwrite.xml" value="0.34711151123046874" />
+        <entry key="app/src/main/res/layout/select.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/sub3.xml" value="0.37604166666666666" />
       </map>
     </option>
   </component>
