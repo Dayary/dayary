@@ -22,5 +22,22 @@
     <string name="free_subjec">Free subject</string>
     <string name="today_s_que">Today\'s question</string>
     <string name="my_diary">My Diary</string>
+    <string name="question1">Q1. How\’s the weather?</string>
+    <string name="question2">Q2. How was your day today?</string>
+    <string name="question3">Q3. Who helped to make your day today?</string>
+    <string name="question4">Q4. Where is the memorable place and why?</string>
+    <string name="question5">Q5. What is the best dish that you had today?</string>
+    <string name="question6">Q6. Do you have any plans for tomorrow?</string>
+    <string name="question7">Q7. Do you have a thing that you want to have?</string>
+    <string name="question8">Q8. Choose a friend and describe him/her.</string>
+    <string name="question9">Q9. Choose a song which can reflect your feeling today.</string>
+    <string name="question10">Q10. If you made mistakes today, why did you?</string>
+    <string name="question11">Q11. If you were stressed out today, why are you?</string>
+    <string name="question12">Q12. If you can go back tomorrow what do you want to fix?</string>
+    <string name="question13">Q13. Is there a video that you’ve watched with interest today?</string>
+    <string name="question14">Q14. Please, pick a picture and explain why you pick it.</string>
+    <string name="question15">Q15. Please, explain about a movie that you watched recently.</string>
+    <string name="question16">Q16. Please, write an activity that you liked to do when you are hanging out with your friends.</string>
+
 
 </resources>
