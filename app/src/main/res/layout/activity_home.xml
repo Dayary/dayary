@@ -146,7 +146,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_home" />
+            android:background="@drawable/home_icon_selected" />
 
         <!-- Writing button -->
         <View
@@ -157,7 +157,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="97dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/penicon1"
+            android:background="@drawable/pencil_icon_unselected"
             android:onClick="mOnPopupClick" />
 
         <!-- Diary button -->
@@ -169,7 +169,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="174dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_diary" />
+            android:background="@drawable/diary_icon_unselected" />
 
         <!-- Calendar button -->
         <View
@@ -180,18 +180,18 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="251dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_calendar" />
+            android:background="@drawable/calendar_icon_unselected" />
 
         <!-- Map button -->
         <View
             android:id="@+id/icons8_loca"
             android:layout_width="45dp"
-            android:layout_height="38dp"
+            android:layout_height="45dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="328dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_map" />
+            android:background="@drawable/map_icon_unselected" />
 
 
     </FrameLayout>
