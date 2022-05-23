@@ -2,6 +2,7 @@ package com.dayary.dayary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,7 @@ public class showQuesActivity extends AppCompatActivity {
     private String lastDate = "";
     private String todayDate;
     private Query query1;
+    private TextView queText;
 
     private View btn_home;
     private View btn_pen;
@@ -51,6 +53,7 @@ public class showQuesActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +66,7 @@ public class showQuesActivity extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         textView = findViewById(R.id.today_i_am_);
         textLength = findViewById(R.id.some_id);
+
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         query = database.child("user").child(postModel.userId).child(queryData);

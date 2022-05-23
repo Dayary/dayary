@@ -53,7 +53,7 @@ public class listActivity extends AppCompatActivity {
     private String todayDate;
 
     public interface ImageItemClickListener {
-        void onImageItemClick(int a_imageResId) ;
+        void onImageItemClick(int a_imageResId);
     }
 
     @Override
@@ -69,20 +69,24 @@ public class listActivity extends AppCompatActivity {
         query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String returnValue = snapshot.getValue().toString().substring(1);
-                data = returnValue.split("\\}\\}, ");
-                covertData = new String[data.length][4];
-                data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
-                Arrays.sort(data, Collections.reverseOrder());
-                for (int i = 0; i < data.length; i++) {
-                    covertData[i][0] = data[i].substring(0, 4);
-                    covertData[i][1] = data[i].substring(5, 7);
-                    covertData[i][2] = data[i].substring(8, 10);
-                    int idx1 = data[i].indexOf("photo=");
-                    int idx2 = data[i].indexOf(", photoLongitude=");
-                    covertData[i][3] = data[i].substring(idx1 + 6, idx2);
+                try {
+                    String returnValue = snapshot.getValue().toString().substring(1);
+                    data = returnValue.split("\\}\\}, ");
+                    covertData = new String[data.length][4];
+                    data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
+                    Arrays.sort(data, Collections.reverseOrder());
+                    for (int i = 0; i < data.length; i++) {
+                        covertData[i][0] = data[i].substring(0, 4);
+                        covertData[i][1] = data[i].substring(5, 7);
+                        covertData[i][2] = data[i].substring(8, 10);
+                        int idx1 = data[i].indexOf("photo=");
+                        int idx2 = data[i].indexOf(", photoLongitude=");
+                        covertData[i][3] = data[i].substring(idx1 + 6, idx2);
+                    }
+                    bindGrid();
+                } catch (Exception e) {
+                    System.out.println();
                 }
-                bindGrid();
             }
 
             @Override
@@ -90,6 +94,7 @@ public class listActivity extends AppCompatActivity {
 
             }
         });
+
 
         //하단 버튼 이동
         //홈으로 이동
@@ -156,7 +161,7 @@ public class listActivity extends AppCompatActivity {
     private void bindGrid() {
         List<GridItem> itemList = new ArrayList<>();
         for (int i = 0; i < covertData.length; i++) {
-            itemList.add(new GridItem(i,covertData[i][0], covertData[i][1], covertData[i][2], covertData[i][3]));
+            itemList.add(new GridItem(i, covertData[i][0], covertData[i][1], covertData[i][2], covertData[i][3]));
         }
 
         gridView = (GridView) findViewById(R.id.gridView);
@@ -231,10 +236,12 @@ public class listActivity extends AppCompatActivity {
             }
         });
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
