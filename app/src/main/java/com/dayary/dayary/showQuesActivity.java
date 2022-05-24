@@ -43,6 +43,7 @@ public class showQuesActivity extends AppCompatActivity {
     private String todayDate;
     private Query query1;
     private TextView queText;
+    private int questionIdx;
 
     private View btn_home;
     private View btn_pen;
@@ -66,7 +67,7 @@ public class showQuesActivity extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         textView = findViewById(R.id.today_i_am_);
         textLength = findViewById(R.id.some_id);
-
+        queText = findViewById(R.id.q_what_s_yo2);
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         query = database.child("user").child(postModel.userId).child(queryData);
@@ -78,16 +79,28 @@ public class showQuesActivity extends AppCompatActivity {
                 dialog.show();
                 try {
                     String returnValue = snapshot.getValue().toString();
+                    System.out.println(returnValue);
                     if (returnValue != null) {
                         int idx1 = returnValue.indexOf("photo=");
                         int idx2 = returnValue.indexOf(", photoLongitude");
-                        imgURL = returnValue.substring(idx1 + 6, idx2);
-                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
                         int idx3 = returnValue.indexOf("text=");
                         int idx4 = returnValue.indexOf(", photoName=");
-                        String textData = returnValue.substring(idx3 + 5 + 6, idx4);
+                        int idx5 = returnValue.indexOf("text=[ques");
+                        int idx6 = returnValue.indexOf("]");
+
+                        imgURL = returnValue.substring(idx1 + 6, idx2);
+                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
+                        String textData = returnValue.substring(idx6+1, idx4);
+                        System.out.println(textData);
+
                         textView.setText(textData);
                         textLength.setText(textView.length() + "/200");
+
+                        questionIdx = Integer.parseInt(returnValue.substring(idx5 + 10, idx6));
+                        Resources res = getResources();
+                        String[] planets = res.getStringArray(R.array.queList);
+                        queText.setText(planets[questionIdx]);
+
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
