@@ -161,7 +161,7 @@ public class writequestion extends AppCompatActivity {
                                 Uri downloadUri = task.getResult();
                                 System.out.println(downloadUri);
                                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                postModel.text = "[ques]" + editText.getText().toString();
+                                postModel.text = "[ques"+day%16+"]" + editText.getText().toString();
                                 postModel.photoName = "drawing Image";
                                 postModel.photo = String.valueOf(downloadUri);
                                 postModel.photoLatitude = "999999.999999";

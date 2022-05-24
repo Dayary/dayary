@@ -119,11 +119,11 @@ public class calendarActivity extends AppCompatActivity {
                             String returnValue = snapshot.getValue().toString();
                             if (returnValue != null) {
                                 int idx1 = returnValue.indexOf("text=");
-                                int idx2 = returnValue.indexOf(", photoName=");
-                                String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
+                                String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 5);
+                                System.out.println(tempFlag);
                                 if (tempFlag.equals("[free]"))
                                     flag = 1;
-                                else if (tempFlag.equals("[ques]"))
+                                else if (tempFlag.equals("[ques"))
                                     flag = 0;
 
                                 if (flag == 1) {

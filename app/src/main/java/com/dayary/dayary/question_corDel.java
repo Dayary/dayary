@@ -219,7 +219,7 @@ public class question_corDel extends AppCompatActivity {
 
                     final String uid = postModel.getUserId();
 
-                    postModel.text = "[ques]" + editText.getText().toString();
+                    postModel.text = "[ques"+day%16+"]" + editText.getText().toString();
                     postModel.photoName = PhotoName;
                     postModel.photo = imgURL;
                     postModel.photoLatitude = latitude;
@@ -267,7 +267,7 @@ public class question_corDel extends AppCompatActivity {
                                     Uri downloadUri = task.getResult();
                                     System.out.println(downloadUri);
                                     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                    postModel.text = "[free]" + editText.getText().toString();
+                                    postModel.text = "[ques"+day%16+"]" + editText.getText().toString();
                                     postModel.photoName = "drawing Image";
                                     postModel.photo = String.valueOf(downloadUri);
                                     postModel.photoLatitude = "999999.999999";
@@ -333,7 +333,7 @@ public class question_corDel extends AppCompatActivity {
                                     Uri downloadUri = task.getResult();
                                     System.out.println(downloadUri);
                                     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                    postModel.text = "[free]" + editText.getText().toString();
+                                    postModel.text = "[ques"+day%16+"]" + editText.getText().toString();
                                     postModel.photoName = file.getName();
                                     postModel.photo = String.valueOf(downloadUri);
                                     postModel.photoLatitude = latitude;
