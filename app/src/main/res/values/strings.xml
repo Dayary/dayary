@@ -14,7 +14,7 @@
     <string name="upload">Upload picture</string>
     <string name="some_id">17/200</string>
     <string name="save">Save</string>
-    <string name="todayimhappy">Touch to write</string>
+    <string name="todayimhappy">Touch to write.</string>
     <string name="question">Q. What\'s your favorite music today?</string>
     <string name="happyfootball">Today, I am happy. Because I played football.</string>
     <string name="modify">Modify</string>
@@ -22,5 +22,23 @@
     <string name="free_subjec">Free subject</string>
     <string name="today_s_que">Today\'s question</string>
     <string name="my_diary">My Diary</string>
+    <string-array name="queList">
+        <item>Q1. How\’s the weather?</item>
+        <item>Q2. How was your day today?</item>
+        <item>Q3. Who helped to make your day today?</item>
+        <item>Q4. Where is the memorable place and why?</item>
+        <item>Q5. What is the best dish that you had today?</item>
+        <item>Q6. Do you have any plans for tomorrow?</item>
+        <item>Q7. Do you have a thing that you want to have?</item>
+        <item>Q8. Choose a friend and describe him/her.</item>
+        <item>Q9. Choose a song which can reflect your feeling today.</item>
+        <item>Q10. If you made mistakes today, why did you?</item>
+        <item>Q11. If you were stressed out today, why are you?</item>
+        <item>Q12. If you can go back tomorrow what do you want to fix?</item>
+        <item>Q13. Is there a video that you’ve watched with interest today?</item>
+        <item>Q14. Please, pick a picture and explain why you pick it.</item>
+        <item>Q15. Please, explain about a movie that you watched recently.</item>
+        <item>Q16. Please, write an activity that you liked to do when you are hanging out with your friends.</item>
+    </string-array>
 
 </resources>

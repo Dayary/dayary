@@ -38,6 +38,7 @@
             android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="69dp"
+            android:autoSizeTextType="uniform"
             android:text="@string/question"
             android:fontFamily="@font/font1"
             android:gravity="center"
