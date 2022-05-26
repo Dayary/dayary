@@ -216,7 +216,7 @@ public class HomeActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), mapActivity.class);
                                 intent.putExtra("model", (Serializable) postModel);
                                 startActivity(intent);
-                                //finish();
+                                finish();
                             } catch (Exception e) {
                                 Toast.makeText(HomeActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
                             }
@@ -234,7 +234,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), listActivity.class);
                 intent.putExtra("model", (Serializable) postModel);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
 
@@ -262,7 +262,7 @@ public class HomeActivity extends AppCompatActivity {
                                 intent.putExtra("cal", value);
                                 intent.putExtra("model", (Serializable) postModel);
                                 startActivity(intent);
-                                //finish();
+                                finish();
                             } catch (Exception e) {
                                 Toast.makeText(HomeActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
                             }

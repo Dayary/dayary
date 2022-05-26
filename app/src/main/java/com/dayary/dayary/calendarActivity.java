@@ -117,16 +117,14 @@ public class calendarActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         try {
                             String returnValue = snapshot.getValue().toString();
-                            System.out.println(returnValue);
                             if (returnValue != null) {
                                 int idx1 = returnValue.indexOf("text=");
                                 String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 5);
+                                System.out.println(tempFlag);
                                 if (tempFlag.equals("[free]"))
                                     flag = 1;
                                 else if (tempFlag.equals("[ques"))
                                     flag = 0;
-
-                                System.out.println(flag);
 
                                 if (flag == 1) {
                                     flag = -1;
