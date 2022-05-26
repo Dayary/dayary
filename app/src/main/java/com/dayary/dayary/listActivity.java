@@ -211,10 +211,10 @@ public class listActivity extends AppCompatActivity {
                             if (returnValue != null) {
                                 int idx1 = returnValue.indexOf("text=");
                                 int idx2 = returnValue.indexOf(", photoName=");
-                                String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
+                                String tempFlag = returnValue.substring(idx1 + 5, idx2);
                                 if (tempFlag.contains("[free]"))
                                     flag = 1;
-                                else if (tempFlag.contains("[ques]"))
+                                else if (tempFlag.contains("[ques"))
                                     flag = 0;
 
                                 if (flag == 1) {

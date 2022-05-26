@@ -623,7 +623,6 @@ public class question_corDel extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        dialog.dismiss();
         super.onDestroy();
     }
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
