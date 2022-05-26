@@ -110,8 +110,8 @@ public class showQuesActivity extends AppCompatActivity {
                         }, 1000);
                     }
                 } catch (NullPointerException e) {
-                    finish();
                     Toast.makeText(showQuesActivity.this, "작성한 글이 없습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
 

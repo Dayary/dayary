@@ -121,12 +121,11 @@ public class calendarActivity extends AppCompatActivity {
                                 int idx1 = returnValue.indexOf("text=");
                                 String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 5);
                                 System.out.println(tempFlag);
-                                if (tempFlag.contains("[free]"))
+                                if (tempFlag.equals("[free]"))
                                     flag = 1;
-                                else if (tempFlag.contains("[ques"))
+                                else if (tempFlag.equals("[ques"))
                                     flag = 0;
 
-                                System.out.println(flag);
                                 if (flag == 1) {
                                     flag = -1;
                                     Intent intent = new Intent(getApplicationContext(), showFreeActivity.class);
