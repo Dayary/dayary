@@ -199,10 +199,31 @@ public class HomeActivity extends AppCompatActivity {
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                startActivity(intent);
-                finish();
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                Toast.makeText(HomeActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
             }
         });
         //리스트 이동

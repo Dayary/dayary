@@ -144,16 +144,22 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data", task.getException());
                         } else {
-                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
-                            value[0] = value[0].substring(1);
-                            for (int i = 0; i < value.length; i++) {
-                                value[i] = value[i].substring(0, 10);
+
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                                intent.putExtra("cal", value);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e){
+                                Toast.makeText(mapActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
                             }
-                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal", value);
-                            intent.putExtra("model", (Serializable) postModel);
-                            startActivity(intent);
-                            finish();
+
                         }
                     }
                 });

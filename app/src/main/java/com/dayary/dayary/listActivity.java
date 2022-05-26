@@ -1,5 +1,7 @@
 package com.dayary.dayary;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -139,16 +141,23 @@ public class listActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data", task.getException());
                         } else {
-                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
-                            value[0] = value[0].substring(1);
-                            for (int i = 0; i < value.length; i++) {
-                                value[i] = value[i].substring(0, 10);
+
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                                intent.putExtra("cal", value);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                Toast.makeText(listActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", LENGTH_SHORT).show();
                             }
-                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal", value);
-                            intent.putExtra("model", (Serializable) postModel);
-                            startActivity(intent);
-                            finish();
+
+
                         }
                     }
                 });
@@ -253,7 +262,7 @@ public class listActivity extends AppCompatActivity {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
-                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", LENGTH_SHORT).show();
                 } else {
                     intent = new Intent(getApplicationContext(), normalWrite.class);
                     intent.putExtra("model", (Serializable) postModel);
@@ -263,7 +272,7 @@ public class listActivity extends AppCompatActivity {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
-                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", LENGTH_SHORT).show();
                 } else {
                     intent = new Intent(getApplicationContext(), writequestion.class);
                     intent.putExtra("model", (Serializable) postModel);
