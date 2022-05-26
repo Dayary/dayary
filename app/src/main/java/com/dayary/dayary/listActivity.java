@@ -203,9 +203,9 @@ public class listActivity extends AppCompatActivity {
                                 int idx1 = returnValue.indexOf("text=");
                                 int idx2 = returnValue.indexOf(", photoName=");
                                 String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
-                                if (tempFlag.equals("[free]"))
+                                if (tempFlag.contains("[free]"))
                                     flag = 1;
-                                else if (tempFlag.equals("[ques]"))
+                                else if (tempFlag.contains("[ques]"))
                                     flag = 0;
 
                                 if (flag == 1) {
