@@ -22,13 +22,14 @@ To gather little by everyday lightly written diaries to become greate memories.
 ## Detail
 
 ### Logo
-<img width="50%" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/logo.png?raw=true">
+<img width="25%" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/logo.png?raw=true">
 
 ### Login
+<p>
 ![](https://github.com/Dayary/dayary/blob/master/readme%20img/1.JPG)
 ![](https://github.com/Dayary/dayary/blob/master/readme%20img/2.JPG)
 ![](https://github.com/Dayary/dayary/blob/master/readme%20img/3.JPG)
-
+</p>
 
 ## Technologe Stack
 - Java
