@@ -59,7 +59,8 @@ To gather little by everyday lightly written diaries to become greate memories.
 - Android Studio
 - Firebase
 - Figma
-
+<img width="1450px" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/15.PNG">
+<img width="1450px" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/16.PNG">
 
 ## Demo
 [![YouTube URL](https://github.com/Dayary/dayary/blob/master/Wiki%20img/22.JPG)](https://www.youtube.com/watch?v=N2f3cw4Hwwc)
