@@ -22,7 +22,8 @@ To gather little by everyday lightly written diaries to become greate memories.
 ## Detail
 
 ### Logo
-![image](https://github.com/Dayary/dayary/blob/master/readme%20img/logo.png)
+<img width="24%" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/logo.png?raw=true">
+
 ### Login
 
 
