@@ -60,6 +60,7 @@ To gather little by everyday lightly written diaries to become greate memories.
 - Firebase
 - Figma
 <img width="1450px" height="350px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/15.png">
+<img width="1450px" height="350px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/18.JPG">
 <img width="1450px" height="350px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/16.png">
 
 ## Demo
