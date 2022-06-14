@@ -31,6 +31,9 @@ To gather little by everyday lightly written diaries to become greate memories.
 <img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/3.JPG">
 </p>
 
+### Display MainHome
+<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/5.JPG">
+
 ## Technologe Stack
 - Java
 - Android Studio
