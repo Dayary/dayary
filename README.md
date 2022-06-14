@@ -19,6 +19,13 @@ To gather little by everyday lightly written diaries to become greate memories.
 5. Diary Calendar
 6. Diary Map
 
+## Detail
+
+### Logo
+![image](https://github.com/Dayary/dayary/blob/master/readme%20img/logo.png)
+### Login
+
+
 ## Technologe Stack
 - Java
 - Android Studio
