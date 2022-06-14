@@ -25,33 +25,33 @@ To gather little by everyday lightly written diaries to become greate memories.
 
 ### Login
 <p>
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/1.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/2.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/3.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/1.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/2.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/3.JPG">
 </p>
 
 ### Display MainHome
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/4.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/4.JPG">
 
 ### Write free topic or answering a given question
 <p>
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/5.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/6.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/7.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/5.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/6.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/7.JPG">
 </p>
 
 ### Photo and drawing + Adjust color and thickness
 <p>
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/13.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/8.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/9.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/13.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/8.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/9.JPG">
 </p>
 
 ### Diary List + Diary Calendar + Diary Map
 <p>
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/10.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/11.JPG">
-<img width="32%" height="600px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/12.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/10.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/11.JPG">
+<img width="32%" height="500px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/12.JPG">
 </p>
 
 ## Technologe Stack
