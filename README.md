@@ -1,4 +1,12 @@
-# dayary
+# Dayary
+
+If you want to check Wiki, please click [here]().
+<br>
+
+## What is Dayary?
+```
+Mobile diary Android App
+```
 
 프로젝트 진행용
 
