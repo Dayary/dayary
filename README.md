@@ -1,6 +1,6 @@
 # Dayary
 
-If you want to check Wiki, please click [here]().
+If you want to check Wiki, please click [here](https://github.com/Dayary/dayary/wiki).
 <br>
 
 ## What is Dayary?
