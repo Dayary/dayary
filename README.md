@@ -26,9 +26,9 @@ To gather little by everyday lightly written diaries to become greate memories.
 
 ### Login
 <p>
-<img width="32%" height="750px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/1.JPG">
-<img width="32%" height="750px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/2.JPG">
-<img width="32%" height="750px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/3.JPG">
+<img width="32%" height="360px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/1.JPG">
+<img width="32%" height="360px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/2.JPG">
+<img width="32%" height="360px" alt="image" src="https://github.com/Dayary/dayary/blob/master/readme%20img/3.JPG">
 </p>
 
 ## Technologe Stack
