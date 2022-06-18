@@ -199,10 +199,31 @@ public class HomeActivity extends AppCompatActivity {
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                startActivity(intent);
-                finish();
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                Toast.makeText(HomeActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
             }
         });
         //리스트 이동
@@ -231,16 +252,20 @@ public class HomeActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data", task.getException());
                         } else {
-                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
-                            value[0] = value[0].substring(1);
-                            for (int i = 0; i < value.length; i++) {
-                                value[i] = value[i].substring(0, 10);
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                                intent.putExtra("cal", value);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                Toast.makeText(HomeActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
                             }
-                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal", value);
-                            intent.putExtra("model", (Serializable) postModel);
-                            startActivity(intent);
-                            finish();
                         }
                     }
                 });
@@ -250,6 +275,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 1500) {
@@ -259,10 +285,11 @@ public class HomeActivity extends AppCompatActivity {
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
         // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
         if (System.currentTimeMillis() <= backKeyPressedTime + 1500) {
-            Intent intent = new Intent(this,PopupExitActivity.class);
+            Intent intent = new Intent(this, PopupExitActivity.class);
             startActivity(intent);
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -295,8 +322,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
 
-        if(requestCode == 2){
-            if(resultCode == 1){
+        if (requestCode == 2) {
+            if (resultCode == 1) {
 
             }
         }

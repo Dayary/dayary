@@ -5,32 +5,85 @@
     android:id="@+id/pixel_3a_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image_11"
     android:clipToOutline="true"
-    tools:context=".mapActivity"
-    android:orientation="horizontal"
-    android:background="@drawable/image_11">
+    android:orientation="vertical"
+    tools:context=".drawing">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Dayary -->
-
-        <!-- Rectangle 19 -->
         <TextView
             android:id="@+id/dayary"
-            android:layout_width="151dp"
-            android:layout_height="39dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="121dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
             android:fontFamily="@font/font1"
             android:gravity="center"
-            android:text="Diary Map"
+            android:text="Dayary Drawing"
             android:textAppearance="@style/dayary"
             android:textColor="#62A60C"
             android:textSize="48dp" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="479dp"
+            android:layout_marginTop="97dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/icons8_palette"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="56dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_palette"
+            />
+
+        <View
+            android:id="@+id/icons8_line"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="140dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_lines"
+            />
+
+        <!-- icons8-erase-96 -->
+        <View
+            android:id="@+id/icons8_eras"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="224dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_eraser"
+            />
+
+        <!-- icons8-save-90 1 -->
+        <View
+            android:id="@+id/icons8_save"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="308dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/icons_save"
+            />
+
+
+
+
 
         <View
             android:id="@+id/bottom_line"
@@ -46,7 +99,7 @@
             android:layout_marginRight="4dp"
             android:background="@drawable/line_1" />
 
-        <!-- homepage button -->
+
         <View
             android:id="@+id/icons8_home"
             android:layout_width="45dp"
@@ -55,7 +108,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/home_icon_unselected" />
+            android:background="@drawable/home_icon_unselected"
+            android:clickable="true"
+            android:focusable="true" />
 
         <!-- Writing button -->
         <View
@@ -66,9 +121,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="97dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/pencil_icon_unselected"
-            android:onClick="mOnPopupClick"
-            />
+            android:background="@drawable/pencil_icon_selected"
+            android:clickable="true"
+            android:focusable="true" />
 
         <!-- Diary button -->
         <View
@@ -79,7 +134,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="174dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/diary_icon_unselected" />
+            android:background="@drawable/diary_icon_unselected"
+            android:clickable="true"
+            android:focusable="true" />
 
         <!-- Calendar button -->
         <View
@@ -90,7 +147,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="251dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/calendar_icon_unselected" />
+            android:background="@drawable/calendar_icon_unselected"
+            android:clickable="true"
+            android:focusable="true" />
 
         <!-- Map button -->
         <View
@@ -101,15 +160,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="328dp"
             android:layout_marginTop="660dp"
-            android:background="@drawable/map_icon_selected" />
-
-        <fragment
-            android:id="@+id/googleView"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="559dp"
-            android:layout_marginTop="86dp" />
-
-
+            android:background="@drawable/map_icon_unselected"
+            android:clickable="true"
+            android:focusable="true" />
     </FrameLayout>
+
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -67,6 +68,7 @@ public class GridArrayAdapter extends ArrayAdapter<GridItem> {
 
                     InputStream is = conn.getInputStream();
                     bitmap = BitmapFactory.decodeStream(is);
+                    bitmap = compressBitmap(bitmap);
                     smallBitmap = Bitmap.createScaledBitmap(bitmap, 160, 160, false);
 
 
@@ -84,5 +86,12 @@ public class GridArrayAdapter extends ArrayAdapter<GridItem> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    private Bitmap compressBitmap(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,40, stream);
+        byte[] byteArray = stream.toByteArray();
+        Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+        return compressedBitmap;
     }
 }

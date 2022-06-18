@@ -26,10 +26,11 @@
         android:usesCleartextTraffic="true">
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCcnLo41KVe5pX9YuNal2GH8yTzsIIFFMY" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -51,6 +52,7 @@
         <activity android:name=".listActivity" />
         <activity android:name=".showFreeActivity" />
         <activity android:name=".showQuesActivity" />
+        <activity android:name=".drawing" />
         <activity
             android:name=".PopupActivity"
             android:theme="@android:style/Theme.Dialog" />

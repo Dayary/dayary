@@ -38,6 +38,7 @@
             android:layout_marginLeft="28dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="69dp"
+            android:autoSizeTextType="uniform"
             android:text="@string/question"
             android:fontFamily="@font/font1"
             android:gravity="center"
@@ -271,7 +272,7 @@
             android:layout_marginLeft="20dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_home"
+            android:background="@drawable/home_icon_unselected"
             android:clickable="true"
             android:focusable="true"
             />
@@ -285,7 +286,7 @@
             android:layout_marginLeft="97dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/penicon1"
+            android:background="@drawable/pencil_icon_selected"
             />
 
         <!-- Diary button -->
@@ -297,7 +298,7 @@
             android:layout_marginLeft="174dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_diary"
+            android:background="@drawable/diary_icon_unselected"
             />
 
         <!-- Calendar button -->
@@ -309,7 +310,7 @@
             android:layout_marginLeft="251dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_calendar"
+            android:background="@drawable/calendar_icon_unselected"
             />
 
         <!-- Map button -->
@@ -321,7 +322,7 @@
             android:layout_marginLeft="328dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="660dp"
-            android:background="@drawable/icon_map" />
+            android:background="@drawable/map_icon_unselected" />
 
     </FrameLayout>
 

@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -55,7 +56,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String[] data;
     private String todayDate;
     private String lastDate;
-
+    Bitmap compressBitmap;
 
     private View btn_home;
     private View btn_pen;
@@ -143,16 +144,22 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data", task.getException());
                         } else {
-                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
-                            value[0] = value[0].substring(1);
-                            for (int i = 0; i < value.length; i++) {
-                                value[i] = value[i].substring(0, 10);
+
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                                intent.putExtra("cal", value);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e){
+                                Toast.makeText(mapActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
                             }
-                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal", value);
-                            intent.putExtra("model", (Serializable) postModel);
-                            startActivity(intent);
-                            finish();
+
                         }
                     }
                 });
@@ -239,7 +246,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
         getMarkerItems();
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 8));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.47698, 0.0000), 10));
     }
 
     public Marker addMarker(GeoModel geoModel) {
@@ -264,6 +271,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String returnValue = snapshot.getValue().toString().substring(1);
+                System.out.println(returnValue);
                 Log.d("return value", returnValue + "");
                 data = returnValue.split("\\}\\}, ");
                 data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
@@ -304,6 +312,7 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
                     conn.connect();
                     InputStream is = conn.getInputStream();
                     bitmap[0] = BitmapFactory.decodeStream(is);
+                    compressBitmap = compressBitmap(bitmap[0]);
                 } catch (IOException e) {
                 }
             }
@@ -314,8 +323,14 @@ public class mapActivity extends AppCompatActivity implements OnMapReadyCallback
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            return bitmap[0];
+            return compressBitmap;
         }
     }
-
+    private Bitmap compressBitmap(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
+        byte[] byteArray = stream.toByteArray();
+        Bitmap compressedBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+        return compressedBitmap;
+    }
 }

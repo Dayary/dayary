@@ -1,5 +1,7 @@
 package com.dayary.dayary;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,7 +55,7 @@ public class listActivity extends AppCompatActivity {
     private String todayDate;
 
     public interface ImageItemClickListener {
-        void onImageItemClick(int a_imageResId) ;
+        void onImageItemClick(int a_imageResId);
     }
 
     @Override
@@ -69,20 +71,24 @@ public class listActivity extends AppCompatActivity {
         query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String returnValue = snapshot.getValue().toString().substring(1);
-                data = returnValue.split("\\}\\}, ");
-                covertData = new String[data.length][4];
-                data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
-                Arrays.sort(data, Collections.reverseOrder());
-                for (int i = 0; i < data.length; i++) {
-                    covertData[i][0] = data[i].substring(0, 4);
-                    covertData[i][1] = data[i].substring(5, 7);
-                    covertData[i][2] = data[i].substring(8, 10);
-                    int idx1 = data[i].indexOf("photo=");
-                    int idx2 = data[i].indexOf(", photoLongitude=");
-                    covertData[i][3] = data[i].substring(idx1 + 6, idx2);
+                try {
+                    String returnValue = snapshot.getValue().toString().substring(1);
+                    data = returnValue.split("\\}\\}, ");
+                    covertData = new String[data.length][4];
+                    data[data.length - 1] = data[data.length - 1].substring(0, data[data.length - 1].length() - 3);
+                    Arrays.sort(data, Collections.reverseOrder());
+                    for (int i = 0; i < data.length; i++) {
+                        covertData[i][0] = data[i].substring(0, 4);
+                        covertData[i][1] = data[i].substring(5, 7);
+                        covertData[i][2] = data[i].substring(8, 10);
+                        int idx1 = data[i].indexOf("photo=");
+                        int idx2 = data[i].indexOf(", photoLongitude=");
+                        covertData[i][3] = data[i].substring(idx1 + 6, idx2);
+                    }
+                    bindGrid();
+                } catch (Exception e) {
+                    System.out.println();
                 }
-                bindGrid();
             }
 
             @Override
@@ -90,6 +96,7 @@ public class listActivity extends AppCompatActivity {
 
             }
         });
+
 
         //하단 버튼 이동
         //홈으로 이동
@@ -134,16 +141,23 @@ public class listActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data", task.getException());
                         } else {
-                            String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
-                            value[0] = value[0].substring(1);
-                            for (int i = 0; i < value.length; i++) {
-                                value[i] = value[i].substring(0, 10);
+
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
+                                intent.putExtra("cal", value);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                Toast.makeText(listActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", LENGTH_SHORT).show();
                             }
-                            Intent intent = new Intent(getApplicationContext(), calendarActivity.class);
-                            intent.putExtra("cal", value);
-                            intent.putExtra("model", (Serializable) postModel);
-                            startActivity(intent);
-                            finish();
+
+
                         }
                     }
                 });
@@ -156,7 +170,7 @@ public class listActivity extends AppCompatActivity {
     private void bindGrid() {
         List<GridItem> itemList = new ArrayList<>();
         for (int i = 0; i < covertData.length; i++) {
-            itemList.add(new GridItem(i,covertData[i][0], covertData[i][1], covertData[i][2], covertData[i][3]));
+            itemList.add(new GridItem(i, covertData[i][0], covertData[i][1], covertData[i][2], covertData[i][3]));
         }
 
         gridView = (GridView) findViewById(R.id.gridView);
@@ -197,10 +211,10 @@ public class listActivity extends AppCompatActivity {
                             if (returnValue != null) {
                                 int idx1 = returnValue.indexOf("text=");
                                 int idx2 = returnValue.indexOf(", photoName=");
-                                String tempFlag = returnValue.substring(idx1 + 5, idx1 + 5 + 6);
-                                if (tempFlag.equals("[free]"))
+                                String tempFlag = returnValue.substring(idx1 + 5, idx2);
+                                if (tempFlag.contains("[free]"))
                                     flag = 1;
-                                else if (tempFlag.equals("[ques]"))
+                                else if (tempFlag.contains("[ques"))
                                     flag = 0;
 
                                 if (flag == 1) {
@@ -231,10 +245,12 @@ public class listActivity extends AppCompatActivity {
             }
         });
     }
+
     public void mOnPopupClick(View v) {
         Intent intent = new Intent(this, PopupActivity.class);
         startActivityForResult(intent, 1);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -246,7 +262,7 @@ public class listActivity extends AppCompatActivity {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
-                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", LENGTH_SHORT).show();
                 } else {
                     intent = new Intent(getApplicationContext(), normalWrite.class);
                     intent.putExtra("model", (Serializable) postModel);
@@ -256,7 +272,7 @@ public class listActivity extends AppCompatActivity {
                 if (todayDate.equals(lastDate)) {
                     intent = new Intent(getApplicationContext(), question_corDel.class);
                     intent.putExtra("model", (Serializable) postModel);
-                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(listActivity.this, "작성한 글이 있습니다!", LENGTH_SHORT).show();
                 } else {
                     intent = new Intent(getApplicationContext(), writequestion.class);
                     intent.putExtra("model", (Serializable) postModel);

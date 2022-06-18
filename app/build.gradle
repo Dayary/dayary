@@ -55,5 +55,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
-
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 }

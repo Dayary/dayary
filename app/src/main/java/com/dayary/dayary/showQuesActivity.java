@@ -2,6 +2,7 @@ package com.dayary.dayary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,8 @@ public class showQuesActivity extends AppCompatActivity {
     private String lastDate = "";
     private String todayDate;
     private Query query1;
+    private TextView queText;
+    private int questionIdx;
 
     private View btn_home;
     private View btn_pen;
@@ -51,6 +54,7 @@ public class showQuesActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +67,7 @@ public class showQuesActivity extends AppCompatActivity {
         imageView = findViewById(R.id.rectangle_1);
         textView = findViewById(R.id.today_i_am_);
         textLength = findViewById(R.id.some_id);
+        queText = findViewById(R.id.q_what_s_yo2);
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         query = database.child("user").child(postModel.userId).child(queryData);
@@ -74,16 +79,28 @@ public class showQuesActivity extends AppCompatActivity {
                 dialog.show();
                 try {
                     String returnValue = snapshot.getValue().toString();
+                    System.out.println(returnValue);
                     if (returnValue != null) {
                         int idx1 = returnValue.indexOf("photo=");
                         int idx2 = returnValue.indexOf(", photoLongitude");
-                        imgURL = returnValue.substring(idx1 + 6, idx2);
-                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
                         int idx3 = returnValue.indexOf("text=");
                         int idx4 = returnValue.indexOf(", photoName=");
-                        String textData = returnValue.substring(idx3 + 5 + 6, idx4);
+                        int idx5 = returnValue.indexOf("text=[ques");
+                        int idx6 = returnValue.indexOf("]");
+
+                        imgURL = returnValue.substring(idx1 + 6, idx2);
+                        Glide.with(getApplicationContext()).load(imgURL).fitCenter().into(imageView);
+                        String textData = returnValue.substring(idx6+1, idx4);
+                        System.out.println(textData);
+
                         textView.setText(textData);
                         textLength.setText(textView.length() + "/200");
+
+                        questionIdx = Integer.parseInt(returnValue.substring(idx5 + 10, idx6));
+                        Resources res = getResources();
+                        String[] planets = res.getStringArray(R.array.queList);
+                        queText.setText(planets[questionIdx]);
+
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -93,8 +110,8 @@ public class showQuesActivity extends AppCompatActivity {
                         }, 1000);
                     }
                 } catch (NullPointerException e) {
-                    finish();
                     Toast.makeText(showQuesActivity.this, "작성한 글이 없습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
 
@@ -147,10 +164,31 @@ public class showQuesActivity extends AppCompatActivity {
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
-                intent.putExtra("model", (Serializable) postModel);
-                startActivity(intent);
-                finish();
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                database.child("user").child(postModel.userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            try {
+                                String[] value = task.getResult().getValue().toString().split("\\}\\}, ");
+                                value[0] = value[0].substring(1);
+                                for (int i = 0; i < value.length; i++) {
+                                    value[i] = value[i].substring(0, 10);
+                                }
+                                Intent intent = new Intent(getApplicationContext(), mapActivity.class);
+                                intent.putExtra("model", (Serializable) postModel);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                Toast.makeText(showQuesActivity.this, "작성한 일기기 없습니다!\n일기를 작성해주세요!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
             }
         });
         //리스트 이동
